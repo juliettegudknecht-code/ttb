@@ -1,33 +1,34 @@
 # TTB by the Numbers
 
-A single-page data project built entirely from public data published by the
-Alcohol and Tobacco Tax and Trade Bureau (TTB). It covers federal excise tax
-collections on alcohol, tobacco, firearms, and ammunition (FY 2015 to FY 2025)
-and the regulated industries that pay them.
+A prohibition-era picture show, with data. One page, dressed as a 1920s silent film, telling the story of the Alcohol and Tobacco Tax and Trade Bureau through its own published numbers. Inside you will find a century of tax rates, a decade of collections, and the slow fade of beer, wine, and tobacco volumes. A typewriter narrates, a NO BEER stamp slams, and a beer-mug jukebox in the corner spins the house record.
 
-Every figure traces to a named TTB release, definitions are reconciled where
-TTB reports differ, and redacted values are shown as gaps rather than estimates.
+## The door
 
-## Files
+The place is a speakeasy, so the door is locked and the doorman wants a password. Sorry, friend. It is not written down here, and it will not be. If you are supposed to get in, Juliette will see that you know the word. Everyone else is welcome to admire the door.
 
-- `index.html` — the page
-- `styles.css` — styles
-- `app.js` — chart and interaction logic
-- `data.js` — all figures, verbatim from TTB published files
-- `chart.umd.min.js` — Chart.js
-- `.nojekyll` — tells GitHub Pages to serve the files as-is
+## The tab
 
-## Publishing to GitHub Pages
+Every figure on the page names its source, and the tab at the end itemizes the lot. The short version:
 
-1. Create a repository and upload the contents of this folder.
-2. In the repository settings, under Pages, set the source to the branch
-   root (usually `main`).
-3. The `.nojekyll` file must stay in the repository so Pages serves the site
-   directly instead of running it through Jekyll.
+- Tax collections: TTB Statistical Release TTB S 5630, final annual summaries, FY 2015 to FY 2025
+- Beer, wine, and spirits: TTB National Statistical Reports (TTB S 5130, 5120, 5110), calendar years 2012 to 2025
+- Tobacco: TTB yearly statistics, taxable removals, 2012 to 2025
+- Permits: TTB National Revenue Center counts and the Distilled Spirits Permit Counts report
+- Agency figures: TTB Annual Reports for FY 2019 to FY 2023 and the FY 2025 Annual Financial Report
+- Tax rates: TTB Historical Tax Rates page through 2017, current Tax Rates page from 2018 on
 
-## Sources
+All figures as published in files current at the end of June 2026. This site is an independent presentation of public data. It is not affiliated with or endorsed by TTB or the Department of the Treasury.
 
-All data is from TTB's published statistical releases and open data files at
-[ttb.gov/data](https://www.ttb.gov/data), current as of late June 2026.
-This is an independent presentation of public data and is not affiliated with
-or endorsed by TTB or the Department of the Treasury.
+## Deploying to GitHub Pages
+
+This repo must contain a file named `.nojekyll` at the root, or the deploy will fail. Without it, GitHub runs the site through its Jekyll builder, and that build now takes longer than the 10 minute limit GitHub allows, so it times out and the site never publishes (or keeps serving an old version).
+
+The catch: `.nojekyll` is a hidden file, so the Mac Finder does not show it and it never comes along when files are drag-and-dropped into GitHub. Add it once directly on GitHub:
+
+1. In the repo on github.com, click Add file, then Create new file
+2. Type `.nojekyll` as the file name and leave the contents empty
+3. Click Commit changes
+
+After that, uploads deploy in seconds. Future drag-and-drop uploads will not remove it, so this only needs doing once per repo.
+
+To see hidden files in Finder instead, press Cmd+Shift+Period.

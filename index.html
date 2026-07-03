@@ -3,127 +3,991 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#faf7f2">
-<title>TTB by the Numbers</title>
-<meta name="description" content="Federal excise tax collections and regulated-industry statistics from the Alcohol and Tobacco Tax and Trade Bureau (TTB), built entirely from TTB published data. FY 2015 to FY 2025.">
+<meta name="theme-color" content="#ece0c4">
+<title>NOW SHOWING: TTB by the Numbers</title>
+<meta name="description" content="Federal excise tax collections and regulated industry statistics from the Alcohol and Tobacco Tax and Trade Bureau (TTB), built entirely from TTB published data.">
 <meta property="og:title" content="TTB by the Numbers">
-<meta property="og:description" content="Federal excise taxes on alcohol, tobacco, firearms, and ammunition, drawn straight from TTB's published files. Every figure sourced.">
+<meta property="og:description" content="A prohibition-era picture show, with data. Federal excise taxes on alcohol, tobacco, firearms, and ammunition, told straight from TTB's published files.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23faf7f2'/%3E%3Cg fill='%23b3702d'%3E%3Crect x='4' y='12' width='3.4' height='8'/%3E%3Crect x='10.3' y='8' width='3.4' height='12'/%3E%3Crect x='16.6' y='4' width='3.4' height='16'/%3E%3C/g%3E%3C/svg%3E">
+<meta property="og:image" content="https://juliettegudknecht-code.github.io/prohibition/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2320180c'/%3E%3Crect x='4' y='4' width='56' height='56' fill='none' stroke='%23a3852e' stroke-width='2'/%3E%3Crect x='21' y='31' width='16' height='14' fill='%23a8842e'/%3E%3Crect x='18' y='22' width='22' height='26' fill='none' stroke='%23bf9c45' stroke-width='3'/%3E%3Cpath d='M40 28h4a6 6 0 0 1 6 6v6a6 6 0 0 1-6 6h-4' fill='none' stroke='%23bf9c45' stroke-width='3'/%3E%3Ccircle cx='20' cy='20' r='5' fill='%23f3e8cd'/%3E%3Ccircle cx='28' cy='17' r='6' fill='%23f3e8cd'/%3E%3Ccircle cx='35' cy='19' r='5' fill='%23f3e8cd'/%3E%3Ccircle cx='40' cy='22' r='4' fill='%23f3e8cd'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="styles.css?v=1">
+<script>
+/* Speakeasy gate: lock the page before anything renders, unlock for the session.
+   A light access gate, not real security (the page is fully client-side). */
+(function(){ document.documentElement.className+=' locked'; })(); /* a speakeasy locks its door every time */
+</script>
+<style id="gateStyle">
+  html.locked, html.locked body{ overflow:hidden !important; }
+  html.locked body > *:not(#pwGate){ visibility:hidden !important; }
+  #pwGate{ display:none; }
+  html.locked #pwGate{
+    display:flex; visibility:visible !important; position:fixed; inset:0; z-index:2147483647;
+    align-items:center; justify-content:center; padding:24px; background:#ece0c4; text-align:center;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
+  }
+  html.locked #pwGate{ perspective:1000px; }
+  #pwGate .door{
+    width:min(440px,100%); padding:50px 36px 38px; position:relative;
+    background:
+      repeating-linear-gradient(90deg, rgba(0,0,0,.2) 0 3px, rgba(255,255,255,.03) 3px 5px, transparent 5px 64px),
+      linear-gradient(#65491f, #452f13);
+    border:6px solid #241a0b; border-radius:16px 16px 5px 5px;
+    box-shadow:0 0 0 4px rgba(36,26,11,.3), inset 0 0 0 3px rgba(201,162,39,.25),
+      inset 0 0 70px rgba(0,0,0,.45), 0 24px 55px rgba(60,45,20,.5);
+    animation:doorIn .5s ease both;
+  }
+  #pwGate .door::before{
+    content:""; position:absolute; left:-16px; top:70px; width:18px; height:42px;
+    background:#241a0b; border-radius:4px;
+    box-shadow:0 160px 0 #241a0b, inset 0 0 0 2px #4d3a1a;
+  }
+  #pwGate .door::after{
+    content:""; position:absolute; right:15px; top:52%; width:19px; height:19px;
+    border-radius:50%; background:radial-gradient(circle at 34% 30%, #7d6027, #241a0b 72%);
+    box-shadow:0 0 0 3px #241a0b, 0 4px 6px rgba(0,0,0,.5);
+  }
+  #pwGate .nails{ position:absolute; inset:10px; pointer-events:none;
+    background:
+      radial-gradient(circle 4.5px at 7px 7px, #241a0b 62%, transparent 63%),
+      radial-gradient(circle 4.5px at calc(100% - 7px) 7px, #241a0b 62%, transparent 63%),
+      radial-gradient(circle 4.5px at 7px calc(100% - 7px), #241a0b 62%, transparent 63%),
+      radial-gradient(circle 4.5px at calc(100% - 7px) calc(100% - 7px), #241a0b 62%, transparent 63%);
+  }
+  #pwGate .doorsign{
+    position:absolute; top:-64px; left:50%; width:262px; margin-left:-131px;
+    transform:rotate(-3.5deg);
+    background:linear-gradient(#7d5c2c, #63471c); border:4px solid #241a0b; border-radius:8px;
+    font-family:"Limelight",serif; font-size:17px; letter-spacing:.16em; text-transform:uppercase;
+    color:#d9a83c; padding:8px 8px 9px; text-indent:.16em;
+    box-shadow:0 8px 16px rgba(60,45,20,.4);
+  }
+  /* the old WELCOME, painted over: speakeasies are not welcoming */
+  #pwGate .ds-no{
+    display:block; position:relative; font-size:11px; letter-spacing:.34em; color:#8f7443;
+  }
+  #pwGate .ds-no::after{
+    content:""; position:absolute; left:22%; right:22%; top:50%; height:2.5px;
+    background:#a3271c; transform:rotate(-4deg); opacity:.85;
+  }
+  #pwGate .ds-yes{ display:block; margin-top:1px; }
+  /* the knocking fist: appears at the door, raps twice, then the door opens */
+  #pwGate .knocker{
+    position:absolute; right:44px; top:44%; width:56px; height:auto;
+    opacity:0; pointer-events:none; transform-origin:85% 85%;
+  }
+  #pwGate.knocking .knocker{ animation:fistKnock .64s ease-in-out both; }
+  @keyframes fistKnock{
+    0%{ opacity:0; transform:translate(30px,-10px) rotate(18deg); }
+    18%{ opacity:1; transform:translate(0,0) rotate(0deg); }
+    30%{ transform:translate(22px,-7px) rotate(13deg); }
+    48%{ transform:translate(0,0) rotate(0deg); }
+    70%{ opacity:1; transform:translate(18px,-6px) rotate(10deg); }
+    100%{ opacity:0; transform:translate(30px,-10px) rotate(18deg); }
+  }
+  #pwGate.knocking .door{ animation:doorRattle .64s ease-in-out; }
+  @keyframes doorRattle{
+    0%,12%,40%,62%,100%{ transform:translateX(0); }
+    20%{ transform:translateX(-3px); }
+    26%{ transform:translateX(2px); }
+    50%{ transform:translateX(-3px); }
+    56%{ transform:translateX(2px); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    #pwGate.knocking .knocker, #pwGate.knocking .door{ animation:none; }
+  }
+  #pwGate .doorsign::before, #pwGate .doorsign::after{
+    content:""; position:absolute; top:-17px; width:4px; height:19px; background:#241a0b;
+  }
+  #pwGate .doorsign::before{ left:30px; transform:rotate(9deg); }
+  #pwGate .doorsign::after{ right:30px; transform:rotate(-9deg); }
+  /* the barkeep's hat, tossed onto the door corner, swaying with the draft */
+  #pwGate .doorhat{
+    position:absolute; top:-31px; right:8px; width:80px; height:auto;
+    transform:rotate(9deg); transform-origin:50% 10%;
+    filter:drop-shadow(0 4px 5px rgba(0,0,0,.35));
+    animation:hatSway 5.5s ease-in-out infinite alternate;
+  }
+  @keyframes hatSway{ from{ transform:rotate(4deg); } to{ transform:rotate(13deg); } }
+  @media (prefers-reduced-motion: reduce){
+    #pwGate .doorhat{ animation:none; }
+  }
+  @keyframes doorIn{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:none; } }
+  #pwGate.opening .door{
+    transform-origin:left center;
+    animation:doorOpen .8s cubic-bezier(.5,.05,.7,.5) forwards;
+  }
+  #pwGate.opening{ animation:gateFade .5s ease .4s forwards; }
+  @keyframes doorOpen{ to{ transform:rotateY(-82deg); opacity:.25; } }
+  @keyframes gateFade{ to{ opacity:0; } }
+  @media (prefers-reduced-motion: reduce){
+    #pwGate .door, #pwGate.opening .door, #pwGate.opening{ animation:none; }
+  }
+  #pwGate .slot{
+    width:78px; height:13px; margin:0 auto 26px; background:#0b0803;
+    border:3px solid #241a0b; border-radius:3px; transform:rotate(-1.6deg);
+  }
+  #pwGate h2{
+    margin:0 0 10px; font-family:"Limelight",serif; font-weight:400;
+    font-size:27px; color:#f6e7b8; letter-spacing:.02em;
+  }
+  #pwGate .ask{
+    font-family:"Special Elite","Courier New",monospace; font-size:14px; color:#b7a370;
+    letter-spacing:.1em; text-transform:uppercase; margin:0 0 24px;
+  }
+  #pwGate input{
+    width:100%; box-sizing:border-box; padding:13px 14px; font-size:16px; text-align:center;
+    font-family:"Special Elite","Courier New",monospace; letter-spacing:.14em;
+    background:#151009; border:2px solid #574a2c; color:#efe2bb; outline:none;
+  }
+  #pwGate input:focus{ border-color:#d4a017; }
+  #pwGate button{
+    margin-top:16px; width:100%; padding:12px; cursor:pointer;
+    font-family:"Special Elite","Courier New",monospace; font-size:13px;
+    letter-spacing:.22em; text-transform:uppercase;
+    background:transparent; border:2px solid #9d8a5c; color:#e9d8ab;
+  }
+  #pwGate button:hover{ border-color:#d4a017; color:#d4a017; }
+  #pwGate .hint{
+    margin:18px 0 0; font-family:"Special Elite","Courier New",monospace;
+    font-size:12px; letter-spacing:.08em; color:#b7a370;
+  }
+  #pwGate .msg{
+    min-height:20px; margin-top:14px; font-family:"Special Elite","Courier New",monospace;
+    font-size:12px; letter-spacing:.08em; color:#a3392a;
+  }
+  #pwGate.bad .door{ animation:doorShake .4s; }
+  @keyframes doorShake{ 0%,100%{transform:translateX(0);} 20%{transform:translateX(-9px);} 40%{transform:translateX(8px);} 60%{transform:translateX(-6px);} 80%{transform:translateX(4px);} }
+  #pwGate .gate-sound{
+    display:flex; align-items:center; justify-content:center; gap:11px; margin-top:20px;
+    font-family:"Special Elite","Courier New",monospace; font-size:11px; letter-spacing:.14em;
+    text-transform:uppercase; color:#b7a370;
+  }
+  #pwGate .gs-switch{
+    display:inline-flex; align-items:center; gap:8px; width:auto; margin:0; padding:0;
+    background:transparent; border:none; cursor:pointer; color:#b7a370;
+    font-family:inherit; font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  }
+  #pwGate .gs-track{
+    position:relative; width:40px; height:18px; border-radius:10px; flex:none;
+    background:#151009; border:2px solid #574a2c; transition:background .2s, border-color .2s;
+  }
+  #pwGate .gs-knob{
+    position:absolute; top:1px; left:1px; width:12px; height:12px; border-radius:50%;
+    background:#9d8a5c; transition:transform .22s cubic-bezier(.3,.7,.4,1.3), background .2s;
+  }
+  #pwGate .gs-switch:hover{ color:#d4a017; border:none; }
+  #pwGate .gs-switch[aria-checked="true"] .gs-track{ background:#4a3312; border-color:#d4a017; }
+  #pwGate .gs-switch[aria-checked="true"] .gs-knob{ transform:translateX(22px); background:#f3e8cd; }
+  #pwGate .gs-switch[aria-checked="true"] .gs-state{ color:#d4a017; }
+</style>
+<link rel="stylesheet" href="styles.css?v=80">
 </head>
 <body>
 
-<header class="masthead">
+<div id="pwGate">
+  <div class="door">
+    <div class="doorsign" aria-hidden="true"><span class="ds-no">Welcome</span><span class="ds-yes">TTB Speakeasy</span></div>
+    <svg class="doorhat" viewBox="0 0 76 50" aria-hidden="true">
+      <path d="M24 31 C23 13 28 5 38 5 C48 5 53 13 52 31 Z" fill="#4a3312" stroke="#c9a227" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M38 6 C35 13 35 22 37 30" fill="none" stroke="#c9a227" stroke-width="1.6" opacity=".55"/>
+      <path d="M25 27 h26" stroke="#241a0b" stroke-width="4"/>
+      <path d="M5 33 C7 27 12 28 16 30 C26 34 50 34 60 30 C64 28 69 27 71 33 C60 42 16 42 5 33 Z" fill="#4a3312" stroke="#c9a227" stroke-width="2.5" stroke-linejoin="round"/>
+    </svg>
+    <span class="nails" aria-hidden="true"></span>
+    <svg class="knocker" viewBox="0 0 64 56" aria-hidden="true">
+      <g stroke="#241a0b" stroke-width="2.4" stroke-linejoin="round">
+        <rect x="42" y="16" width="16" height="26" rx="3" fill="#4a3312"/>
+        <path d="M10 24 q-3 6 0 12 q1 3 5 4 l24 3 q7 0 7 -6 l0 -14 q0 -6 -7 -6 l-24 3 q-4 1 -5 4 z" fill="#e8c87d"/>
+        <path d="M10 24 q6 -2 10 0 M10 36 q6 2 10 0 M14 30 h8" fill="none" stroke-width="1.8" opacity=".55"/>
+        <path d="M20 40 q10 5 18 2" fill="none" stroke-width="1.8" opacity=".55"/>
+      </g>
+    </svg>
+    <div class="slot"></div>
+    <h2 id="gateTitle">The door is locked.</h2>
+    <p class="ask" id="gateAsk">Howdy, stranger. What's the word?</p>
+    <form id="gateForm">
+      <input id="gateInput" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Password" placeholder="the password">
+      <input id="nameOpt" type="text" maxlength="24" autocomplete="off" spellcheck="false" aria-label="First name, optional" placeholder="first name &middot; optional, for the barkeep">
+      <button type="submit">Knock</button>
+    </form>
+    <p class="hint" id="gateHint">Psst, friend: the password is what this whole show is made of. Four letters.</p>
+    <p class="msg" id="gateMsg"></p>
+    <div class="gate-sound">
+      <span class="gs-label">The house band</span>
+      <button type="button" id="gateSoundBtn" class="gs-switch" role="switch" aria-checked="false" aria-label="Play music when you enter">
+        <span class="gs-track"><span class="gs-knob"></span></span>
+        <span class="gs-state">Off</span>
+      </button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var pwForm=document.getElementById('gateForm'), pwInput=document.getElementById('gateInput'),
+      nameOpt=document.getElementById('nameOpt'),
+      gate=document.getElementById('pwGate'), msg=document.getElementById('gateMsg');
+  if(!document.documentElement.classList.contains('locked')) return;
+  var guest='';
+  try{ nameOpt.value=sessionStorage.getItem('ttbName')||''; }catch(e){}
+  pwInput.focus();
+  /* the door decides whether the house band plays; quiet by default */
+  var soundBtn=document.getElementById('gateSoundBtn');
+  if(soundBtn){
+    var soundOn=false;
+    try{ soundOn=sessionStorage.getItem('ttbSound')==='on'; }catch(e){}
+    var renderSound=function(){
+      soundBtn.setAttribute('aria-checked',String(soundOn));
+      var st=soundBtn.querySelector('.gs-state');
+      if(st) st.textContent=soundOn?'On':'Off';
+    };
+    renderSound();
+    soundBtn.addEventListener('click',function(){
+      soundOn=!soundOn;
+      try{ sessionStorage.setItem('ttbSound',soundOn?'on':'off'); }catch(e){}
+      renderSound();
+    });
+  }
+  function finishUnlock(){
+    document.documentElement.classList.remove('locked');
+    gate.classList.remove('opening','knocking');
+    window.dispatchEvent(new Event('speakeasyUnlocked'));
+  }
+  /* two raps of a fist on old wood: a low thump plus a woody click each */
+  function knockSound(){
+    try{
+      var C=window.AudioContext||window.webkitAudioContext;
+      var ctx=new C();
+      if(ctx.state==='suspended') ctx.resume();
+      [0,0.26].forEach(function(off){
+        var t=ctx.currentTime+0.02+off;
+        var o=ctx.createOscillator();
+        o.type='sine';
+        o.frequency.setValueAtTime(100,t);
+        o.frequency.exponentialRampToValueAtTime(52,t+0.09);
+        var g=ctx.createGain();
+        g.gain.setValueAtTime(0.5,t);
+        g.gain.exponentialRampToValueAtTime(0.001,t+0.17);
+        o.connect(g); g.connect(ctx.destination);
+        o.start(t); o.stop(t+0.19);
+        var buf=ctx.createBuffer(1,Math.floor(ctx.sampleRate*0.03),ctx.sampleRate);
+        var d=buf.getChannelData(0);
+        for(var i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,2);
+        var s=ctx.createBufferSource(); s.buffer=buf;
+        var f=ctx.createBiquadFilter(); f.type='lowpass'; f.frequency.value=420;
+        var g2=ctx.createGain(); g2.gain.value=0.45;
+        s.connect(f); f.connect(g2); g2.connect(ctx.destination);
+        s.start(t);
+      });
+    }catch(e){ /* no audio, no problem */ }
+  }
+  function unlock(){
+    try{ sessionStorage.setItem('ttbName', guest); }catch(e){}
+    var reduce=false;
+    try{ reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+    if(reduce){ finishUnlock(); return; }
+    /* knock first, like decent folk, then the door swings */
+    gate.classList.add('knocking');
+    if(soundOn) knockSound(); /* the house-band switch is the master mute */
+    setTimeout(function(){ gate.classList.add('opening'); }, 660);
+    setTimeout(finishUnlock, 1510);
+  }
+  pwForm.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    if(gate.classList.contains('knocking')) return;
+    if(pwInput.value.trim().toLowerCase()==='data'){
+      guest=(nameOpt.value||'').trim().slice(0,24);
+      unlock();
+    } else {
+      gate.classList.remove('bad'); void gate.offsetWidth; gate.classList.add('bad');
+      msg.textContent='That is not it. Read the whisper below and try again.';
+      pwInput.select();
+    }
+  });
+})();
+</script>
+
+<div id="progress" role="presentation"></div>
+
+<!-- ============ the picture show ============ -->
+<div id="intro" aria-hidden="true">
+  <div class="grain"></div>
+  <div class="scratches"></div>
+  <div class="vignette"></div>
+  <svg class="tumbleweed" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true">
+    <path d="M31 7 C22 6 12 13 9 22 C6 32 10 44 19 49 C27 54 40 53 47 46 C53 40 55 30 51 21 C47 12 39 8 31 7" stroke-width=".7" opacity=".3"/>
+    <path d="M29 31 C24 25 24 17 29 9 M29 31 C34 27 42 26 50 29 M29 31 C32 38 30 46 24 51 M29 31 C23 34 15 33 9 28 M29 31 C24 27 21 20 24 12 M29 31 C36 32 42 38 43 46 M29 31 C26 37 19 42 11 42 M29 31 C35 26 40 20 40 12 M29 31 C33 30 39 24 46 17 M29 31 C22 30 16 24 14 16" stroke-width=".9"/>
+    <path d="M29 9l-4-3 M29 9l4-4 M50 29l5-4 M50 29l4 3 M24 51l-5 3 M24 51l2 5 M9 28l-5-3 M9 28l-4 4 M24 12l-4-4 M43 46l5 3 M43 46l3 5 M11 42l-5 3 M40 12l2-6 M46 17l5-3 M14 16l-3-5" stroke-width=".75" opacity=".85"/>
+    <path d="M25 20c3 3 7 4 11 2 M20 35c4 4 10 4 15 0 M33 41c4-2 6-5 7-9 M22 26c2 4 6 6 10 6 M35 22c-1 4-4 7-8 8 M27 14c-2 3-2 7 0 10 M38 30c2 3 2 7-1 10 M17 22c0 4 2 8 6 10" stroke-width=".6" opacity=".5"/>
+  </svg>
+
+  <div class="scene" data-scene="0">
+    <div class="leader" aria-hidden="true">
+      <div class="l-mark l-tl">Picture start</div>
+      <div class="l-mark l-bl">TTB &middot; reel no. 1</div>
+      <div class="l-dial">
+        <div class="l-sweep"></div>
+        <div class="l-ring"></div>
+        <div class="l-num" id="leaderNum">3</div>
+      </div>
+      <div class="l-cross l-ch"></div>
+      <div class="l-cross l-cv"></div>
+    </div>
+  </div>
+
+  <div class="scene" data-scene="1">
+    <div class="card">
+      <div class="typed" data-type="Howdy. Let's take a trip back in time for a story of taxes, taverns, and the bureau that kept the books."></div>
+      <div class="sub">Five reels and a prologue. The tab comes at the end.</div>
+    </div>
+  </div>
+
+  <div class="scene" data-scene="2">
+    <div class="mt-drive" aria-hidden="true">
+      <svg class="mt" viewBox="0 0 120 62" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 40 Q12 40 12 37 V30 Q12 27 15 27 H36 V14 Q36 12 38 12 H62 Q64 12 64 14 V26 H86 Q94 26 97 31 Q103 32 104 36 V40"/>
+        <path d="M42 16 h16 v9 h-16 z" opacity=".5"/>
+        <path d="M18 40 A12 12 0 0 1 42 40"/>
+        <path d="M78 40 A12 12 0 0 1 102 40"/>
+        <path d="M12 40 H108" opacity=".6"/>
+        <g class="mt-wheel"><circle cx="30" cy="46" r="9"/><circle cx="30" cy="46" r="1.5" fill="currentColor" stroke="none"/><path d="M30 37.6v16.8M21.6 46h16.8M24.1 40.1l11.8 11.8M24.1 51.9l11.8-11.8" opacity=".8" stroke-width="1.1"/></g>
+        <g class="mt-wheel"><circle cx="90" cy="46" r="9"/><circle cx="90" cy="46" r="1.5" fill="currentColor" stroke="none"/><path d="M90 37.6v16.8M81.6 46h16.8M84.1 40.1l11.8 11.8M84.1 51.9l11.8-11.8" opacity=".8" stroke-width="1.1"/></g>
+        <circle class="mt-puff mt-p1" cx="7" cy="35" r="2.6" fill="currentColor" stroke="none"/>
+        <circle class="mt-puff mt-p2" cx="7" cy="35" r="2" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+    <div class="card">
+      <div class="party-props">
+        <svg class="hat-l" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#c2922a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15.5c5.5 3 12.5 3 18 0"/><path d="M3 15.5c-.9-.6-.9-1.6.3-2.1 1.3-.6 2.9-1 2.9-1 .3-2.7 1-5.5 2.3-6.7a3.4 3.4 0 0 1 4.9 0c1.3 1.2 2 4 2.3 6.7 0 0 1.6.4 2.9 1 1.2.5 1.2 1.5.3 2.1"/><path d="M9.4 6.6c1.6 1.2 3.6 1.2 5.2 0"/></svg>
+        <svg class="mug-l" width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#c2922a" stroke-width="1.6" aria-hidden="true"><path d="M6 4h9v16H6zM15 8h3a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-3"/><path d="M6 9h9" opacity=".6"/></svg>
+        <svg class="jazz-spark" width="40" height="40" viewBox="0 0 24 24" fill="#c2922a" aria-hidden="true"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8Z"/></svg>
+        <svg class="mug-r" width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#c2922a" stroke-width="1.6" aria-hidden="true" style="transform:scaleX(-1)"><path d="M6 4h9v16H6zM15 8h3a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-3"/><path d="M6 9h9" opacity=".6"/></svg>
+        <svg class="hat-r" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#c2922a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform:scaleX(-1)"><path d="M3 15.5c5.5 3 12.5 3 18 0"/><path d="M3 15.5c-.9-.6-.9-1.6.3-2.1 1.3-.6 2.9-1 2.9-1 .3-2.7 1-5.5 2.3-6.7a3.4 3.4 0 0 1 4.9 0c1.3 1.2 2 4 2.3 6.7 0 0 1.6.4 2.9 1 1.2.5 1.2 1.5.3 2.1"/><path d="M9.4 6.6c1.6 1.2 3.6 1.2 5.2 0"/></svg>
+      </div>
+      <div class="typed" data-type="America, 1919. The saloons poured, the smoke curled, and the government took its cut of both."></div>
+      <div class="era-row">
+        <div class="era">
+          <span class="stamp s-red">No Beer<small>january 17, 1920</small></span>
+          <div class="typed" data-type="Prohibition shuts the saloons, but the ledger stays open."></div>
+        </div>
+        <div class="era-arrow" aria-hidden="true">
+          <svg viewBox="0 0 120 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+            <path class="ea-line" d="M6 12 H98"/>
+            <path class="ea-head" d="M98 4 L114 12 L98 20 Z" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <div class="era">
+          <span class="stamp green s-green">Repealed<small>december 5, 1933</small></span>
+          <div class="typed" data-type="The taps open legal again, and the paperwork never leaves. A federal bureau keeps the books to this day."></div>
+        </div>
+      </div>
+      <div class="coin-drop" aria-hidden="true">
+        <span class="cd c1"></span><span class="cd c2"></span><span class="cd c3"></span>
+        <svg class="bag" viewBox="0 0 48 46">
+          <path d="M19 7 C16 4.5 16 2.5 18 1.5 C20 2.6 22 3.1 24 3.1 C26 3.1 28 2.6 30 1.5 C32 2.5 32 4.5 29 7 Z" fill="#7a5410"/>
+          <path d="M18.5 8.5 h11 C37 13 41.5 20 41.5 27.5 C41.5 37 33.5 43 24 43 C14.5 43 6.5 37 6.5 27.5 C6.5 20 11 13 18.5 8.5 Z" fill="#9c7c3f" stroke="#59462f" stroke-width="2"/>
+          <rect x="15" y="6" width="18" height="3.6" rx="1.8" fill="#59462f"/>
+          <text x="24" y="32" text-anchor="middle" font-size="16" fill="#59462f" font-family="Limelight,serif">$</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene" data-scene="5">
+    <div class="card">
+      <div class="deco">The Department of the Treasury presents</div>
+      <div class="marquee-title">TTB<br>BY THE NUMBERS</div>
+      <div class="typed" data-type="Taxes, barrels, and proof gallons, straight from the bureau's own ledgers. Every figure sourced." style="font-size:16px;margin-top:24px"></div>
+    </div>
+  </div>
+
+  <div class="scene" data-scene="rs">
+    <div class="card roadcard">
+      <div class="rs-half rs-top-half">
+        <div class="rs-top">You are now entering</div>
+        <div class="rs-big">The Prohibition Era</div>
+        <div class="rs-law">saloons shut &middot; stills smashed &middot; not a drop poured &middot; by order of the law</div>
+        <span class="bh bh1" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
+        <span class="bh bh2" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
+        <span class="bh bh3" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
+      </div>
+      <div class="rs-half rs-bot-half" aria-hidden="true">
+        <div class="rs-top">You are now entering</div>
+        <div class="rs-big">The Prohibition Era</div>
+        <div class="rs-law">saloons shut &middot; stills smashed &middot; not a drop poured &middot; by order of the law</div>
+        <span class="bh bh1" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
+        <span class="bh bh2" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
+        <span class="bh bh3" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
+      </div>
+      <div class="rs-paint"><span class="rs-slash">Not here, partner</span><small>the back door's open &middot; come on in</small></div>
+    </div>
+  </div>
+
+  <button id="skipIntro" type="button">Skip the reel</button>
+</div>
+
+<header class="site-header">
   <div class="wrap">
-    <p class="kicker">Federal excise tax data</p>
-    <h1>TTB by the Numbers</h1>
-    <p class="standfirst">The alcohol, tobacco, firearms, and ammunition excise taxes collected by the Alcohol and Tobacco Tax and Trade Bureau, and the industries that pay them. Fiscal year 2015 through fiscal year 2025, built entirely from TTB's published data.</p>
+    <a class="brand" href="#top">
+      <svg class="brand-glyph" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 4h9v16H6zM15 8h3a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-3"/><path d="M6 8h9" opacity=".6"/><path d="M8.5 11v6M11 11v6" opacity=".35"/></svg>
+      <span class="brand-text">
+        <span class="mark">TTB by the Numbers</span>
+      </span>
+    </a>
+    <button id="replayIntro" type="button">Replay reel</button>
   </div>
 </header>
 
-<main class="wrap">
+<main id="top">
 
-  <!-- HERO STAT -->
-  <section class="lede" id="overview">
-    <div class="bigstat">
-      <span class="bigstat-num"><span data-countup="20.6" data-decimals="1" data-prefix="$">$0.0</span> billion</span>
-      <span class="bigstat-cap">collected in FY 2025 across all four excise taxes, imports included</span>
+  <section class="hero" id="heroSec">
+    <div class="wrap">
+      <div class="poster">
+        <div class="deco-top">&#9670; &middot; &#9670; &middot; &#9670;</div>
+        <div class="kick tw" data-type="The federal government's ledger of alcohol and tobacco, FY 2015 to FY 2025"></div>
+        <div class="big-number"><span data-countup="20.6" data-decimals="1" data-prefix="$">0</span><span class="unit"> billion</span></div>
+        <h1>Fiscal year 2025's take in alcohol, tobacco, firearms, and ammunition excise taxes.</h1>
+        <p class="hero-why">Built from public data published by the Alcohol and Tobacco Tax and Trade Bureau (TTB), the Treasury bureau that collects these taxes and regulates the industries that pay them. One page to show source tracing, trend analysis, redaction handling, and public-facing data communication.</p>
+        <details class="house-rules">
+          <summary class="hr-title"><span aria-hidden="true">&#9733;</span> House Rules <span aria-hidden="true">&#9733;</span></summary>
+          <p>Every figure rides in from TTB's own published files, and every chart names its source. No exceptions, partner.</p>
+          <p>A named TTB release stands behind every chart: open "Here's the ledger" under any figure for the table, the units, and the source. Files current as of late June 2026.</p>
+        </details>
+        <button id="shortPour" type="button"><span class="sp-ask">Here on business?</span> Start here &middot; the one-minute briefing</button>
+        <div class="hero-ticker">
+          <div class="t">
+            <div class="n"><span data-countup="56" data-prefix="$">0</span><small>M/day</small></div>
+            <div class="l">average daily collections, FY 2025</div>
+          </div>
+          <div class="t">
+            <div class="n"><span data-countup="38">0</span><small>%</small></div>
+            <div class="l">drop in tobacco tax revenue since FY 2015</div>
+          </div>
+          <div class="t">
+            <div class="n"><span data-countup="4.3" data-decimals="1">0</span><small>B gal</small></div>
+            <div class="l">of beer taxed in 2025</div>
+          </div>
+          <div class="t">
+            <div class="n"><span data-countup="15166" data-comma="1">0</span></div>
+            <div class="l">registered breweries, end of 2024</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <p>TTB is the Treasury bureau that collects federal excise taxes on alcohol, tobacco, firearms, and ammunition, and regulates the industries that pay them. Collections were $20.6 billion in FY 2025, down from $25.5 billion in FY 2015. That is a fall of about 19 percent in a decade, and one product accounts for nearly all of it.</p>
-    <p class="method">This page is a working sample: named sources on every figure, definitions reconciled where TTB reports differ, and redacted values shown as gaps rather than estimates. It is an independent presentation of public data and is not affiliated with TTB or the Treasury.</p>
   </section>
 
-  <!-- COLLECTIONS OVER TIME -->
-  <section id="collections">
-    <h2>Collections over time</h2>
-    <p>TTB reports two collection totals, and both are correct. The all-in total counts import excise collected at the border by U.S. Customs and Border Protection; the domestic total counts only what TTB administers itself. The two lines diverge as imports grow, from 13 percent of the total in FY 2015 to 25 percent in FY 2025.</p>
-    <p class="hint">Click or tap a label in the key to hide or show a line.</p>
-    <figure class="chart">
-      <div class="chart-box"><canvas id="chartCollections"></canvas></div>
-      <figcaption>Source: TTB Statistical Release TTB S 5630, Tax Collections, final annual cumulative summaries, FY 2015 to FY 2025. Figures are nominal dollars.</figcaption>
-    </figure>
+  <section class="section" id="ontap">
+    <svg class="wm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 15.5c5.5 3 12.5 3 18 0"/>
+      <path d="M3 15.5c-.9-.6-.9-1.6.3-2.1 1.3-.6 2.9-1 2.9-1 .3-2.7 1-5.5 2.3-6.7a3.4 3.4 0 0 1 4.9 0c1.3 1.2 2 4 2.3 6.7 0 0 1.6.4 2.9 1 1.2.5 1.2 1.5.3 2.1"/>
+      <path d="M9.4 6.6c1.6 1.2 3.6 1.2 5.2 0"/>
+    </svg>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="kicker tw" data-type="Before the show &middot; The bar menu"></div>
+        <h2>What's on <em>tap</em>?</h2>
+        <p class="intro">Five taxes keep this house open.</p>
+      </div>
+      <div class="tap-pour reveal" aria-hidden="true">
+        <svg viewBox="0 0 80 100" fill="none">
+          <path d="M8 16 H40 M24 16 V7 M15 7 h18 M40 16 V26 M33 26 h14" stroke="#59462f" stroke-width="5" stroke-linecap="round"/>
+          <rect class="tp-stream" x="37.5" y="28" width="5" height="36" fill="#c2922a"/>
+          <rect class="tp-liq" x="28" y="64" width="24" height="26" fill="#c2922a"/>
+          <circle class="tp-f1" cx="33" cy="65" r="4" fill="#fbf4dd"/>
+          <circle class="tp-f2" cx="40" cy="63" r="4.5" fill="#fbf4dd"/>
+          <circle class="tp-f3" cx="47" cy="65" r="4" fill="#fbf4dd"/>
+          <path d="M24 62 h32 l-3 30 h-26 z" stroke="#221708" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
+      <div class="tap-row reveal" id="tapRow" role="group" aria-label="Pick a product to see its numbers"></div>
+      <div class="tap-detail" id="tapDetail" aria-live="polite" hidden></div>
+      <p class="fig-source reveal" style="max-width:880px" data-ledger="tapMenu" data-chip="The menu, itemized" data-title="What's on tap"><b>Source:</b> TTB Statistical Release TTB S 5630, Tax Collections, final annual cumulative summaries, FY 2015 and FY 2025. Volume figures are from the TTB National Statistical Reports, calendar year 2025.</p>
+    </div>
   </section>
 
-  <!-- BY COMMODITY -->
-  <section id="commodities">
-    <h2>Where FY 2025 collections came from</h2>
-    <p>Alcohol together has outweighed tobacco every fiscal year since FY 2022, led by distilled spirits. Firearms and ammunition is the smallest of the four and the only one that is earmarked: under the Pittman-Robertson Act of 1937, all of it funds wildlife restoration.</p>
-    <figure class="chart">
-      <div class="chart-box"><canvas id="chartCommodity"></canvas></div>
-      <figcaption>Source: TTB Statistical Release TTB S 5630, Tax Collections, cumulative summary, FY 2025 final. Special occupational tax and unclassified collections, under 0.1 percent combined, are not shown.</figcaption>
-    </figure>
-    <div class="statrow" id="commodityStats"></div>
+  <section class="section" id="prologue">
+    <svg class="wm" viewBox="0 0 24 27" fill="none" stroke="currentColor" stroke-width="0.55" aria-hidden="true">
+      <circle cx="12" cy="15.5" r="9.6"/><circle cx="12" cy="15.5" r="7.8"/>
+      <path d="M12 9.8v5.7l4 2.8"/><rect x="10.6" y="3" width="2.8" height="1.8"/><path d="M12 4.8v1.1M9.3 5.6l1 1M14.7 5.6l-1 1"/>
+    </svg>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-no">P</div>
+        <div class="kicker tw" data-type="Prologue &middot; The rates, 1910 to today"></div>
+        <h2>What survived Prohibition? <em>The tax.</em></h2>
+        <p class="intro">In 1910 beer was taxed at $1.00 a barrel and spirits at $1.10 a proof gallon. War drove the rates up, and Prohibition outlawed the products without ever repealing the taxes. The ledger never closed.</p>
+      </div>
+
+      <div class="figure reveal">
+        <p class="fig-title">One hundred sixteen years of tax rates</p>
+        <p class="fig-sub">General rate in effect, dollars per unit, 1910 to present</p>
+        <div class="fig-toggle" id="ratesToggle" role="group" aria-label="Choose a product"></div>
+        <div class="chart-box tall" style="height:460px"><canvas id="chartRates"></canvas></div>
+        <p class="fig-source"><b>Source:</b> TTB, Historical Tax Rates page (tables for distilled spirits, wine, and beer, series through 2017) and TTB Tax Rates page (calendar years 2018 to present). The spirits line uses the beverage-use rate where the historical table lists one. Small brewer and CBMA reduced rates are not charted; they are described in the 2018 milestone. The diamonds along the bottom of the chart are the story: click one.</p>
+      </div>
+    </div>
   </section>
 
-  <!-- ALCOHOL -->
-  <section id="alcohol">
-    <h2>Alcohol production</h2>
-    <p>TTB's operational reports track what the country actually makes and sends to the taxed market. Beer removals fell 21 percent from 2015 to 2025. Wine production dropped from its 2017 peak of 890 million gallons to 559 million. Whisky production more than doubled through 2023, then gave back nearly a third in two years.</p>
-    <div class="controls" id="alcToggle" role="group" aria-label="Choose a product"></div>
-    <figure class="chart">
-      <p class="chart-title" id="alcTitle"></p>
-      <div class="chart-box"><canvas id="chartAlcohol"></canvas></div>
-      <figcaption id="alcSource"></figcaption>
-    </figure>
-    <p class="note"><strong>On the 2025 spirits gap:</strong> TTB redacts the 2025 national total for distilled-spirits taxable withdrawals to avoid disclosing proprietary data. It appears here as a break in the line, not an estimate. Nothing redacted on this page was imputed.</p>
+  <section class="section" id="collections">
+    <svg class="wm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.55" aria-hidden="true">
+      <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="7.8"/>
+      <path d="M12 6.8v10.4M14.6 8.9c-.5-1-1.5-1.4-2.6-1.4-1.4 0-2.5.8-2.5 2.1 0 2.9 5 1.6 5 4.6 0 1.3-1.1 2.1-2.5 2.1-1.1 0-2.1-.4-2.6-1.4"/>
+      <path d="M12 1.4v1.2M12 21.4v1.2M1.4 12h1.2M21.4 12h1.2M4.6 4.6l.9.9M18.5 18.5l.9.9M19.4 4.6l-.9.9M5.5 18.5l-.9.9"/>
+    </svg>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-no">I</div>
+        <div class="kicker tw" data-type="Reel one &middot; Tax collections"></div>
+        <h2>Why did collections fall <em>19 percent</em> in a decade?</h2>
+        <p class="barkeep tw" data-barkeep='"Start a tab, {name}?"'></p>
+        <p class="intro">TTB brought in $25.5 billion in FY 2015 and $20.6 billion in FY 2025; tobacco more than accounts for the decline. There are two totals in this data and both are right: the domestic side TTB administers itself, and the all-in total that adds the import tax collected at the border by U.S. Customs and Border Protection. That import share grew from 13 to 25 percent, and the FY 2025 gap between the two was $5.2 billion. This page uses the all-in total unless a figure says otherwise.</p>
+      </div>
+
+      <div class="figure reveal">
+        <p class="fig-title">The take: collections over time, in billions of coins</p>
+        <p class="picto-key">Each coin is one billion dollars, imports included. Click the coins to step into the counting room.</p>
+        <div class="svgfig" id="coinStacks"></div>
+        <p class="fig-source"><b>Source:</b> TTB Statistical Release TTB S 5630, Tax Collections, final annual cumulative summaries, FY 2015 to FY 2025.</p>
+      </div>
+
+      <div class="figure reveal">
+        <p class="fig-title">FY 2025 collections, piece by piece</p>
+        <p class="fig-sub">Each icon is 1 percent of the total. Click a product to pour its funnel. Alcohol together has outweighed tobacco every year since FY 2022, led by spirits.</p>
+        <div class="waffle" id="waffleShare" aria-label="Waffle chart of FY 2025 collections by product. Click a product to see its funnel."></div>
+        <div class="waffle-legend" id="waffleLegend"></div>
+        <div class="alc-funnel" id="waffleFunnel" hidden></div>
+        <p class="fig-source"><b>Source:</b> TTB Statistical Release TTB S 5630, Tax Collections, cumulative summary, FY 2025 final. Shares rounded to whole percents; special occupational tax and unclassified collections, under 0.05 percent combined, are folded into the largest block. Funnel shares are of total tax collections, imports included.</p>
+      </div>
+
+      <div class="callout wc reveal">
+        <span class="co-badge">Since 1791</span>
+        <span class="wc-seal" aria-hidden="true">
+          <svg viewBox="0 0 90 90">
+            <circle cx="45" cy="45" r="42" fill="#c9a227" stroke="#7a5410" stroke-width="2.5"/>
+            <circle cx="45" cy="45" r="35" fill="none" stroke="#7a5410" stroke-width="1.2" stroke-dasharray="1.5 3.6" opacity=".7"/>
+            <text x="45" y="30" text-anchor="middle" class="wcs-top">STILL DUE</text>
+            <text x="45" y="54" text-anchor="middle" class="wcs-big">$13.50</text>
+            <text x="45" y="68" text-anchor="middle" class="wcs-bot">A PROOF GALLON</text>
+          </svg>
+        </span>
+        <span class="co-art" aria-hidden="true">
+          <svg class="co-fork" viewBox="0 0 20 46" fill="none" stroke="#8a7853" stroke-width="1.6" stroke-linecap="round">
+            <path d="M10 13 V44"/>
+            <path d="M3 2 V12 M10 1 V13 M17 2 V12"/>
+            <path d="M3 12 H17"/>
+          </svg>
+          <svg class="co-jug" viewBox="0 0 24 28" fill="none" stroke="#7a5410" stroke-width="1.4" stroke-linejoin="round">
+            <path d="M9 3.5h6v2.6c3 1.4 5 4 5 7.9v8a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3v-8c0-3.9 2-6.5 5-7.9z"/>
+            <path d="M9 3.5c0-1.2 6-1.2 6 0"/>
+            <circle cx="16" cy="9.6" r="1.5"/>
+            <text x="12" y="20.5" text-anchor="middle" font-size="6" fill="#7a5410" stroke="none" font-family="Special Elite,monospace">XXX</text>
+          </svg>
+          <svg class="co-hat" viewBox="0 0 76 50">
+            <path d="M24 31 C23 13 28 5 38 5 C48 5 53 13 52 31 Z" fill="#4a3312" stroke="#c9a227" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M38 6 C35 13 35 22 37 30" fill="none" stroke="#c9a227" stroke-width="1.6" opacity=".55"/>
+            <path d="M25 27 h26" stroke="#241a0b" stroke-width="4"/>
+            <path d="M5 33 C7 27 12 28 16 30 C26 34 50 34 60 30 C64 28 69 27 71 33 C60 42 16 42 5 33 Z" fill="#4a3312" stroke="#c9a227" stroke-width="2.5" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <p><b>The Whiskey Rebellion.</b> 1791: Alexander Hamilton slaps the young republic's first tax on something made at home, and the frontier does not take kindly to it. Stills vanish into the hills, tax men ride out and come home tarred and feathered, and by 1794 George Washington himself saddles up with the militia to put it down. The rebels folded. The tax never did. TTB still collects its great-great-grandchild today, $13.50 a proof gallon, hat tipped, no hard feelings.</p>
+      </div>
+    </div>
   </section>
 
-  <!-- TOBACCO -->
-  <section id="tobacco">
-    <h2>Tobacco, the shrinking base</h2>
-    <p>Tobacco built this tax base and is now shrinking it. Collections fell from $14.5 billion in FY 2015 to $8.9 billion in FY 2025, a $5.5 billion drop that outweighs TTB's entire net decline; rising spirits collections offset part of it. The federal rate has held at $1.01 a pack since 2009, so the fall is volume: taxed cigarettes more than halved after 2012.</p>
-    <figure class="chart">
-      <div class="chart-box"><canvas id="chartTobacco"></canvas></div>
-      <figcaption>Source: TTB National Statistical Report, Tobacco, yearly open data, taxable removals including Puerto Rico, calendar years 2012 to 2025.</figcaption>
-    </figure>
+  <section class="section" id="alcohol">
+    <svg class="wm" viewBox="0 0 26 27" fill="none" stroke="currentColor" stroke-width="0.55" aria-hidden="true">
+      <path d="M6 7h11v18H6z"/>
+      <path d="M17 11h3a2.8 2.8 0 0 1 2.8 2.8v4.2A2.8 2.8 0 0 1 20 20.8h-3"/>
+      <path d="M6 10.6h11"/>
+      <path d="M5.3 7c-1-2.4.9-3.8 2.4-3.2.6-2 2.9-2.4 3.8-.9 1.2-1.4 3.5-.9 4 .7 1.7-.4 3 1.3 1.9 3.4"/>
+      <circle cx="9.4" cy="15.4" r=".65"/><circle cx="13.2" cy="19.6" r=".5"/><circle cx="10.8" cy="22.8" r=".4"/>
+    </svg>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-no">II</div>
+        <div class="kicker tw" data-type="Reel two &middot; Alcohol production"></div>
+        <h2>Is America drinking <em>less</em>?</h2>
+        <p class="barkeep tw" data-barkeep='"Right this way to the taps."'></p>
+        <p class="intro">TTB's operational reports track what the country actually makes. Beer removals fell 21 percent from 2015 to 2025, wine production 31 percent, and whisky, after doubling to its 2023 peak, gave back 31 percent in two years. TTB redacts the 2025 national spirits withdrawals total to avoid disclosing proprietary data, so that figure stays a gap here, not an estimate. The figures run on calendar years, not the fiscal years the collections use.</p>
+      </div>
+
+      <div class="figure reveal" id="unitFigure" data-multi="1">
+        <p class="fig-title" id="puTitle">Taxable beer, poured out in mugs</p>
+        <div class="fig-toggle" id="pictoToggle" role="group" aria-label="Pick a product"></div>
+        <p class="picto-key" id="puKey">Each mug is 20 million barrels of taxable removals. A barrel is 31 gallons.</p>
+        <div class="picto-rows" id="beerMugs"></div>
+        <div class="picto-rows" id="wineBottles" hidden></div>
+        <div class="picto-rows" id="spiritBarrels" hidden></div>
+        <div class="picto-rows" id="cigRows" hidden></div>
+        <div class="picto-rows" id="faetCartridges" hidden></div>
+        <p class="fig-source" id="puSource"></p>
+      </div>
+    </div>
   </section>
 
-  <!-- INDUSTRY -->
-  <section id="industry">
-    <h2>The regulated industry</h2>
-    <p>Volumes fell, but the number of licensed producers climbed. A TTB permit is the price of entry, and entry boomed: registered breweries are up sixfold since 2010, distillery permits more than fivefold since 2012, and bonded wine producers roughly doubled.</p>
-    <p class="hint">Click or tap a label in the key to hide or show a line.</p>
-    <figure class="chart">
-      <div class="chart-box"><canvas id="chartPermits"></canvas></div>
-      <figcaption>Source: TTB National Revenue Center brewery and bonded-wine counts (continental United States) and TTB Distilled Spirits Permit Counts (beverage alcohol permits). Counts are at end of calendar year.</figcaption>
-    </figure>
-    <p class="note"><strong>Permit counts and producer counts differ, and both are right.</strong> Permits count every premises authorized to operate; production charts count only those that filed reports that year. In 2024, 15,166 breweries were registered and 7,888 filed reports.</p>
+  <section class="section" id="tobacco">
+    <svg class="wm" viewBox="0 0 26 24" fill="none" stroke="currentColor" stroke-width="0.55" aria-hidden="true">
+      <path d="M4 15.5v2.2a4.8 4.8 0 0 0 9.6 0v-2.2z"/>
+      <path d="M13.6 15.5 22.5 8.2l1.6 1.1"/>
+      <path d="M8.8 12.2c-1.6-1.8 1.2-2.8-.4-4.8M11.6 12.2c-1.6-1.8 1.2-2.8-.4-4.8"/>
+    </svg>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-no">III</div>
+        <div class="kicker tw" data-type="Reel three &middot; Tobacco"></div>
+        <h2>
+          Tobacco built this tax base. Tobacco is <em>shrinking</em> it.
+          <svg class="smoke" width="46" height="46" viewBox="0 0 46 46" aria-hidden="true" style="vertical-align:baseline"><path d="M23 42 C 18 34, 28 30, 23 22 C 18 14, 28 10, 23 3"/></svg>
+        </h2>
+        <p class="barkeep tw" data-barkeep='"Something to smoke with that?"'></p>
+        <p class="intro">Tobacco collections fell from $14.5 billion in FY 2015 to $8.9 billion in FY 2025, a $5.5 billion drop that outweighs TTB's whole net decline; rising spirits collections offset part of it. The rate has been $1.01 a pack since 2009, so the fall is volume: taxed cigarettes dropped by more than half after 2012.</p>
+      </div>
+
+      <div class="figure reveal">
+        <p class="fig-title">The original tax base is burning down</p>
+        <p class="fig-sub">Drawn to the length of FY 2015 collections. Strike the match to burn it down to FY 2025.</p>
+        <div class="burn" id="burnDown"></div>
+        <p class="fig-source"><b>Source:</b> TTB Statistical Release TTB S 5630, Tax Collections, final annual cumulative summaries, FY 2015 and FY 2025.</p>
+      </div>
+
+      <div class="stat-strip reveal" style="--accent:#59462f">
+        <div class="s">
+          <div class="n"><span data-countup="113.1" data-decimals="1">0</span><small>M lbs</small></div>
+          <div class="l">of chewing, pipe, roll-your-own, and snuff tobacco removed in 2025</div>
+          <div class="d down">down 34% from 2012</div>
+        </div>
+        <div class="s">
+          <div class="n"><span data-countup="160">0</span></div>
+          <div class="l">tobacco industry members filed operational reports in 2025</div>
+          <div class="d down">down from 222 in 2012</div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- NOTES -->
-  <section id="notes">
-    <h2>Notes on the data</h2>
-    <ul class="notelist">
-      <li><strong>Sources.</strong> Collections come from TTB Statistical Release TTB S 5630. Production and removals come from the TTB National Statistical Reports for beer (S 5130), wine (S 5120), distilled spirits (S 5110), and tobacco. Permit counts come from TTB National Revenue Center reports and the Distilled Spirits Permit Counts report. All files are current as of late June 2026, from <a href="https://www.ttb.gov/data" rel="noopener">ttb.gov/data</a>.</li>
-      <li><strong>Two totals.</strong> Collections come from statistical releases TTB labels unofficial; official revenue appears in the annual report. The all-in total includes import excise collected by U.S. Customs and Border Protection; the domestic total does not.</li>
-      <li><strong>Years differ by dataset.</strong> Collections use the federal fiscal year, October through September. Production, removals, and permit counts use calendar years.</li>
-      <li><strong>Units.</strong> A barrel of beer is 31 gallons. Wine is measured in wine gallons; spirits in proof gallons. Dollar figures are nominal and not adjusted for inflation.</li>
-      <li><strong>Suppression.</strong> Where a national total would reveal proprietary data, TTB redacts it. The 2025 spirits taxable-withdrawals total is redacted and shown as a gap. No redacted value here was estimated.</li>
-      <li><strong>Coverage.</strong> Brewery and bonded-wine counts cover the continental United States only. TTB publishes no volume by brand or company, so none appears here.</li>
-    </ul>
+  <section class="section" id="firearms">
+    <svg class="wm" viewBox="0 0 28 22" fill="none" stroke="currentColor" stroke-width="0.55" aria-hidden="true">
+      <path d="M4 15.5c4.5-.6 8-2.6 10.5-2.6 2.2 0 3.4 1 5.4 1 1.6 0 2.9-.6 3.7-1.6-.3 2.4-2.2 4.2-5 4.2-.9 0-2-.3-3.1-.3-3.4 0-7 1.6-11.5-.7z"/>
+      <path d="M14.5 12.9C13 8.9 14.6 5 18 3.6c-1.2 2.8-.4 5.8 1.3 7.6"/>
+      <path d="M20.8 11.9c1.4-.8 2.4-.8 3.4-.4l2.4-.6-1.8 1.9"/>
+      <circle cx="22.6" cy="11.1" r="0.28" fill="currentColor" stroke="none"/>
+    </svg>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-no">IV</div>
+        <div class="kicker tw" data-type="Reel four &middot; Firearms and ammunition"></div>
+        <h2>The one tax on this page that is <em class="u wl-open" role="button" tabindex="0" title="Where this money goes">spent on wildlife</em>.
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7a5410" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" style="vertical-align:baseline"><circle cx="12" cy="12" r="7.5"/><circle cx="12" cy="12" r="1" fill="#7a5410" stroke="none"/><path d="M12 1.5v4M12 18.5v4M1.5 12h4M18.5 12h4"/></svg>
+        </h2>
+        <p class="barkeep tw" data-barkeep='"And one for the hunters?"'></p>
+        <p class="intro">The firearms and ammunition excise tax, FAET, is 10 percent of the sale price on pistols and revolvers and 11 percent on other firearms and ammunition, paid by makers and importers. It is TTB's smallest tax, $808 million in FY 2025, and the only earmarked one.</p>
+      </div>
+
+      <details class="dossier reveal">
+        <summary>The fine print</summary>
+        <p>Returns are quarterly on TTB Form 5300.26, and since a 2010 law ended semimonthly deposits, payment is due with the return. Sales purchased with Department of Defense or Coast Guard funds are exempt, and since October 2005 anyone who makes or imports fewer than 50 firearms in a calendar year owes no tax on them.</p>
+      </details>
+    </div>
   </section>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <h2>About this page</h2>
-    <p>I am Juliette Gudknecht, the data steward for IDEA Section 618 at the U.S. Department of Education, the national data collections behind special education for more than eight million students. I manage two of the collections end to end, support ten more, co-author the OSEP Fast Facts data stories, and build the automated quality checks behind the published numbers.</p>
-    <p>I built this page from TTB's public files to show how I work with federal data: named sources, reconciled definitions, explained discrepancies, and honest gaps. TTB publishes far more than one page can hold.</p>
-    <p class="contact">Reach me at <a href="mailto:juliettegudknecht14@gmail.com">juliettegudknecht14@gmail.com</a>.</p>
+  <section class="section" id="industry">
+    <svg class="wm" viewBox="0 0 26 24" fill="none" stroke="currentColor" stroke-width="0.55" aria-hidden="true">
+      <path d="M3 22V10.5L8.8 7v3.5L14.6 7v3.5L20.4 7v15z"/>
+      <path d="M3 22h20.4"/><rect x="6" y="14" width="3" height="3"/><rect x="12" y="14" width="3" height="3"/><rect x="16.8" y="17.5" width="2.6" height="4.5"/>
+      <path d="M21.6 7V3.4h1.6V7"/>
+    </svg>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-no">V</div>
+        <div class="kicker tw" data-type="Reel five &middot; The regulated industry"></div>
+        <h2>Volumes fell. So why do permits keep <em>climbing</em>?</h2>
+        <p class="barkeep tw" data-barkeep='"You should meet the regulars."'></p>
+        <p class="intro">A TTB permit is the price of entry, and entry boomed: registered breweries up sixfold since 2010, distillery permits up more than fivefold since 2012, bonded wine producers roughly doubled. Permit counts run higher than the number of producers actually filing reports, and both are right: permits count every premises authorized to operate, while the production figures count only those that reported that year. In 2024, 15,166 breweries were registered and 7,888 filed.</p>
+      </div>
+
+      <div class="figure reveal">
+        <p class="fig-title">The regulars, on the map</p>
+        <p class="fig-sub">Active federal basic permits by state, from TTB's public permittee lists, April 2025</p>
+        <div class="fig-toggle" id="mapToggle" role="group" aria-label="Choose a permit type"></div>
+        <div class="tilemap" id="permitMap"></div>
+        <p class="fig-source"><b>Source:</b> TTB FOIA List of Permittees, April 2025 publication: the alcohol importer, alcohol wholesaler, spirits producer and bottler, and wine producer and blender permit lists, with Puerto Rico counts from the Puerto Rico basic permit list. Counts include the District of Columbia and Puerto Rico. Brewery premises are registered rather than permitted, so breweries do not appear in these lists.</p>
+      </div>
+
+      <h3 class="reveal centered bureau-head">Who's behind the bureau notices?</h3>
+      <div class="bureau-card reveal">
+        <span class="seal" aria-hidden="true">TTB</span>
+        <p>The Alcohol and Tobacco Tax and Trade Bureau runs one of the best returns in government. In FY 2025 it served more than 132,000 authorized industry members and processed nearly 163,000 label applications with 502 employees and $157.8 million in budget authority, and every program dollar spent on collection brought $199 back. Median label review times in mid 2026: 3 days for beer, 6 for wine, 8 for distilled spirits.</p>
+        <p class="fig-source" style="margin:12px 0 0" data-ledger="agencyFigures" data-chip="The bureau's own numbers" data-title="Who's behind the bureau notices?"><b>Source:</b> TTB Annual Reports, FY 2019 to FY 2023, and the FY 2025 TTB Annual Financial Report. TTB published no FY 2024 annual report, so FY 2024 agency figures are a gap. Label processing times are from TTB's Processing Times for Label Applications page as of July 2026.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pitch" id="finale">
+    <div class="wrap">
+      <div class="endshow reveal">
+        <p class="whatnow tw" data-type="The reels are spent. The ledger balances. What now?"></p>
+      </div>
+      <div class="inner reveal d1">
+        <div class="corner-lights cl-tl" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="corner-lights cl-tr" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="corner-lights cl-bl" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="corner-lights cl-br" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="kicker" style="justify-content:center">The finale</div>
+        <h2>Data this good deserves its name in lights. <em class="u">That's the work I do.</em></h2>
+        <p class="barkeep tw" data-barkeep='"It&#39;s last call, {name}."'></p>
+        <svg class="marquee-ico" viewBox="0 0 120 66" fill="none" stroke="#d4a017" stroke-width="2" aria-hidden="true">
+          <rect x="8" y="10" width="104" height="40" rx="4"/>
+          <rect x="17" y="19" width="86" height="22" rx="2" opacity=".55"/>
+          <path d="M30 26h60M40 34h40" stroke-width="1.4" opacity=".7"/>
+          <path d="M34 50l-7 13M86 50l7 13"/>
+          <circle class="mq-b" cx="19" cy="10" r="2.4" fill="#d4a017" stroke="none"/><circle class="mq-b" cx="33" cy="10" r="2.4" fill="#d4a017" stroke="none"/><circle class="mq-b" cx="47" cy="10" r="2.4" fill="#d4a017" stroke="none"/><circle class="mq-b" cx="61" cy="10" r="2.4" fill="#d4a017" stroke="none"/><circle class="mq-b" cx="75" cy="10" r="2.4" fill="#d4a017" stroke="none"/><circle class="mq-b" cx="89" cy="10" r="2.4" fill="#d4a017" stroke="none"/><circle class="mq-b" cx="103" cy="10" r="2.4" fill="#d4a017" stroke="none"/>
+          <circle class="mq-b" cx="112" cy="21" r="2.4" fill="#d4a017" stroke="none"/><circle class="mq-b" cx="112" cy="39" r="2.4" fill="#d4a017" stroke="none"/>
+          <circle class="mq-b" cx="103" cy="50" r="2.4" fill="#d4a017" stroke="none"/><circle class="mq-b" cx="89" cy="50" r="2.4" fill="#d4a017" stroke="none"/><circle class="mq-b" cx="75" cy="50" r="2.4" fill="#d4a017" stroke="none"/><circle class="mq-b" cx="61" cy="50" r="2.4" fill="#d4a017" stroke="none"/><circle class="mq-b" cx="47" cy="50" r="2.4" fill="#d4a017" stroke="none"/><circle class="mq-b" cx="33" cy="50" r="2.4" fill="#d4a017" stroke="none"/><circle class="mq-b" cx="19" cy="50" r="2.4" fill="#d4a017" stroke="none"/>
+          <circle class="mq-b" cx="8" cy="39" r="2.4" fill="#d4a017" stroke="none"/><circle class="mq-b" cx="8" cy="21" r="2.4" fill="#d4a017" stroke="none"/>
+        </svg>
+        <p>This show was built by one person, entirely from TTB's public files. Every figure traces to a named release, every disagreement between totals is explained beside the chart, and every redaction shows as a gap, not a guess. The builder's signature, and how to settle the tab, are one scroll down.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="tab">
+    <svg class="wm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.55" aria-hidden="true">
+      <rect x="3" y="16.4" width="18" height="3.6" rx="0.4"/><rect x="4.6" y="12.8" width="15" height="3.6" rx="0.4"/><rect x="3.8" y="9.2" width="16.4" height="3.6" rx="0.4"/>
+      <path d="M6.4 18.2h2M7.6 14.6h2M6.8 11h2"/>
+    </svg>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-no">$</div>
+        <div class="kicker tw" data-type="After the show &middot; The sources"></div>
+        <h2>Here's your tab.</h2>
+        <p class="barkeep tw" data-barkeep='"On the house, {name}. Public data always is."'></p>
+      </div>
+
+      <div class="work-open-row reveal">
+        <button id="workOpen" type="button" class="work-open">What went into this page</button>
+      </div>
+
+      <div class="receipt reveal">
+        <div class="rc-head">
+          <div class="rc-name">TTB by the Numbers</div>
+          <div class="rc-meta">An analysis done on the following data sets and sources</div>
+          <div class="rc-meta">Guest: <span id="tabGuest">a friend of the house</span></div>
+        </div>
+        <ul class="rc-items">
+          <li><span>Tax collections</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.ttb.gov/taxes/tax-audit/tax-collections" rel="noopener">TTB S 5630, FY 2015 to 2025</a></span></li>
+          <li><span>Beer</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.ttb.gov/regulated-commodities/beverage-alcohol/beer/statistics" rel="noopener">TTB S 5130, CY 2012 to 2025</a></span></li>
+          <li><span>Wine</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.ttb.gov/regulated-commodities/beverage-alcohol/wine/wine-statistics" rel="noopener">TTB S 5120, CY 2012 to 2025</a></span></li>
+          <li><span>Spirits</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.ttb.gov/regulated-commodities/beverage-alcohol/distilled-spirits/statistics" rel="noopener">TTB S 5110, CY 2012 to 2025</a></span></li>
+          <li><span>Tobacco</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.ttb.gov/regulated-commodities/tobacco/tobacco-statistics" rel="noopener">TTB yearly statistics, CY 2012 to 2025</a></span></li>
+          <li><span>Permits</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.ttb.gov/data" rel="noopener">TTB permit count reports</a></span></li>
+          <li><span>Permittees</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.ttb.gov/public-information/foia/list-of-permittees" rel="noopener">TTB FOIA lists, April 2025</a></span></li>
+          <li><span>Agency figures</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.ttb.gov/node/902851" rel="noopener">Annual Reports, FY 2019 to 2025 (no FY 2024)</a></span></li>
+          <li><span>Tax rates</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.ttb.gov/taxes/tax-audit/historical-tax-rates" rel="noopener">TTB rate pages, 1910 to present</a></span></li>
+        </ul>
+        <div class="rc-total"><span>Total due</span><span>$0.00</span></div>
+        <p class="rc-note">Public data is on the house. Files current at the end of June 2026, all from <a href="https://www.ttb.gov/data" rel="noopener">ttb.gov/data</a>.</p>
+        <div class="rc-signrow">
+          <span class="rc-x">&#10005;</span>
+          <span class="rc-sigline"><span class="rc-sig">Juliette Gudknecht</span><svg class="rc-pen" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#3f2f16" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l3.5-1 11-11a2.1 2.1 0 0 0-3-3l-11 11z"/><path d="M13 5l3 3"/></svg></span>
+        </div>
+        <div class="rc-stamp"><span>Settled<small>on the house</small></span></div>
+      </div>
+
+      <div class="sign-tab reveal">
+        <h3>The house <span class="u">picks up the check</span>.</h3>
+        <p>I'm Juliette Gudknecht, the data steward for IDEA Section 618 at the U.S. Department of Education, the national data collections behind special education for more than 8 million students. I manage two of the collections end to end, assist on an additional ten, co-author the OSEP Fast Facts data stories, contribute to the Annual Report to Congress, and build the automated quality checks that stand behind the published numbers.</p>
+        <p>This page is how I work with federal data: named sources, reconciled definitions, explained discrepancies, honest gaps. TTB publishes far more than one page can hold, and I would welcome the chance to work with the rest of it.</p>
+        <p><b>Feel like settling the tab anyway?</b> Reach out. <a href="mailto:juliettegudknecht14@gmail.com">juliettegudknecht14@gmail.com</a></p>
+      </div>
+
+      <details class="dossier reveal" style="margin-left:auto;margin-right:auto">
+        <summary style="text-align:center">The fine print, all of it</summary>
+        <ul class="about-list">
+        <li><b>Tax collections</b> come from TTB Statistical Release TTB S 5630, Tax Collections, using each fiscal year's final annual cumulative summary, FY 2015 to FY 2025, from <a href="https://www.ttb.gov/taxes/tax-audit/tax-collections" rel="noopener">ttb.gov/taxes/tax-audit/tax-collections</a>. TTB labels these releases unofficial; official revenue figures appear in the TTB annual report. In plain terms, the statistical release is the bureau's running tally and the audited annual report is the official record; this page uses the statistical releases and says so. Domestic figures come from TTB's tax database by return period end date, and import figures come from U.S. Customs and Border Protection data.</li>
+        <li><b>Production and removals</b> come from the TTB National Statistical Reports for beer (TTB S 5130), wine (TTB S 5120), and distilled spirits (TTB S 5110), published as yearly open data files covering calendar years 2012 to 2025, from the statistics pages at <a href="https://www.ttb.gov/data" rel="noopener">ttb.gov/data</a>. TTB revises these as amended returns arrive; figures here reflect files current as of late June 2026.</li>
+        <li><b>Tobacco removals</b> come from the TTB tobacco statistics yearly open data file, calendar years 2012 to 2025, using the taxable removals series, which includes removals from Puerto Rico. Cigar detail for 2013 is redacted in the source file.</li>
+        <li><b>Agency figures</b> (industry members, label applications, staffing, budget, revenue per program dollar) come from the TTB Annual Reports for FY 2019 to FY 2023 and the FY 2025 TTB Annual Financial Report. TTB published no FY 2024 annual report. Where TTB published only rounded figures, this page repeats TTB's rounding.</li>
+        <li><b>Permit and registration counts</b> come from TTB National Revenue Center count-by-state spreadsheets for breweries and bonded wine producers (continental United States) and the TTB Distilled Spirits Permit Counts report (beverage alcohol permits only).</li>
+        <li><b>Years differ by dataset.</b> Tax collections use the federal fiscal year, October through September. Production, removals, and permit counts use calendar years.</li>
+        <li><b>Units.</b> A barrel of beer is 31 gallons. Wine is measured in wine gallons. Spirits are measured in proof gallons, one liquid gallon at 50 percent alcohol by volume. Dollar figures are nominal, not adjusted for inflation.</li>
+        <li><b>What "taxable removals" means.</b> Production is what a premises made during the year. Taxable removals and withdrawals are what left bonded premises with federal excise tax paid, which is the volume entering the taxed market. Exports and industrial-use removals leave tax free and are excluded from the taxable figures.</li>
+        <li><b>Suppression.</b> Where publishing a national total would reveal proprietary data, TTB redacts it. The 2025 total for spirits taxable withdrawals is redacted; it is left as a gap rather than filled in. No redacted value on this page was estimated or imputed.</li>
+        <li><b>Firearms figures</b> use each fiscal year's own final S 5630 release. TTB adjusts prior-year figures in later releases as unclassified collections are classified (FY 2018 FAET appears as $620.4 million in its own final report and $624.7 million in the FY 2019 report, for example), so small differences from later publications are expected. FAET facts (rates, filing, exemptions, the Pittman-Robertson earmark) come from TTB's FAET Reference Guide and Tax Rates pages.</li>
+        <li><b>Agency history</b> (the 1934 Alcohol Tax Unit, the 1935 FAA Act, ATF in 1972, and TTB's creation on January 24, 2003 under the Homeland Security Act of 2002) comes from TTB's own history pages: The TTB Story, the FAA Act historical background, and the FAET background page.</li>
+        <li><b>Historical tax rates</b> come from TTB's Historical Tax Rates page (series through 2017) and the current Tax Rates page (2018 to present). The prologue chart shows general rates only; the historical page lists beer entries like "$18/$7" without defining the second figure, so reduced small producer rates appear in the text only. Wine's lower tax class boundary changed in 2018 from 14 percent alcohol to 16 percent under the Craft Beverage Modernization Act, so the wine series splices two slightly different class definitions at that point.</li>
+        <li><b>Small lines not shown.</b> Special occupational tax (about $250 thousand per year) and unclassified collections are included in totals but too small to chart.</li>
+        <li><b>Known limits.</b> Dollars are nominal, not adjusted for inflation. Collections figures come from statistical releases TTB labels unofficial. Brewery and bonded-wine counts cover the continental United States only. TTB publishes no volume by brand or company, so none appears here. Within those limits, every figure is exactly as TTB published it.</li>
+      </ul>
+      </details>
+      <p class="disclaimer reveal">This site is an independent presentation of public data and is not affiliated with or endorsed by TTB or the Department of the Treasury.</p>
+    </div>
   </section>
 
 </main>
 
 <footer class="site-footer">
   <div class="wrap">
-    <p>TTB by the Numbers. Built entirely from public data published by the Alcohol and Tobacco Tax and Trade Bureau at <a href="https://www.ttb.gov/data" rel="noopener">ttb.gov/data</a>. Tax collections through FY 2025; industry statistics through calendar year 2025.</p>
-    <p class="fine">An independent presentation of public data, not affiliated with or endorsed by TTB or the Department of the Treasury. Views are my own.</p>
+    <p class="bday"><span class="star">&#9733;</span><svg class="flag" viewBox="0 0 24 14" aria-hidden="true"><rect width="24" height="14" fill="#f6edd6"/><g fill="#a3392a"><rect y="0" width="24" height="2"/><rect y="4" width="24" height="2"/><rect y="8" width="24" height="2"/><rect y="12" width="24" height="2"/></g><rect width="10" height="8" fill="#31507a"/><g fill="#f6edd6"><circle cx="2" cy="2" r=".75"/><circle cx="5" cy="2" r=".75"/><circle cx="8" cy="2" r=".75"/><circle cx="3.5" cy="4" r=".75"/><circle cx="6.5" cy="4" r=".75"/><circle cx="2" cy="6" r=".75"/><circle cx="5" cy="6" r=".75"/><circle cx="8" cy="6" r=".75"/></g></svg> Happy 250th, America &middot; 1776 to 2026 <span class="star">&#9733;</span></p>
+    <p class="poured">Site carefully poured for <span id="pourFor">a friend of the house</span>.</p>
+    <p>TTB by the Numbers. Built entirely from public data published by the Alcohol and Tobacco Tax and Trade Bureau at <a href="https://www.ttb.gov/data" rel="noopener">ttb.gov/data</a> and <a href="https://www.ttb.gov/statistics/reports-and-data" rel="noopener">ttb.gov/statistics/reports-and-data</a>.</p>
+    <p>Tax collections through FY 2025. Industry statistics through calendar year 2025, as published in files current at the end of June 2026.</p>
+    <p class="no-barrels">No barrels were emptied in the making of this website.</p>
+    <p>Views here are my own, not my employer's.</p>
   </div>
 </footer>
 
-<script src="chart.umd.min.js?v=1"></script>
-<script src="data.js?v=1"></script>
-<script src="app.js?v=1"></script>
+<button id="ticketNav" type="button" aria-expanded="false" aria-controls="booklet"><span class="adm">Admit One</span> &middot; Programme</button>
+<nav id="booklet" aria-label="Programme">
+  <p class="prog-title">The House Programme</p>
+  <p class="prog-sub">TTB by the Numbers</p>
+  <a href="#ontap"><span class="no">&#9670;</span>What's on tap</a>
+  <a href="#prologue"><span class="no">P.</span>The rates, 1910 to today</a>
+  <a href="#collections"><span class="no">I.</span>Tax collections</a>
+  <a href="#alcohol"><span class="no">II.</span>Alcohol</a>
+  <a href="#tobacco"><span class="no">III.</span>Tobacco</a>
+  <a href="#firearms"><span class="no">IV.</span>Firearms and ammunition</a>
+  <a href="#industry"><span class="no">V.</span>The regulated industry</a>
+  <a href="#finale"><span class="no">&#9733;</span>The finale</a>
+  <a href="#tab"><span class="no">$</span>Pay your tab</a>
+</nav>
+
+<div class="modal" id="ledgerModal" role="dialog" aria-modal="true" aria-label="The ledger">
+  <div class="modal-card ledger-card">
+    <button class="modal-close" type="button" aria-label="Close">&#10005;</button>
+    <h4>Here's the ledger.</h4>
+    <p class="lg-sub" id="lgSub"></p>
+    <div class="table-scroll"><table class="ledger-table" id="lgTable"></table></div>
+    <p class="lg-source" id="lgSource"></p>
+    <div class="lg-actions">
+      <button id="lgCsv" type="button">Take the figures (CSV)</button>
+      <button id="lgPng" type="button">Save the chart (PNG)</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="wallboxModal" role="dialog" aria-modal="true" aria-label="Jukebox">
+  <div class="modal-card wallbox-card" id="wallboxCard">
+    <button class="modal-close" type="button" aria-label="Close">&#10005;</button>
+    <div class="wb-name">THE JUKEBOX</div>
+    <div class="wb-lamp" aria-hidden="true"></div>
+    <p class="wb-how">Pick a record. Nickels are on the house.</p>
+    <button class="wb-track" data-video="eKrJ6hb5Poo" type="button"><span class="wb-key">A-1</span><span class="wb-song">Beer Never Broke My Heart &middot; Luke Combs</span></button>
+    <button class="wb-track" data-video="dKbPHrJRnE4" type="button"><span class="wb-key">B-2</span><span class="wb-song">A Bar Song (Tipsy) &middot; Shaboozey</span></button>
+    <div class="wb-row">
+      <button class="wb-stop" id="wbStop" type="button">Pause the music</button>
+      <button class="wb-stop wb-close" id="wbClose" type="button">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="wildModal" role="dialog" aria-modal="true" aria-label="Where the firearms tax money goes">
+  <div class="modal-card story-card">
+    <button class="modal-close" type="button" aria-label="Close">&#10005;</button>
+    <h4>Where this money goes</h4>
+    <p>Alcohol and tobacco collections flow to the general fund. FAET does not: under the Pittman-Robertson Act of 1937, all of it is earmarked for wildlife restoration, held in trust for the states.</p>
+    <div class="wildlife-row" aria-hidden="true" style="justify-content:center;margin-top:18px">
+      <svg width="36" height="36" viewBox="0 0 26 24" fill="none" stroke="#59462f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 14.5h17.2c-1.3 3.5-4.5 5.5-8.6 5.5-4.1 0-7.3-2-8.6-5.5z"/><path d="M16.8 14.5V9.4a3.1 3.1 0 0 1 6.2 0v.4"/><path d="M22.6 9.2l2.5 1.1-2.3 1.2"/><circle cx="20.6" cy="8.8" r=".65" fill="#59462f" stroke="none"/><path d="M7.6 14.5c.8-1.8 2.6-3 4.6-3.1" opacity=".55"/></svg>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#59462f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12C5.5 8.5 9 6.8 12.2 6.8c3 0 5.1 2.2 6.2 5.2-1.1 3-3.2 5.2-6.2 5.2-3.2 0-6.7-1.7-9.7-5.2z"/><path d="M18.4 12l4.3-3.4-1 3.4 1 3.4z"/><circle cx="6.8" cy="10.8" r=".7" fill="#59462f" stroke="none"/><path d="M12.5 7.5c1.2 1.4 1.2 7.6 0 9" opacity=".45"/></svg>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#59462f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.6L16.4 9h-2.5l4.1 5.8h-2.8l4 5.8H4.8l4-5.8H6L10.1 9H7.6z"/><path d="M10.9 20.6h2.2v2.6h-2.2z" fill="#59462f" stroke="none"/></svg>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="bankModal" role="dialog" aria-modal="true" aria-label="The counting room: TTB money facts">
+  <div class="modal-card bank-card">
+    <button class="modal-close" type="button" aria-label="Close">&#10005;</button>
+    <div class="bk-coins" id="bkCoins" aria-hidden="true"></div>
+    <div class="bk-head" aria-hidden="true">&#9733; &middot; &#9733; &middot; &#9733;</div>
+    <p class="bk-title">The Counting Room</p>
+    <p class="bk-sub">A one-armed bandit that always pays out. Pull the lever, partner.</p>
+    <div class="bk-machine">
+      <div class="bk-reels" aria-hidden="true">
+        <span class="bk-reel" id="bkR1"></span>
+        <span class="bk-reel" id="bkR2"></span>
+        <span class="bk-reel" id="bkR3"></span>
+      </div>
+      <button class="bk-lever" id="bkLever" type="button">Pull</button>
+    </div>
+    <div class="bk-payout" id="bkPayout" aria-live="polite"></div>
+    <p class="bk-note">House facts from TTB's own published figures; the decade total is added up from the same S 5630 summaries as the coin chart.</p>
+  </div>
+</div>
+
+<div class="modal" id="whyModal" role="dialog" aria-modal="true" aria-label="Why collections fell">
+  <div class="modal-card story-card why-card">
+    <button class="modal-close" type="button" aria-label="Close">&#10005;</button>
+    <svg class="why-ico" viewBox="0 0 150 34" aria-hidden="true">
+      <rect x="8" y="15" width="104" height="9" fill="#f3ead2" stroke="#59462f" stroke-width="1"/>
+      <rect x="8" y="15" width="22" height="9" fill="#c9964b"/>
+      <path d="M8 19.5h104" stroke="#59462f" stroke-width=".5" opacity=".4"/>
+      <rect x="110" y="15" width="5" height="9" fill="#d96b29"/>
+      <path d="M116 13 c9 -5 -6 -9 3 -15" fill="none" stroke="#8a7853" stroke-width="1.5" opacity=".55"/>
+      <path d="M123 14 c8 -5 -6 -9 3 -14" fill="none" stroke="#8a7853" stroke-width="1.2" opacity=".38"/>
+    </svg>
+    <h4>Where did the 19 percent go?</h4>
+    <p><b>Tobacco did the falling.</b> Cigarettes leaving for the taxed market more than halved after 2012, and the rate has not moved off $1.01 a pack since 2009, so tobacco collections dropped $5.5 billion between FY 2015 and FY 2025. That one product lost more than the $4.9 billion the house shed on net; rising spirits collections poured part of it back. Fewer smokers, not softer rates.</p>
+    <p class="why-src">Figures from TTB Statistical Release TTB S 5630, final annual summaries, FY 2015 and FY 2025.</p>
+  </div>
+</div>
+
+<div class="modal" id="workModal" role="dialog" aria-modal="true" aria-label="What went into this page">
+  <div class="modal-card story-card work-modal">
+    <button class="modal-close" type="button" aria-label="Close">&#10005;</button>
+    <h4>What went into this page</h4>
+    <ul class="work-list">
+      <li>Gathered eleven years of TTB statistical releases, operational reports, permit counts, and FOIA permittee lists.</li>
+      <li>Reconciled the definitions that differ between files: fiscal-year collections against calendar-year volumes, domestic totals against all-in totals, permits against producers actually filing reports.</li>
+      <li>Kept every suppressed value as a visible gap. Nothing redacted was estimated or imputed.</li>
+      <li>Built the charts and drawn figures, and put a ledger behind each one with the full table, the units, and the named source.</li>
+      <li>Documented the caveats: nominal dollars, statistical releases TTB labels unofficial, permit counts limited to the continental United States.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="modal" id="storyModal" role="dialog" aria-modal="true" aria-label="A milestone from the rate history">
+  <div class="modal-card story-card">
+    <button class="modal-close" type="button" aria-label="Close">&#10005;</button>
+    <span class="sk-lamp" aria-hidden="true">
+      <svg viewBox="0 0 40 60">
+        <line x1="20" y1="0" x2="20" y2="24" stroke="#120c04" stroke-width="2.2"/>
+        <rect x="15.5" y="22" width="9" height="8" rx="1.5" fill="#4a3a1e"/>
+        <path d="M11 36 a9 10 0 1 1 18 0 c0 6.5 -3.4 9.5 -9 13 c-5.6 -3.5 -9 -6.5 -9 -13 z" fill="#f7d27a"/>
+        <path d="M16 39 q4 6 8 0 M17 44 q3 3.5 6 0" fill="none" stroke="#c26a1e" stroke-width="1.2"/>
+      </svg>
+    </span>
+    <div id="stStamp" aria-hidden="true"></div>
+    <h4 id="stYear"></h4>
+    <p id="stText"></p>
+    <div id="stFacts" hidden></div>
+  </div>
+</div>
+
+<div id="pour" aria-hidden="true">
+  <svg width="42" height="42" viewBox="0 0 34 34">
+    <rect id="pourLiq" x="8.5" y="27" width="12" height="0" fill="#c2922a"/>
+    <path d="M7 5h15v24H7z" fill="none" stroke="#221708" stroke-width="1.7"/>
+    <path d="M22 11h4a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3h-4" fill="none" stroke="#221708" stroke-width="1.7"/>
+  </svg>
+  <span class="pour-label" id="pourLabel">The pour</span>
+</div>
+
+<button id="jukebox" type="button" aria-label="Play or stop the music" title="Jukebox">
+  <span class="jb-ring" aria-hidden="true"></span>
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+    <path d="M6 4h9v16H6zM15 8h3a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-3"/>
+    <path class="jb-foam" d="M6 8h9" opacity=".7"/>
+    <circle class="jb-b1" cx="9" cy="13" r=".9" fill="currentColor" stroke="none"/>
+    <circle class="jb-b2" cx="12" cy="16" r=".7" fill="currentColor" stroke="none"/>
+  </svg>
+  <span class="jb-label">Jukebox</span>
+</button>
+<div id="ytHolder" aria-hidden="true"></div>
+
+<script src="chart.umd.min.js?v=19"></script>
+<script src="data.js?v=20"></script>
+<script src="app.js?v=76"></script>
 </body>
 </html>
