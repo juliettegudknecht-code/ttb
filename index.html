@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#faf7f2">
+<title>TTB by the Numbers</title>
+<meta name="description" content="Federal excise tax collections and regulated-industry statistics from the Alcohol and Tobacco Tax and Trade Bureau (TTB), built entirely from TTB published data. FY 2015 to FY 2025.">
+<meta property="og:title" content="TTB by the Numbers">
+<meta property="og:description" content="Federal excise taxes on alcohol, tobacco, firearms, and ammunition, drawn straight from TTB's published files. Every figure sourced.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23faf7f2'/%3E%3Cg fill='%23b3702d'%3E%3Crect x='4' y='12' width='3.4' height='8'/%3E%3Crect x='10.3' y='8' width='3.4' height='12'/%3E%3Crect x='16.6' y='4' width='3.4' height='16'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css?v=1">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="kicker">Federal excise tax data</p>
+    <h1>TTB by the Numbers</h1>
+    <p class="standfirst">The alcohol, tobacco, firearms, and ammunition excise taxes collected by the Alcohol and Tobacco Tax and Trade Bureau, and the industries that pay them. Fiscal year 2015 through fiscal year 2025, built entirely from TTB's published data.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- HERO STAT -->
+  <section class="lede" id="overview">
+    <div class="bigstat">
+      <span class="bigstat-num"><span data-countup="20.6" data-decimals="1" data-prefix="$">$0.0</span> billion</span>
+      <span class="bigstat-cap">collected in FY 2025 across all four excise taxes, imports included</span>
+    </div>
+    <p>TTB is the Treasury bureau that collects federal excise taxes on alcohol, tobacco, firearms, and ammunition, and regulates the industries that pay them. Collections were $20.6 billion in FY 2025, down from $25.5 billion in FY 2015. That is a fall of about 19 percent in a decade, and one product accounts for nearly all of it.</p>
+    <p class="method">This page is a working sample: named sources on every figure, definitions reconciled where TTB reports differ, and redacted values shown as gaps rather than estimates. It is an independent presentation of public data and is not affiliated with TTB or the Treasury.</p>
+  </section>
+
+  <!-- COLLECTIONS OVER TIME -->
+  <section id="collections">
+    <h2>Collections over time</h2>
+    <p>TTB reports two collection totals, and both are correct. The all-in total counts import excise collected at the border by U.S. Customs and Border Protection; the domestic total counts only what TTB administers itself. The two lines diverge as imports grow, from 13 percent of the total in FY 2015 to 25 percent in FY 2025.</p>
+    <p class="hint">Click or tap a label in the key to hide or show a line.</p>
+    <figure class="chart">
+      <div class="chart-box"><canvas id="chartCollections"></canvas></div>
+      <figcaption>Source: TTB Statistical Release TTB S 5630, Tax Collections, final annual cumulative summaries, FY 2015 to FY 2025. Figures are nominal dollars.</figcaption>
+    </figure>
+  </section>
+
+  <!-- BY COMMODITY -->
+  <section id="commodities">
+    <h2>Where FY 2025 collections came from</h2>
+    <p>Alcohol together has outweighed tobacco every fiscal year since FY 2022, led by distilled spirits. Firearms and ammunition is the smallest of the four and the only one that is earmarked: under the Pittman-Robertson Act of 1937, all of it funds wildlife restoration.</p>
+    <figure class="chart">
+      <div class="chart-box"><canvas id="chartCommodity"></canvas></div>
+      <figcaption>Source: TTB Statistical Release TTB S 5630, Tax Collections, cumulative summary, FY 2025 final. Special occupational tax and unclassified collections, under 0.1 percent combined, are not shown.</figcaption>
+    </figure>
+    <div class="statrow" id="commodityStats"></div>
+  </section>
+
+  <!-- ALCOHOL -->
+  <section id="alcohol">
+    <h2>Alcohol production</h2>
+    <p>TTB's operational reports track what the country actually makes and sends to the taxed market. Beer removals fell 21 percent from 2015 to 2025. Wine production dropped from its 2017 peak of 890 million gallons to 559 million. Whisky production more than doubled through 2023, then gave back nearly a third in two years.</p>
+    <div class="controls" id="alcToggle" role="group" aria-label="Choose a product"></div>
+    <figure class="chart">
+      <p class="chart-title" id="alcTitle"></p>
+      <div class="chart-box"><canvas id="chartAlcohol"></canvas></div>
+      <figcaption id="alcSource"></figcaption>
+    </figure>
+    <p class="note"><strong>On the 2025 spirits gap:</strong> TTB redacts the 2025 national total for distilled-spirits taxable withdrawals to avoid disclosing proprietary data. It appears here as a break in the line, not an estimate. Nothing redacted on this page was imputed.</p>
+  </section>
+
+  <!-- TOBACCO -->
+  <section id="tobacco">
+    <h2>Tobacco, the shrinking base</h2>
+    <p>Tobacco built this tax base and is now shrinking it. Collections fell from $14.5 billion in FY 2015 to $8.9 billion in FY 2025, a $5.5 billion drop that outweighs TTB's entire net decline; rising spirits collections offset part of it. The federal rate has held at $1.01 a pack since 2009, so the fall is volume: taxed cigarettes more than halved after 2012.</p>
+    <figure class="chart">
+      <div class="chart-box"><canvas id="chartTobacco"></canvas></div>
+      <figcaption>Source: TTB National Statistical Report, Tobacco, yearly open data, taxable removals including Puerto Rico, calendar years 2012 to 2025.</figcaption>
+    </figure>
+  </section>
+
+  <!-- INDUSTRY -->
+  <section id="industry">
+    <h2>The regulated industry</h2>
+    <p>Volumes fell, but the number of licensed producers climbed. A TTB permit is the price of entry, and entry boomed: registered breweries are up sixfold since 2010, distillery permits more than fivefold since 2012, and bonded wine producers roughly doubled.</p>
+    <p class="hint">Click or tap a label in the key to hide or show a line.</p>
+    <figure class="chart">
+      <div class="chart-box"><canvas id="chartPermits"></canvas></div>
+      <figcaption>Source: TTB National Revenue Center brewery and bonded-wine counts (continental United States) and TTB Distilled Spirits Permit Counts (beverage alcohol permits). Counts are at end of calendar year.</figcaption>
+    </figure>
+    <p class="note"><strong>Permit counts and producer counts differ, and both are right.</strong> Permits count every premises authorized to operate; production charts count only those that filed reports that year. In 2024, 15,166 breweries were registered and 7,888 filed reports.</p>
+  </section>
+
+  <!-- NOTES -->
+  <section id="notes">
+    <h2>Notes on the data</h2>
+    <ul class="notelist">
+      <li><strong>Sources.</strong> Collections come from TTB Statistical Release TTB S 5630. Production and removals come from the TTB National Statistical Reports for beer (S 5130), wine (S 5120), distilled spirits (S 5110), and tobacco. Permit counts come from TTB National Revenue Center reports and the Distilled Spirits Permit Counts report. All files are current as of late June 2026, from <a href="https://www.ttb.gov/data" rel="noopener">ttb.gov/data</a>.</li>
+      <li><strong>Two totals.</strong> Collections come from statistical releases TTB labels unofficial; official revenue appears in the annual report. The all-in total includes import excise collected by U.S. Customs and Border Protection; the domestic total does not.</li>
+      <li><strong>Years differ by dataset.</strong> Collections use the federal fiscal year, October through September. Production, removals, and permit counts use calendar years.</li>
+      <li><strong>Units.</strong> A barrel of beer is 31 gallons. Wine is measured in wine gallons; spirits in proof gallons. Dollar figures are nominal and not adjusted for inflation.</li>
+      <li><strong>Suppression.</strong> Where a national total would reveal proprietary data, TTB redacts it. The 2025 spirits taxable-withdrawals total is redacted and shown as a gap. No redacted value here was estimated.</li>
+      <li><strong>Coverage.</strong> Brewery and bonded-wine counts cover the continental United States only. TTB publishes no volume by brand or company, so none appears here.</li>
+    </ul>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2>About this page</h2>
+    <p>I am Juliette Gudknecht, the data steward for IDEA Section 618 at the U.S. Department of Education, the national data collections behind special education for more than eight million students. I manage two of the collections end to end, support ten more, co-author the OSEP Fast Facts data stories, and build the automated quality checks behind the published numbers.</p>
+    <p>I built this page from TTB's public files to show how I work with federal data: named sources, reconciled definitions, explained discrepancies, and honest gaps. TTB publishes far more than one page can hold.</p>
+    <p class="contact">Reach me at <a href="mailto:juliettegudknecht14@gmail.com">juliettegudknecht14@gmail.com</a>.</p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>TTB by the Numbers. Built entirely from public data published by the Alcohol and Tobacco Tax and Trade Bureau at <a href="https://www.ttb.gov/data" rel="noopener">ttb.gov/data</a>. Tax collections through FY 2025; industry statistics through calendar year 2025.</p>
+    <p class="fine">An independent presentation of public data, not affiliated with or endorsed by TTB or the Department of the Treasury. Views are my own.</p>
+  </div>
+</footer>
+
+<script src="chart.umd.min.js?v=1"></script>
+<script src="data.js?v=1"></script>
+<script src="app.js?v=1"></script>
+</body>
+</html>
