@@ -762,11 +762,11 @@ a:hover{ color:var(--gold-bright); }
 /* ---- the 1920 card: a bare-bulb speakeasy back room, not a gradient panel ---- */
 .sk-lamp{ display:none; }
 .story-card.speakeasy{
-  padding-top:56px; color:#e4d3a4;
+  padding-top:58px; color:#e4d3a4;
   background-color:#231607;
   background-image:
-    /* the warm pool the bulb throws, uneven and top-weighted */
-    radial-gradient(82% 44% at 50% 1%, rgba(246,201,113,.36), rgba(246,201,113,.06) 42%, transparent 70%),
+    /* the warm pool the bulb throws, uneven and top-weighted (kept soft, not glossy) */
+    radial-gradient(82% 46% at 50% 1%, rgba(246,201,113,.30), rgba(246,201,113,.06) 44%, transparent 72%),
     /* dark wainscot boards: a deep groove and a thin catch-light per seam */
     repeating-linear-gradient(90deg, rgba(0,0,0,.46) 0 2px, rgba(255,238,196,.04) 2px 4px, transparent 4px 56px),
     /* faint vertical grain */
@@ -774,15 +774,17 @@ a:hover{ color:var(--gold-bright); }
     /* board tone drifting across the wall */
     linear-gradient(90deg, #2c1c0c, #21140a 42%, #2b1b0c 82%, #1d1107);
   border:2px solid #5c451d; border-radius:3px;
-  box-shadow:0 0 0 5px rgba(18,12,5,.6), 0 26px 64px rgba(0,0,0,.68),
-    inset 0 0 120px rgba(0,0,0,.62), inset 0 3px 0 rgba(255,225,160,.06);
+  /* the two inset rings are a matte deco frame that stays put as the card scrolls */
+  box-shadow:0 0 0 5px rgba(18,12,5,.6), 0 22px 54px rgba(0,0,0,.58),
+    inset 0 0 0 7px rgba(28,18,8,.5), inset 0 0 0 8px rgba(163,133,46,.44),
+    inset 0 0 120px rgba(0,0,0,.5), inset 0 3px 0 rgba(255,225,160,.05);
 }
 .story-card.speakeasy::before{ content:none; }   /* drop the old peephole slot */
 .story-card.speakeasy .sk-lamp{
-  display:block; position:absolute; top:0; left:50%; width:34px; transform:translateX(-50%);
+  display:block; position:absolute; top:0; left:50%; width:38px; transform:translateX(-50%);
   pointer-events:none; z-index:3;
 }
-.story-card.speakeasy .sk-lamp svg{ display:block; width:100%; height:auto; filter:drop-shadow(0 0 13px rgba(246,201,113,.78)); }
+.story-card.speakeasy .sk-lamp svg{ display:block; width:100%; height:auto; filter:drop-shadow(0 0 8px rgba(246,201,113,.55)); }
 .modal.open .story-card.speakeasy .sk-lamp{ animation:lampOn 1.2s ease both; }
 @keyframes lampOn{ 0%{ opacity:.12; } 14%{ opacity:1; } 22%{ opacity:.42; } 32%{ opacity:1; } 100%{ opacity:1; } }
 .modal.open .story-card.speakeasy{ animation:speakIn .55s ease both; }
@@ -983,6 +985,7 @@ a:hover{ color:var(--gold-bright); }
   animation:stampSlam .5s cubic-bezier(.15,1.4,.4,1) .15s forwards;
 }
 .story-card .stamp small{ font-size:.34em; letter-spacing:.2em; margin-top:4px; }
+.story-card.speakeasy .stamp{ font-size:18px; }
 .story-card.has-stamp h4{ padding-right:130px; }
 @media (max-width:520px){
   .story-card #stStamp{ position:static; text-align:left; margin-bottom:10px; }

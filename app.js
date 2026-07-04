@@ -540,9 +540,17 @@
 
   /* the funnel pours on demand: pick a product in the waffle above and its
      own share pours out of the full FY 2025 take */
-  function pourFunnel(catKey) {
+  function pourFunnel(catKey, force) {
     var box = document.getElementById("waffleFunnel");
     if (!box) return;
+    /* a second click on the same product folds the funnel back away */
+    if (!force && box.dataset.cat === catKey && !box.hidden) {
+      box.classList.remove("pour");
+      box.hidden = true;
+      box.dataset.cat = "";
+      box.innerHTML = "";
+      return;
+    }
     var li = TAX.years.length - 1;
     var totalK = TAX.totalTaxCollections[li];
     var LBL = { distilledSpirits: "Distilled spirits", wine: "Wine", beer: "Beer", tobacco: "Tobacco", firearms: "Firearms and ammunition" };
@@ -632,6 +640,7 @@
     }
     var last = stages[stages.length - 1];
     box.hidden = false;
+    box.dataset.cat = catKey;
     box.classList.remove("pour");
     box.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + y + '" role="img" aria-label="Funnel chart. In FY 2025, ' +
       bill(totalK) + ' in total collections narrows to ' + bill(last.value) + ' from ' + last.label.toLowerCase() + '.">' + parts.join("") + '</svg>';
@@ -1222,7 +1231,7 @@
         var b = el.querySelector(".bn-btn");
         if (b && b.textContent.indexOf("match") >= 0) setTimeout(function () { b.click(); }, 700);
       }
-      if (s.id === "waffleShare") pourFunnel("distilledSpirits");
+      if (s.id === "waffleShare") pourFunnel("distilledSpirits", true);
       card.querySelector("#pourText").textContent = s.text;
       card.querySelector("#pourStep").textContent = (n + 1) + " of " + stops.length;
       card.querySelector("#pourNext").textContent = n === stops.length - 1 ? "Finish" : "Next";
