@@ -237,7 +237,7 @@
     });
 
     var seq = Promise.resolve();
-    var holds = { "rs": 2600, "1": 1500, "2": 1900, "5": 2000 };
+    var holds = { "rs": 1400, "1": 900, "2": 1000, "5": 1100 };
     scenes.forEach(function (scene) {
       seq = seq.then(function () {
         if (myRun.aborted) return;
@@ -250,7 +250,7 @@
              outlaws crack the plank, THAT is when the record drops, the
              message goes up in red paint, and three rounds sign the work */
           var cardR = scene.querySelector(".card");
-          return iwait(1700, myRun).then(function () {
+          return iwait(1100, myRun).then(function () {
             if (!myRun.aborted) {
               cardR.classList.add("go-rebel");
               startHouseMusic();
@@ -278,16 +278,16 @@
               k++;
               if (myRun.aborted || k >= vals.length) { clearInterval(t); r(); return; }
               leaderTick(vals[k]);
-            }, 800);
+            }, 550);
             introTimeouts.push(t);
-          }).then(function () { return iwait(600, myRun); });
+          }).then(function () { return iwait(400, myRun); });
         }
         if (scene.dataset.scene === "2") {
           /* one long take: 1919, then the two stamps land in turn, no scene cuts */
           spawnBubbles(scene, 26);
           var card2 = scene.querySelector(".card");
           var ts = scene.querySelectorAll(".typed");
-          return typeText(ts[0], ts[0].dataset.type, 14, myRun, true)
+          return typeText(ts[0], ts[0].dataset.type, 16, myRun, true)
             .then(function () { return iwait(800, myRun); })
             .then(function () {
               if (!myRun.aborted) {
@@ -296,7 +296,7 @@
               }
               return iwait(950, myRun);
             })
-            .then(function () { return typeText(ts[1], ts[1].dataset.type, 14, myRun, true); })
+            .then(function () { return typeText(ts[1], ts[1].dataset.type, 16, myRun, true); })
             .then(function () { return iwait(500, myRun); })
             /* the arrow draws its way across first, then the green stamp lands */
             .then(function () { if (!myRun.aborted) card2.classList.add("go-arrow"); return iwait(1250, myRun); })
@@ -308,13 +308,13 @@
               }
               return iwait(950, myRun);
             })
-            .then(function () { return typeText(ts[2], ts[2].dataset.type, 14, myRun, true); })
+            .then(function () { return typeText(ts[2], ts[2].dataset.type, 16, myRun, true); })
             .then(function () { return iwait(holds["2"] || 1900, myRun); });
         }
         return Promise.resolve().then(function () {
           if (myRun.aborted) return;
           var t = scene.querySelector(".typed");
-          return t ? typeText(t, t.dataset.type, 14, myRun, true) : null;
+          return t ? typeText(t, t.dataset.type, 16, myRun, true) : null;
         }).then(function () {
           return iwait(holds[scene.dataset.scene] || 1400, myRun);
         });
@@ -324,6 +324,7 @@
   }
 
   document.getElementById("skipIntro").addEventListener("click", function () { endIntro(true); });
+  document.getElementById("replayIntro").addEventListener("click", playIntro);
 
   /* ============================================================
      Count-ups, typewriter kickers, reveals (armed after the intro)
@@ -945,8 +946,18 @@
         '<text class="cs-arrow-tag" x="298" y="-8" text-anchor="middle" transform="rotate(-4 298 -8)">down ' + dropPct + '%<tspan class="cs-why-hint" dx="9">why?</tspan></text>' +
       '</g>'
     );
-    box.innerHTML = '<svg viewBox="0 -48 680 288" role="img" aria-label="Total collections per fiscal year as coin stacks, falling from $25.5 billion in FY 2015 to $20.6 billion in FY 2025. A red arrow marks the drop; select it for why collections fell.\">' + parts.join("") + '</svg>';
-    /* the red arrow answers the section's question: select it for why the take fell */
+    box.innerHTML = '<svg viewBox="0 -48 680 288" role="img" aria-label="Total collections per fiscal year as coin stacks, falling from $25.5 billion in FY 2015 to $20.6 billion in FY 2025. A red arrow marks the drop; select it for why collections fell, or select the coins for the counting room.">' + parts.join("") + '</svg>';
+    /* the stacks are the door to the counting room */
+    box.style.cursor = "pointer";
+    box.setAttribute("role", "button");
+    box.tabIndex = 0;
+    box.setAttribute("aria-label", "Open the counting room: TTB money facts");
+    box.addEventListener("click", function () { openBank(); });
+    box.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openBank(); }
+    });
+    /* the red arrow answers a different question than the coins: click it for
+       WHY the take fell, not the counting room */
     var whyEl = box.querySelector(".cs-why");
     if (whyEl) {
       whyEl.addEventListener("click", function (e) { e.stopPropagation(); openWhy(); });
@@ -1166,6 +1177,16 @@
       { id: "tab", text: "That is the briefing. Every figure here traces to a named TTB release, every disagreement between totals is explained in place, and every redaction shows as a gap, never a guess. That is how I work with federal data. The receipt has the sources, and the barkeep has my email." }
     ];
     var card = null, at = -1;
+    /* the tour asks for quiet: no record spinning, no floating buttons */
+    function hushTheHouse() {
+      wantPlay = false;
+      try { if (ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo(); } catch (e) {}
+      jukebox.classList.remove("playing");
+      pauseUI(false);
+      var wc = document.getElementById("wallboxCard");
+      if (wc) wc.classList.remove("playing");
+      markTrackRows(false);
+    }
     function ensureCard() {
       if (card) return;
       card = document.createElement("div");
@@ -1217,7 +1238,7 @@
       card.querySelector(".pg-liq").style.transform = "scaleY(" + ((n + 1) / stops.length) + ")";
       card.classList.add("open");
     }
-    btn.addEventListener("click", function () { go(0); });
+    btn.addEventListener("click", function () { hushTheHouse(); go(0); });
   })();
 
   function mugSVG(frac) {
@@ -2105,7 +2126,15 @@
     }
   });
 
-  /* the "down 19%, why?" tag on the coin chart opens the reason card */
+  /* ============================================================
+     The counting room: a one-armed bandit that pays out in facts
+     ============================================================ */
+  var bankPull;
+  function openBank() {
+    openModal("bankModal");
+    if (bankPull) bankPull();
+  }
+  /* the "down 19%, why?" tag on the coin chart opens the reason, not the room */
   function openWhy() { openModal("whyModal"); }
 
   /* the working notes live behind a chip above the receipt */
@@ -2125,6 +2154,76 @@
     });
   })();
 
+  (function buildBank() {
+    var lever = document.getElementById("bkLever");
+    if (!lever) return;
+    var reels = [document.getElementById("bkR1"), document.getElementById("bkR2"), document.getElementById("bkR3")];
+    var payout = document.getElementById("bkPayout");
+    var coinsBox = document.getElementById("bkCoins");
+    function sym(inner) {
+      return '<svg viewBox="0 0 24 24" aria-hidden="true">' + inner + '</svg>';
+    }
+    var SYMS = [
+      /* coin */ sym('<circle cx="12" cy="12" r="9" fill="#c9a227" stroke="#7a5410" stroke-width="1.6"/><text x="12" y="16" text-anchor="middle" font-size="11" fill="#59462f" font-family="Limelight,serif">$</text>'),
+      /* horseshoe */ sym('<path d="M5 4 C4 12 7 18 12 19 C17 18 20 12 19 4" fill="none" stroke="#96551b" stroke-width="2.6" stroke-linecap="round"/><path d="M3.5 4 h3 M17.5 4 h3" stroke="#96551b" stroke-width="2.2"/>'),
+      /* star */ sym('<path d="M12 3l1.9 6.3L20 11l-6.1 1.7L12 19l-1.9-6.3L4 11l6.1-1.7Z" fill="#b3702d"/>'),
+      /* mug */ sym('<path d="M7 5h8v14H7z" fill="#c9a227" stroke="#59462f" stroke-width="1.4"/><path d="M15 9h2.6a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H15" fill="none" stroke="#59462f" stroke-width="1.4"/><path d="M7 8.5h8" stroke="#f6edd6" stroke-width="1.6"/>')
+    ];
+    var decadeK = TAX.totalTaxCollections.reduce(function (t, v) { return t + v; }, 0);
+    var FACTS = [
+      { t: "The bronze medal", d: "TTB is the federal government's third-biggest revenue-collecting agency, behind only the IRS and U.S. Customs and Border Protection." },
+      { t: "The decade in that chart", d: "Add up all eleven stacks of coins and the take comes to $" + (decadeK / 1e6).toFixed(1) + " billion, FY 2015 through FY 2025." },
+      { t: "A day at this bar", d: "FY 2025's $20.6 billion works out to about $56 million walking through the door every single day." },
+      { t: "The best bet in the house", d: "Every dollar TTB spent running its collection program in FY 2025 brought $199 back to the Treasury. The house always wins, and the house is you." },
+      { t: "The hunters' jackpot", d: "The firearms and ammunition excise tax never sits in the vault: every dollar is transferred to the Wildlife Restoration Trust Fund under the Pittman-Robertson Act of 1937." },
+      { t: "A lean outfit", d: "About 500 TTB employees keep the books on more than 132,000 authorized industry members. That is roughly one bookkeeper to every 260 businesses." }
+    ];
+    var pullN = -1, spinning = false;
+    function dropCoins() {
+      if (reduced) return;
+      for (var i = 0; i < 10; i++) {
+        var c = document.createElement("i");
+        c.style.left = (6 + Math.random() * 88) + "%";
+        c.style.animationDelay = (Math.random() * 0.5) + "s";
+        coinsBox.appendChild(c);
+        setTimeout(function (el) { return function () { el.remove(); }; }(c), 1900);
+      }
+      for (var k = 0; k < 6; k++) setTimeout(coinClink, 120 + k * 130);
+    }
+    bankPull = function pull() {
+      if (spinning) return;
+      spinning = true;
+      pullN = (pullN + 1) % FACTS.length;
+      var landSym = SYMS[pullN % SYMS.length];
+      payout.classList.remove("show");
+      function land() {
+        var f = FACTS[pullN];
+        payout.innerHTML = '<p class="bk-ft">' + f.t + '</p><p>' + f.d + '</p>';
+        payout.classList.add("show");
+        dropCoins();
+        spinning = false;
+      }
+      if (reduced) {
+        reels.forEach(function (r) { r.innerHTML = landSym; });
+        land();
+        return;
+      }
+      reels.forEach(function (r, i) {
+        r.classList.add("spin");
+        var iv = setInterval(function () {
+          r.innerHTML = SYMS[Math.floor(Math.random() * SYMS.length)];
+        }, 70);
+        setTimeout(function () {
+          clearInterval(iv);
+          r.innerHTML = landSym;
+          r.classList.remove("spin");
+          coinClink();
+          if (i === reels.length - 1) land();
+        }, 600 + i * 320);
+      });
+    };
+    lever.addEventListener("click", bankPull);
+  })();
 
   var lgNum = function (v) {
     if (v == null) return "redacted";
@@ -2465,10 +2564,177 @@
     srcEl.appendChild(btn);
   });
 
+  /* ============================================================
+     Jukebox: the beer mug in the corner runs the music
+     (YouTube IFrame API, loaded on demand)
+     ============================================================ */
+  var ytPlayer = null, ytLoading = false, wantPlay = false;
+  var jukebox = document.getElementById("jukebox");
+  var currentVideo = "eKrJ6hb5Poo"; /* A-1 leads the card */
 
-  /* Roll film: if the speakeasy door is locked, wait for the password,
-     then play the brief title card. The house music was removed. */
-  function startHouseMusic() {}
+  /* a one-tap pause riding on the mug, so stopping the record is easy */
+  var jbPause = document.createElement("button");
+  jbPause.id = "jbPause";
+  jbPause.type = "button";
+  jbPause.setAttribute("aria-label", "Pause or resume the music");
+  jbPause.title = "Pause or resume the music";
+  jbPause.innerHTML =
+    '<svg class="jp-pause" width="13" height="13" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 2h3v10H3zM8 2h3v10H8z" fill="currentColor"/></svg>' +
+    '<svg class="jp-play" width="13" height="13" viewBox="0 0 14 14" aria-hidden="true"><path d="M4 2l9 5-9 5z" fill="currentColor"/></svg>';
+  document.body.appendChild(jbPause);
+  /* a twin pause riding the corner of the intro reel */
+  var introPause = document.createElement("button");
+  introPause.id = "introPause";
+  introPause.type = "button";
+  introPause.setAttribute("aria-label", "Pause or resume the music");
+  introPause.title = "Pause or resume the music";
+  introPause.innerHTML =
+    '<svg class="jp-pause" width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 2h3v10H3zM8 2h3v10H8z" fill="currentColor"/></svg>' +
+    '<svg class="jp-play" width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M4 2l9 5-9 5z" fill="currentColor"/></svg>' +
+    '<span class="jp-t jp-t-pause">Pause the music</span>' +
+    '<span class="jp-t jp-t-play">Play the music</span>';
+  intro.appendChild(introPause);
+  function pauseUI(on) {
+    jbPause.classList.toggle("playing", on);
+    introPause.classList.toggle("playing", on);
+  }
+  function toggleMusic(ev) {
+    ev.stopPropagation();
+    ensureAudio();
+    if (jukebox.classList.contains("playing")) {
+      wantPlay = false;
+      if (ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo();
+      jukebox.classList.remove("playing");
+      pauseUI(false);
+      document.getElementById("wallboxCard").classList.remove("playing");
+      markTrackRows(false);
+    } else {
+      wantPlay = true;
+      if (!ytPlayer) loadMusic();
+      else if (ytPlayer.playVideo) ytPlayer.playVideo();
+      jukebox.classList.add("playing");
+      pauseUI(true);
+    }
+  }
+  jbPause.addEventListener("click", toggleMusic);
+  introPause.addEventListener("click", toggleMusic);
+
+  function markTrackRows(playing) {
+    document.querySelectorAll(".wb-track").forEach(function (btn) {
+      btn.classList.toggle("on", playing && btn.dataset.video === currentVideo);
+    });
+  }
+
+  window.onYouTubeIframeAPIReady = function () {
+    ytPlayer = new YT.Player("ytHolder", {
+      videoId: currentVideo,
+      playerVars: { controls: 0, disablekb: 1 },
+      events: {
+        onReady: function (e) {
+          e.target.setVolume(55);
+          if (wantPlay) e.target.playVideo();
+          /* if the browser refused to autoplay, stop pretending but keep the
+             intent: the first tap anywhere (tryResume) starts the record */
+          setTimeout(function () {
+            var st = ytPlayer && ytPlayer.getPlayerState();
+            if (st !== YT.PlayerState.PLAYING && st !== YT.PlayerState.BUFFERING) {
+              jukebox.classList.remove("playing");
+              pauseUI(false);
+              markTrackRows(false);
+            }
+          }, 2500);
+        },
+        onStateChange: function (e) {
+          if (e.data === YT.PlayerState.ENDED && wantPlay) { ytPlayer.playVideo(); return; } /* spin it again */
+          /* only definitive states move the needle; buffering and cueing
+             mid-load were flapping the play/pause labels */
+          if (e.data !== YT.PlayerState.PLAYING && e.data !== YT.PlayerState.PAUSED && e.data !== YT.PlayerState.ENDED) return;
+          var playing = e.data === YT.PlayerState.PLAYING;
+          jukebox.classList.toggle("playing", playing);
+          pauseUI(playing);
+          document.getElementById("wallboxCard").classList.toggle("playing", playing);
+          markTrackRows(playing);
+        }
+      }
+    });
+  };
+
+  function loadMusic() {
+    if (ytLoading) return;
+    ytLoading = true;
+    var s = document.createElement("script");
+    s.src = "https://www.youtube.com/iframe_api";
+    document.head.appendChild(s);
+  }
+
+  /* the mug opens the jukebox; each record row plays its side */
+  jukebox.addEventListener("click", function (ev) {
+    ev.stopPropagation();
+    ensureAudio();
+    var playing = jukebox.classList.contains("playing");
+    document.getElementById("wallboxCard").classList.toggle("playing", playing);
+    markTrackRows(playing);
+    openModal("wallboxModal");
+  });
+  document.querySelectorAll(".wb-track").forEach(function (btn) {
+    btn.addEventListener("click", function (ev) {
+      ev.stopPropagation();
+      ensureAudio();
+      wantPlay = true;
+      var id = btn.dataset.video;
+      if (!ytPlayer) { currentVideo = id; loadMusic(); }
+      else if (currentVideo !== id) { currentVideo = id; ytPlayer.loadVideoById(id); }
+      else if (ytPlayer.getPlayerState() !== YT.PlayerState.PLAYING) { ytPlayer.playVideo(); }
+      jukebox.classList.add("playing");
+      document.getElementById("wallboxCard").classList.add("playing");
+      markTrackRows(true);
+    });
+  });
+  document.getElementById("wbStop").addEventListener("click", function (ev) {
+    ev.stopPropagation();
+    wantPlay = false;
+    if (ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo();
+    jukebox.classList.remove("playing");
+    pauseUI(false);
+    document.getElementById("wallboxCard").classList.remove("playing");
+    markTrackRows(false);
+  });
+  document.getElementById("wbClose").addEventListener("click", function (ev) {
+    ev.stopPropagation();
+    closeModals();
+  });
+
+  /* blocked autoplay fallback: the first gesture anywhere starts the record,
+     unless the user has paused it on purpose (wantPlay false) */
+  function tryResume() {
+    if (!wantPlay || !ytPlayer || !ytPlayer.getPlayerState) return;
+    var st = ytPlayer.getPlayerState();
+    if (st !== YT.PlayerState.PLAYING && st !== YT.PlayerState.BUFFERING) ytPlayer.playVideo();
+  }
+  document.addEventListener("pointerdown", tryResume);
+  document.addEventListener("keydown", tryResume);
+
+  /* ============================================================
+     Roll film. If the speakeasy door is locked, wait for the
+     password; the unlock click also unlocks audio and starts
+     the record player.
+     ============================================================ */
+  /* the record waits for its cue: the REPEALED stamp in the reel
+     (or the skip button, whichever the guest reaches first) */
+  var musicStarted = false;
+  function startHouseMusic() {
+    if (musicStarted) return;
+    /* the guest chose at the door; stay quiet unless they asked for the band */
+    var soundPref = "off";
+    try { soundPref = sessionStorage.getItem("ttbSound") || "off"; } catch (e) {}
+    if (soundPref !== "on") return;
+    musicStarted = true;
+    wantPlay = true;
+    if (!ytPlayer) loadMusic();
+    else if (ytPlayer.playVideo) ytPlayer.playVideo();
+    jukebox.classList.add("playing");
+    pauseUI(true);
+  }
 
   if (document.documentElement.classList.contains("locked")) {
     window.addEventListener("speakeasyUnlocked", function () {

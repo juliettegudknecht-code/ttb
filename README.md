@@ -1,6 +1,6 @@
 # TTB by the Numbers
 
-A prohibition-era picture show, with data. One page, dressed in a 1920s speakeasy look, telling the story of the Alcohol and Tobacco Tax and Trade Bureau through its own published numbers. Inside you will find a century of tax rates, a decade of collections, and the slow fade of beer, wine, and tobacco volumes. A brief title card opens the show, and from there it is all charts, drawn figures, and sourced tables.
+A prohibition-era picture show, with data. One page, dressed as a 1920s silent film, telling the story of the Alcohol and Tobacco Tax and Trade Bureau through its own published numbers. Inside you will find a century of tax rates, a decade of collections, and the slow fade of beer, wine, and tobacco volumes. A typewriter narrates, a NO BEER stamp slams, and a beer-mug jukebox in the corner spins the house record.
 
 ## The door
 
