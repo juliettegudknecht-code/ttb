@@ -2048,3 +2048,53 @@ button:focus-visible, a:focus-visible, summary:focus-visible,
   outline:2px dashed #7a5410; outline-offset:3px;
 }
 
+
+
+/* ================= less animations (v83): the site's own reduced-motion
+   rules, applied for every visitor, plus the last few ambient loops.
+   The picture-show intro is hidden, scroll reveals show still, coin
+   drops / dividers / watermarks / stamps / the tap pour all freeze. */
+.scene.on{ animation:none; clip-path:none; }
+  .scene[data-scene="rs"].on .roadcard{ animation:none; }
+.era-arrow{ opacity:.9; }
+  .era-arrow .ea-line{ stroke-dashoffset:0; animation:none; }
+  .era-arrow .ea-head{ opacity:1; animation:none; }
+#intro .stamp{ animation:none !important; opacity:1; transform:rotate(-9deg) scale(1); }
+.section + .section::after, .wm{ animation:none; }
+.bk-coins i{ animation:none; display:none; }
+  .bk-payout{ transition:none; }
+.modal.open .story-card.speakeasy, .modal.open .story-card.speakeasy .sk-lamp{ animation:none; }
+  .story-card.speakeasy .sk-lamp{ opacity:1; }
+.corner-lights i{ animation:none; }
+.callout .co-jug, .callout .co-hat{ animation:none; transform:rotate(4deg); }
+.story-card .stamp{ animation:none; opacity:1; transform:rotate(-11deg) scale(1); }
+.tp-stream{ animation:none; transform:scaleY(0); }
+  .tp-liq{ animation:none; transform:scaleY(1); }
+  .tp-f1, .tp-f2, .tp-f3{ animation:none; opacity:1; }
+.tap-liq{ transition:none; }
+  .tap-item.on .tap-ping{ animation:none; opacity:0; }
+.burn .bn-smoke path{ animation:none; }
+.burn.striking #bnMatch, .burn.striking #bnFlame{ animation:none; }
+.svgfig .sc-beam{ transition:none; }
+.reveal .cs-coin{ transition:none; opacity:1; transform:none; }
+.reveal .cs-arrow-line{ stroke-dashoffset:0; transition:none; }
+  .reveal .cs-arrow-head, .reveal .cs-arrow-tag{ opacity:1; transition:none; }
+.receipt.reveal .rc-sig, .receipt.reveal.in .rc-sig{ clip-path:none; transition:none; }
+  .receipt.reveal.in .rc-pen{ animation:none; opacity:0; }
+.receipt.reveal .rc-stamp, .receipt.reveal.in .rc-stamp{ animation:none; opacity:.95; }
+.marquee-ico{ animation:none; }
+.alc-funnel .fn-step{ transition:none; opacity:1; transform:none; }
+html{ scroll-behavior:auto; }
+  .reveal{ opacity:1; transform:none; transition:none; }
+  .waffle i{ transform:scale(1); transition:none; }
+  #intro{ display:none !important; }
+  .tw{ visibility:visible; }
+  .smoke path, .mug-l, .mug-r, .jazz-spark, .bubble, .hat-l, .hat-r, #intro .pony, .cd{ animation:none; }
+  .stamp-wrap .sheriff{ animation:none; opacity:.95; }
+#jukebox.playing .jb-ring, #jukebox.playing .jb-b1, #jukebox.playing .jb-b2{ animation:none; }
+.leader .sweep{ animation:none; }
+/* remaining looping marquee flicker on the main page */
+.marquee-title, .site-footer .the-end{ animation:none; }
+
+/* freeze the gate door-hat sway too (its guard was OS-only) */
+#pwGate .doorhat{ animation:none; }
