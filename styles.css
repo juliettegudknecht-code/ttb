@@ -2054,8 +2054,7 @@ button:focus-visible, a:focus-visible, summary:focus-visible,
    rules, applied for every visitor, plus the last few ambient loops.
    The picture-show intro is hidden, scroll reveals show still, coin
    drops / dividers / watermarks / stamps / the tap pour all freeze. */
-.scene.on{ animation:none; clip-path:none; }
-  .scene[data-scene="rs"].on .roadcard{ animation:none; }
+/* the county-line road-sign scene is intentionally left animating (she asked for that one beat back) */
 .era-arrow{ opacity:.9; }
   .era-arrow .ea-line{ stroke-dashoffset:0; animation:none; }
   .era-arrow .ea-head{ opacity:1; animation:none; }
@@ -2087,7 +2086,6 @@ button:focus-visible, a:focus-visible, summary:focus-visible,
 html{ scroll-behavior:auto; }
   .reveal{ opacity:1; transform:none; transition:none; }
   .waffle i{ transform:scale(1); transition:none; }
-  #intro{ display:none !important; }
   .tw{ visibility:visible; }
   .smoke path, .mug-l, .mug-r, .jazz-spark, .bubble, .hat-l, .hat-r, #intro .pony, .cd{ animation:none; }
   .stamp-wrap .sheriff{ animation:none; opacity:.95; }
@@ -2098,3 +2096,15 @@ html{ scroll-behavior:auto; }
 
 /* freeze the gate door-hat sway too (its guard was OS-only) */
 #pwGate .doorhat{ animation:none; }
+
+/* ================= the house band (v85): hidden player + pause control ===== */
+#ytHolder{ position:fixed; left:-9999px; bottom:0; width:1px; height:1px; opacity:0; pointer-events:none; }
+#musicBtn{
+  position:fixed; left:16px; bottom:16px; z-index:1200; display:inline-flex; align-items:center; gap:8px;
+  padding:8px 13px; cursor:pointer; font-family:var(--type); font-size:11px; letter-spacing:.14em;
+  text-transform:uppercase; color:#e9d8ab; background:#20180c; border:1px solid #574a2c; border-radius:3px;
+  box-shadow:0 4px 12px rgba(20,16,9,.4);
+}
+#musicBtn:hover{ border-color:#d4a017; color:#d4a017; }
+#musicBtn .mb-ico{ font-size:14px; line-height:1; }
+#musicBtn.paused .mb-ico{ opacity:.45; }

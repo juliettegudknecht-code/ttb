@@ -184,7 +184,7 @@
   #pwGate .gs-switch[aria-checked="true"] .gs-knob{ transform:translateX(22px); background:#f3e8cd; }
   #pwGate .gs-switch[aria-checked="true"] .gs-state{ color:#d4a017; }
 </style>
-<link rel="stylesheet" href="styles.css?v=84">
+<link rel="stylesheet" href="styles.css?v=85">
 </head>
 <body>
 
@@ -197,6 +197,14 @@
       <path d="M5 33 C7 27 12 28 16 30 C26 34 50 34 60 30 C64 28 69 27 71 33 C60 42 16 42 5 33 Z" fill="#4a3312" stroke="#c9a227" stroke-width="2.5" stroke-linejoin="round"/>
     </svg>
     <span class="nails" aria-hidden="true"></span>
+    <svg class="knocker" viewBox="0 0 64 56" aria-hidden="true">
+      <g stroke="#241a0b" stroke-width="2.4" stroke-linejoin="round">
+        <rect x="42" y="16" width="16" height="26" rx="3" fill="#4a3312"/>
+        <path d="M10 24 q-3 6 0 12 q1 3 5 4 l24 3 q7 0 7 -6 l0 -14 q0 -6 -7 -6 l-24 3 q-4 1 -5 4 z" fill="#e8c87d"/>
+        <path d="M10 24 q6 -2 10 0 M10 36 q6 2 10 0 M14 30 h8" fill="none" stroke-width="1.8" opacity=".55"/>
+        <path d="M20 40 q10 5 18 2" fill="none" stroke-width="1.8" opacity=".55"/>
+      </g>
+    </svg>
     <div class="slot"></div>
     <h2 id="gateTitle">The door is locked.</h2>
     <p class="ask" id="gateAsk">Howdy, stranger. What's the word?</p>
@@ -207,6 +215,13 @@
     </form>
     <p class="hint" id="gateHint">Psst, friend: the password is what this whole show is made of. Four letters.</p>
     <p class="msg" id="gateMsg"></p>
+    <div class="gate-sound">
+      <span class="gs-label">The house band</span>
+      <button type="button" id="gateSoundBtn" class="gs-switch" role="switch" aria-checked="true" aria-label="Play music when you enter">
+        <span class="gs-track"><span class="gs-knob"></span></span>
+        <span class="gs-state">On</span>
+      </button>
+    </div>
   </div>
 </div>
 <script>
@@ -218,16 +233,50 @@
   var guest='';
   try{ nameOpt.value=sessionStorage.getItem('ttbName')||''; }catch(e){}
   pwInput.focus();
+
+  /* the house-band switch: default ON now (she asked for the music back); off
+     mutes both the record and the knock */
+  var soundBtn=document.getElementById('gateSoundBtn'), soundOn=true;
+  try{ var sv=sessionStorage.getItem('ttbSound'); soundOn=(sv===null)?true:(sv==='on'); }catch(e){}
+  try{ sessionStorage.setItem('ttbSound', soundOn?'on':'off'); }catch(e){}
+  function renderSound(){ if(!soundBtn) return; soundBtn.setAttribute('aria-checked',String(soundOn)); var st=soundBtn.querySelector('.gs-state'); if(st) st.textContent=soundOn?'On':'Off'; }
+  renderSound();
+  if(soundBtn) soundBtn.addEventListener('click',function(){ soundOn=!soundOn; try{ sessionStorage.setItem('ttbSound', soundOn?'on':'off'); }catch(e){} renderSound(); });
+
+  /* two knuckle raps on old wood, only when the band is on */
+  function knockSound(){
+    if(!soundOn) return;
+    try{
+      var C=window.AudioContext||window.webkitAudioContext, ctx=new C();
+      if(ctx.state==='suspended') ctx.resume();
+      [0,0.26].forEach(function(off){
+        var t=ctx.currentTime+0.02+off;
+        var o=ctx.createOscillator(); o.type='sine';
+        o.frequency.setValueAtTime(104,t); o.frequency.exponentialRampToValueAtTime(52,t+0.09);
+        var g=ctx.createGain(); g.gain.setValueAtTime(0.5,t); g.gain.exponentialRampToValueAtTime(0.001,t+0.17);
+        o.connect(g); g.connect(ctx.destination); o.start(t); o.stop(t+0.19);
+      });
+    }catch(e){}
+  }
+
   function finishUnlock(){
     document.documentElement.classList.remove('locked');
+    gate.classList.remove('opening','knocking');
     window.dispatchEvent(new Event('speakeasyUnlocked'));
   }
   function unlock(){
     try{ sessionStorage.setItem('ttbName', guest); }catch(e){}
-    finishUnlock();
+    var reduce=false; try{ reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+    if(reduce){ finishUnlock(); return; }
+    /* knock first, like decent folk, then the door swings open */
+    gate.classList.add('knocking');
+    knockSound();
+    setTimeout(function(){ gate.classList.add('opening'); }, 660);
+    setTimeout(finishUnlock, 1500);
   }
   pwForm.addEventListener('submit', function(ev){
     ev.preventDefault();
+    if(gate.classList.contains('knocking')) return;
     if(pwInput.value.trim().toLowerCase()==='data'){
       guest=(nameOpt.value||'').trim().slice(0,24);
       unlock();
@@ -254,11 +303,25 @@
     <path d="M25 20c3 3 7 4 11 2 M20 35c4 4 10 4 15 0 M33 41c4-2 6-5 7-9 M22 26c2 4 6 6 10 6 M35 22c-1 4-4 7-8 8 M27 14c-2 3-2 7 0 10 M38 30c2 3 2 7-1 10 M17 22c0 4 2 8 6 10" stroke-width=".6" opacity=".5"/>
   </svg>
 
-  <div class="scene" data-scene="5">
-    <div class="card">
-      <div class="deco">The Department of the Treasury presents</div>
-      <div class="marquee-title">TTB<br>BY THE NUMBERS</div>
-      <div class="typed" data-type="Taxes, barrels, and proof gallons, straight from the bureau's own ledgers. Every figure sourced." style="font-size:16px;margin-top:24px"></div>
+  <div class="scene" data-scene="rs">
+    <div class="card roadcard">
+      <div class="rs-half rs-top-half">
+        <div class="rs-top">You are now entering</div>
+        <div class="rs-big">The Prohibition Era</div>
+        <div class="rs-law">saloons shut &middot; stills smashed &middot; not a drop poured &middot; by order of the law</div>
+        <span class="bh bh1" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
+        <span class="bh bh2" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
+        <span class="bh bh3" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
+      </div>
+      <div class="rs-half rs-bot-half" aria-hidden="true">
+        <div class="rs-top">You are now entering</div>
+        <div class="rs-big">The Prohibition Era</div>
+        <div class="rs-law">saloons shut &middot; stills smashed &middot; not a drop poured &middot; by order of the law</div>
+        <span class="bh bh1"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
+        <span class="bh bh2"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
+        <span class="bh bh3"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
+      </div>
+      <div class="rs-paint"><span class="rs-slash">Not here, partner</span><small>the back door's open &middot; come on in</small></div>
     </div>
   </div>
 
@@ -887,8 +950,10 @@
   <span class="pour-label" id="pourLabel">The pour</span>
 </div>
 
+<div id="ytHolder" aria-hidden="true"></div>
+
 <script src="chart.umd.min.js?v=19"></script>
 <script src="data.js?v=20"></script>
-<script src="app.js?v=78"></script>
+<script src="app.js?v=79"></script>
 </body>
 </html>

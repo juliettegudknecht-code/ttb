@@ -195,7 +195,24 @@
   }
 
   function playIntro() {
-    if (reduced) { intro.classList.add("gone"); startHouseMusic(); afterIntro(); return; }
+    if (reduced) {
+      /* the page is kept still, but she asked for one beat back: the county-line
+         road sign. play just that scene, then land on the page. */
+      var rsScene = intro.querySelector('.scene[data-scene="rs"]');
+      if (!rsScene) { intro.classList.add("gone"); startHouseMusic(); afterIntro(); return; }
+      document.body.style.overflow = "hidden";
+      window.scrollTo(0, 0);
+      intro.classList.remove("gone", "iris");
+      void rsScene.offsetWidth;
+      rsScene.classList.add("on");
+      var rsCard = rsScene.querySelector(".card");
+      introTimeouts.push(setTimeout(function () {
+        if (rsCard) rsCard.classList.add("go-rebel"); /* NOT HERE, PARTNER paints on */
+        startHouseMusic();                            /* the record drops after the knock */
+      }, 1600));
+      introTimeouts.push(setTimeout(function () { endIntro(false); }, 4300));
+      return;
+    }
     /* kill any run already in flight before starting a fresh one */
     introAbort.aborted = true;
     introTimeouts.forEach(clearTimeout);
@@ -2467,9 +2484,59 @@
   });
 
 
-  /* Roll film: if the speakeasy door is locked, wait for the password,
-     then play the brief title card. The house music was removed. */
-  function startHouseMusic() {}
+  /* The house band: one quiet YouTube track that starts after the knock, only
+     if the door's sound switch is on, and can be paused any time. */
+  var musicStarted = false, ytPlayer = null, ytLoading = false, musicWantPlay = false;
+  function loadYT() {
+    if (ytLoading) return;
+    ytLoading = true;
+    var s = document.createElement("script");
+    s.src = "https://www.youtube.com/iframe_api";
+    document.head.appendChild(s);
+  }
+  window.onYouTubeIframeAPIReady = function () {
+    if (!document.getElementById("ytHolder")) return;
+    ytPlayer = new YT.Player("ytHolder", {
+      videoId: "dKbPHrJRnE4", /* Shaboozey, A Bar Song (Tipsy) */
+      playerVars: { autoplay: 1, controls: 0, disablekb: 1, playsinline: 1 },
+      events: {
+        onReady: function (e) { try { e.target.setVolume(52); if (musicWantPlay) e.target.playVideo(); } catch (x) {} },
+        onStateChange: function (e) { if (e.data === YT.PlayerState.ENDED) { try { ytPlayer.playVideo(); } catch (x) {} } }
+      }
+    });
+  };
+  function musicControl() {
+    if (document.getElementById("musicBtn")) return;
+    var b = document.createElement("button");
+    b.id = "musicBtn"; b.type = "button";
+    b.setAttribute("aria-label", "Pause or play the house band");
+    b.innerHTML = '<span class="mb-ico" aria-hidden="true">&#9835;</span><span class="mb-txt">Pause the music</span>';
+    b.addEventListener("click", function () {
+      if (!ytPlayer || !ytPlayer.getPlayerState) return;
+      if (ytPlayer.getPlayerState() === 1) {
+        ytPlayer.pauseVideo(); musicWantPlay = false;
+        b.classList.add("paused"); b.querySelector(".mb-txt").textContent = "Play the music";
+      } else {
+        ytPlayer.playVideo(); musicWantPlay = true;
+        b.classList.remove("paused"); b.querySelector(".mb-txt").textContent = "Pause the music";
+      }
+    });
+    document.body.appendChild(b);
+  }
+  function startHouseMusic() {
+    if (musicStarted) return;
+    if (!wantSound()) return; /* the house-band switch at the door is off */
+    musicStarted = true; musicWantPlay = true;
+    musicControl();
+    if (!ytPlayer) loadYT();
+    else try { ytPlayer.playVideo(); } catch (x) {}
+    /* if the browser blocked autoplay, the first tap anywhere starts the record */
+    document.addEventListener("pointerdown", function () {
+      if (musicWantPlay && ytPlayer && ytPlayer.getPlayerState && ytPlayer.getPlayerState() !== 1) {
+        try { ytPlayer.playVideo(); } catch (x) {}
+      }
+    });
+  }
 
   if (document.documentElement.classList.contains("locked")) {
     window.addEventListener("speakeasyUnlocked", function () {
