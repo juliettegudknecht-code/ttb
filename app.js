@@ -448,10 +448,18 @@
   var progress = document.getElementById("progress");
   var pourLiq = document.getElementById("pourLiq");
   var heroSec = document.getElementById("heroSec");
-  window.addEventListener("scroll", function () {
+  var ticket = document.getElementById("ticketNav");
+  /* one update per frame: without this, every scroll event wrote the progress
+     bar and glass and then read the hero's box, forcing a reflow each tick and
+     making a long, chart-heavy page stutter as you scroll. */
+  var scrollTicking = false;
+  function onScrollFrame() {
+    scrollTicking = false;
     var h = document.documentElement;
     var max = h.scrollHeight - h.clientHeight;
     var frac = max > 0 ? h.scrollTop / max : 0;
+    /* read the layout first, then write, so the frame never reflows twice */
+    var pastHero = heroSec ? heroSec.getBoundingClientRect().bottom < 80 : false;
     progress.style.width = frac * 100 + "%";
     if (pourLiq) {
       var full = 20; /* inner mug height in the 34-unit viewBox */
@@ -460,11 +468,14 @@
       pourLiq.setAttribute("y", 27 - lvl);
     }
     /* the ticket waits offstage until the poster has had its moment */
-    if (heroSec) ticket.classList.toggle("show", heroSec.getBoundingClientRect().bottom < 80);
+    if (heroSec) ticket.classList.toggle("show", pastHero);
+  }
+  window.addEventListener("scroll", function () {
+    if (!scrollTicking) { scrollTicking = true; requestAnimationFrame(onScrollFrame); }
   }, { passive: true });
+  onScrollFrame(); /* correct initial state instead of a stale first paint */
 
   /* the programme booklet is the navigation */
-  var ticket = document.getElementById("ticketNav");
   var booklet = document.getElementById("booklet");
   function closeBooklet() {
     booklet.classList.remove("open");
