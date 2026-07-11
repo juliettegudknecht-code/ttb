@@ -1472,7 +1472,8 @@
   var sweep = {
     id: "sweep",
     afterUpdate: function (chart, args) {
-      if (reduced) return;
+      var sw = chart.options && chart.options.plugins && chart.options.plugins.sweep;
+      if (reduced && !(sw && sw.force)) return; /* off everywhere except charts that opt in */
       var mode = args && args.mode;
       if (mode === "resize" || mode === "reset" || mode === "none" || mode === "active") return;
       var n = 0;
@@ -1783,6 +1784,7 @@
         layout: { padding: { bottom: 50 } }, /* room for the timeline lane */
         interaction: { mode: "nearest", intersect: false },
         plugins: {
+          sweep: { force: true }, /* keep the draw-in on the rates chart, per her ask */
           legend: { display: false },
           tooltip: {
             callbacks: {

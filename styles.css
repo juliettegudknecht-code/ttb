@@ -2067,9 +2067,6 @@ button:focus-visible, a:focus-visible, summary:focus-visible,
 .corner-lights i{ animation:none; }
 .callout .co-jug, .callout .co-hat{ animation:none; transform:rotate(4deg); }
 .story-card .stamp{ animation:none; opacity:1; transform:rotate(-11deg) scale(1); }
-.tp-stream{ animation:none; transform:scaleY(0); }
-  .tp-liq{ animation:none; transform:scaleY(1); }
-  .tp-f1, .tp-f2, .tp-f3{ animation:none; opacity:1; }
 .tap-liq{ transition:none; }
   .tap-item.on .tap-ping{ animation:none; opacity:0; }
 .burn .bn-smoke path{ animation:none; }
@@ -2108,3 +2105,10 @@ html{ scroll-behavior:auto; }
 #musicBtn:hover{ border-color:#d4a017; color:#d4a017; }
 #musicBtn .mb-ico{ font-size:14px; line-height:1; }
 #musicBtn.paused .mb-ico{ opacity:.45; }
+
+
+/* footer legal block (v86) */
+.foot-legal{ margin:22px auto 0; max-width:760px; padding-top:16px; border-top:1px solid rgba(165,145,95,.22); }
+.foot-legal p{ font-size:10.5px; line-height:1.7; color:#8a7853; }
+.foot-legal .foot-links{ margin-top:10px; letter-spacing:.06em; }
+.foot-legal a{ color:#a5915f; }

@@ -184,7 +184,7 @@
   #pwGate .gs-switch[aria-checked="true"] .gs-knob{ transform:translateX(22px); background:#f3e8cd; }
   #pwGate .gs-switch[aria-checked="true"] .gs-state{ color:#d4a017; }
 </style>
-<link rel="stylesheet" href="styles.css?v=85">
+<link rel="stylesheet" href="styles.css?v=86">
 </head>
 <body>
 
@@ -531,87 +531,6 @@
         <p class="fig-source" id="puSource"></p>
       </div>
 
-      <div class="fork reveal">
-        <h3 class="fork-ask">Name your poison, partner.</h3>
-        <svg class="fork-lines" viewBox="0 0 320 66" aria-hidden="true">
-          <path d="M160 0 V16"/>
-          <path d="M160 16 C160 46, 56 38, 56 64"/>
-          <path d="M160 16 V64"/>
-          <path d="M160 16 C160 46, 264 38, 264 64"/>
-        </svg>
-        <div class="fork-caps" role="tablist" aria-label="Pick a drink">
-          <button class="cap active" data-path="beer" role="tab" aria-selected="true" aria-controls="path-beer">
-            <span class="cap-disc"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M6 4h9v16H6zM15 8h3a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-3"/><path d="M6 8h9"/></svg></span>
-            <span>Beer</span>
-          </button>
-          <button class="cap" data-path="wine" role="tab" aria-selected="false" aria-controls="path-wine">
-            <span class="cap-disc"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h8c0 5-1 8-4 9v6"/><path d="M8 3c0 5 1 8 4 9"/><path d="M8 21h8"/></svg></span>
-            <span>Wine</span>
-          </button>
-          <button class="cap" data-path="spirits" role="tab" aria-selected="false" aria-controls="path-spirits">
-            <span class="cap-disc"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2h4M12 2v6l5 11a1 1 0 0 1-1 1.4H8A1 1 0 0 1 7 19l5-11"/></svg></span>
-            <span>Spirits</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="path" id="path-beer" role="tabpanel">
-
-      <h3 class="reveal">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h9v16H6zM15 8h3a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-3"/><path d="M6 8h9"/></svg>
-        Beer
-      </h3>
-      <p class="reveal">Brewers removed 139.2 million barrels in 2025, about 4.3 billion gallons and the lowest in the published series.</p>
-
-      <div class="figure reveal">
-        <p class="fig-title">Beer production and taxable removals</p>
-        <p class="fig-sub">Millions of barrels per calendar year</p>
-        <div class="chart-box"><canvas id="chartBeerVol"></canvas></div>
-        <p class="fig-source"><b>Source:</b> TTB National Statistical Report, Beer (TTB S 5130), yearly data, calendar years 2012 to 2025.</p>
-      </div>
-      </div>
-
-      <div class="path" id="path-wine" role="tabpanel" hidden>
-      <h3 class="reveal">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h8c0 5-1 8-4 9v6"/><path d="M8 3c0 5 1 8 4 9"/><path d="M8 21h8"/></svg>
-        Wine
-      </h3>
-      <p class="reveal">Production fell from 890 million gallons at the 2017 peak to 559 million in 2025, and taxable withdrawals have declined every year since 2020.</p>
-
-      <div class="figure reveal">
-        <p class="fig-title">Wine production and taxable withdrawals</p>
-        <p class="fig-sub">Millions of wine gallons per calendar year</p>
-        <div class="chart-box"><canvas id="chartWineVol"></canvas></div>
-        <p class="fig-source"><b>Source:</b> TTB National Statistical Report, Wine (TTB S 5120), yearly data, calendar years 2012 to 2025.</p>
-      </div>
-      </div>
-
-      <div class="path" id="path-spirits" role="tabpanel" hidden>
-      <h3 class="reveal">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2h4M12 2v6l5 11a1 1 0 0 1-1 1.4H8A1 1 0 0 1 7 19l5-11"/></svg>
-        Distilled spirits
-      </h3>
-      <p class="reveal">Whisky production rose from 112 million proof gallons in 2012 to 300 million in 2023, then fell to 207 million. Withdrawals peaked in 2018; TTB redacts the 2025 national total, so that year is a gap.</p>
-
-      <div class="figure reveal">
-        <p class="fig-title">Whisky production and total spirits taxable withdrawals</p>
-        <p class="fig-sub">Millions of proof gallons per calendar year</p>
-        <div class="chart-box"><canvas id="chartSpirits"></canvas></div>
-        <p class="fig-source"><b>Source:</b> TTB National Statistical Report, Distilled Spirits (TTB S 5110), yearly data, calendar years 2012 to 2025. The 2025 national taxable withdrawals total is redacted in the published file; it appears here as a gap, not an estimate.</p>
-      </div>
-
-      <div class="figure reveal">
-        <p class="fig-title">The still and the two pipes</p>
-        <p class="fig-sub">Where the proof gallons go, calendar year 2024</p>
-        <div class="svgfig" id="copperStill"></div>
-        <p class="fig-source"><b>Source:</b> TTB National Statistical Report, Distilled Spirits (TTB S 5110), yearly data, calendar year 2024: total production of distilled spirits (all uses) and taxable withdrawals. The 2025 national withdrawals total is redacted in the published file.</p>
-      </div>
-
-      <div class="callout reveal">
-        <span class="co-badge">Bureau notice</span>
-        <p><b>Why no total production line?</b> Total spirits production was 24.4 billion proof gallons in 2025, but more than 99 percent is neutral and industrial alcohol, fuel ethanol included. The chart sticks to the beverage story.</p>
-      </div>
-      </div>
     </div>
   </section>
 
@@ -809,7 +728,7 @@
 
       <div class="sign-tab reveal">
         <h3>The house <span class="u">picks up the check</span>.</h3>
-        <p>I'm Juliette Gudknecht, the data steward for IDEA Section 618 at the U.S. Department of Education, the national data collections behind special education for more than 8 million students. I manage two of the collections end to end, assist on an additional ten, co-author the OSEP Fast Facts data stories, contribute to the Annual Report to Congress, and build the automated quality checks that stand behind the published numbers.</p>
+        <p>I'm Juliette Gudknecht, the data steward for IDEA Section 618 at the U.S. Department of Education, the national data collections behind special education for more than 8 million students. I manage two of the collections end to end, assist on an additional four, co-author the OSEP Fast Facts data stories, contribute to the IDEA Annual Report to Congress, and build the Python-automated data quality check support code that stands behind enhancing the integrity of the published IDEA 618 collection's numbers.</p>
         <p>This page is how I work with federal data: named sources, reconciled definitions, explained discrepancies, honest gaps. TTB publishes far more than one page can hold, and I would welcome the chance to work with the rest of it.</p>
         <p><b>Feel like settling the tab anyway?</b> Reach out. <a href="mailto:juliettegudknecht14@gmail.com">juliettegudknecht14@gmail.com</a></p>
       </div>
@@ -847,6 +766,12 @@
     <p>Tax collections through FY 2025. Industry statistics through calendar year 2025, as published in files current at the end of June 2026.</p>
     <p class="no-barrels">No barrels were emptied in the making of this website.</p>
     <p>Views here are my own, not my employer's.</p>
+    <div class="foot-legal">
+      <p>&copy; 2026 Juliette Gudknecht. The site's design and code are mine; the figures are public data published by TTB and remain in the public domain.</p>
+      <p><b>Privacy.</b> This site has no accounts and sets no analytics or advertising cookies. The password and the optional first name you enter stay in your browser for the session only and are never transmitted or stored elsewhere. If you switch the house band on, the song is embedded from YouTube, which may set its own cookies while it plays; left off, nothing loads from YouTube.</p>
+      <p>Independent presentation of public data. Not affiliated with or endorsed by TTB or the U.S. Department of the Treasury. Provided as is, without warranty; the official record is TTB's own published releases.</p>
+      <p class="foot-links"><a href="mailto:juliettegudknecht14@gmail.com">Contact</a> &middot; <a href="https://www.ttb.gov/data" rel="noopener">TTB open data</a></p>
+    </div>
   </div>
 </footer>
 
@@ -954,6 +879,6 @@
 
 <script src="chart.umd.min.js?v=19"></script>
 <script src="data.js?v=20"></script>
-<script src="app.js?v=81"></script>
+<script src="app.js?v=82"></script>
 </body>
 </html>
