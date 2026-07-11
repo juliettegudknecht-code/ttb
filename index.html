@@ -184,7 +184,7 @@
   #pwGate .gs-switch[aria-checked="true"] .gs-knob{ transform:translateX(22px); background:#f3e8cd; }
   #pwGate .gs-switch[aria-checked="true"] .gs-state{ color:#d4a017; }
 </style>
-<link rel="stylesheet" href="styles.css?v=86">
+<link rel="stylesheet" href="styles.css?v=89">
 </head>
 <body>
 
@@ -516,7 +516,7 @@
         <div class="kicker tw" data-type="Reel two &middot; Alcohol production"></div>
         <h2>Is America drinking <em>less</em>?</h2>
         <p class="barkeep tw" data-barkeep='"Right this way to the taps."'></p>
-        <p class="intro">TTB's operational reports track what the country actually makes. Beer removals fell 21 percent from 2015 to 2025, wine production 31 percent, and whisky, after doubling to its 2023 peak, gave back 31 percent in two years. The figures here run on calendar years, not the fiscal years the collections use.</p>
+        <p class="intro">TTB's operational reports track what the country actually makes. Beer removals fell 21 percent from 2015 to 2025, and wine production 31 percent. These figures run on calendar years, not the fiscal years the collections use; the firearms tax below is the exception, shown by fiscal year.</p>
       </div>
 
       <div class="figure reveal" id="unitFigure" data-multi="1">
@@ -593,10 +593,10 @@
       </div>
 
       <div class="figure reveal">
-        <p class="fig-title">The surge, quarter by quarter</p>
-        <p class="fig-sub">Millions of dollars per fiscal quarter, FY 2015 to FY 2025</p>
-        <div class="chart-box"><canvas id="chartFaetQ"></canvas></div>
-        <p class="fig-source"><b>Source:</b> TTB Statistical Release TTB S 5630, Tax Collections, final annual cumulative summaries, FY 2015 to FY 2025. FY 2020's third and fourth quarters reflect COVID-era filing postponements that shifted collections into the fourth quarter.</p>
+        <p class="fig-title">The surge, one round per quarter</p>
+        <p class="fig-sub">Firearms and ammunition excise tax collected each fiscal quarter, FY 2015 through FY 2025. Each cartridge stands as tall as that quarter's collection.</p>
+        <div class="svgfig" id="faetAmmo"></div>
+        <p class="fig-source"><b>Source:</b> TTB Statistical Release TTB S 5630, Tax Collections, final annual cumulative summaries, FY 2015 to FY 2025, quarterly detail. FY 2020's third and fourth quarters reflect COVID-era filing postponements that shifted collections into the fourth quarter.</p>
       </div>
 
       <details class="dossier reveal">
@@ -640,10 +640,10 @@
 
       <div class="figure reveal">
         <p class="fig-title">The regulars, on the map</p>
-        <p class="fig-sub">Active federal basic permits by state, from TTB's public permittee lists, April 2025</p>
+        <p class="fig-sub">Active federal basic permits by state, from TTB's public permittee lists, July 2026</p>
         <div class="fig-toggle" id="mapToggle" role="group" aria-label="Choose a permit type"></div>
         <div class="tilemap" id="permitMap"></div>
-        <p class="fig-source"><b>Source:</b> TTB FOIA List of Permittees, April 2025 publication: the alcohol importer, alcohol wholesaler, spirits producer and bottler, and wine producer and blender permit lists, with Puerto Rico counts from the Puerto Rico basic permit list. Counts include the District of Columbia and Puerto Rico. Brewery premises are registered rather than permitted, so breweries do not appear in these lists; see the brewery counts above.</p>
+        <p class="fig-source"><b>Source:</b> TTB FOIA List of Permittees, July 6, 2026 publication: the alcohol importer, alcohol wholesaler, spirits producer and bottler, and wine producer and blender permit lists, with Puerto Rico counts from the Puerto Rico basic permit list. Counts include the District of Columbia and Puerto Rico. Brewery premises are registered rather than permitted, so breweries do not appear in these lists; see the brewery counts above.</p>
       </div>
 
       <h3 class="reveal centered bureau-head">Who's behind the bureau notices?</h3>
@@ -713,9 +713,10 @@
           <li><span>Spirits</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.ttb.gov/regulated-commodities/beverage-alcohol/distilled-spirits/statistics" rel="noopener">TTB S 5110, CY 2012 to 2025</a></span></li>
           <li><span>Tobacco</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.ttb.gov/regulated-commodities/tobacco/tobacco-statistics" rel="noopener">TTB yearly statistics, CY 2012 to 2025</a></span></li>
           <li><span>Permits</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.ttb.gov/data" rel="noopener">TTB permit count reports</a></span></li>
-          <li><span>Permittees</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.ttb.gov/public-information/foia/list-of-permittees" rel="noopener">TTB FOIA lists, April 2025</a></span></li>
+          <li><span>Permittees</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.ttb.gov/public-information/foia/list-of-permittees" rel="noopener">TTB FOIA lists, July 2026</a></span></li>
           <li><span>Agency figures</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.ttb.gov/node/902851" rel="noopener">Annual Reports, FY 2019 to 2025 (no FY 2024)</a></span></li>
           <li><span>Tax rates</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.ttb.gov/taxes/tax-audit/historical-tax-rates" rel="noopener">TTB rate pages, 1910 to present</a></span></li>
+          <li><span>Prohibition history</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.fjc.gov/history" rel="noopener">Federal Judicial Center; Beer Institute</a></span></li>
         </ul>
         <div class="rc-total"><span>Total due</span><span>$0.00</span></div>
         <p class="rc-note">Public data is on the house. Files current at the end of June 2026, all from <a href="https://www.ttb.gov/data" rel="noopener">ttb.gov/data</a>.</p>
@@ -878,7 +879,7 @@
 <div id="ytHolder" aria-hidden="true"></div>
 
 <script src="chart.umd.min.js?v=19"></script>
-<script src="data.js?v=20"></script>
-<script src="app.js?v=82"></script>
+<script src="data.js?v=21"></script>
+<script src="app.js?v=86"></script>
 </body>
 </html>

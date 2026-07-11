@@ -1687,7 +1687,7 @@ a:hover{ color:var(--gold-bright); }
 
 /* ================= the pour: scroll progress as a filling glass ================= */
 #pour{
-  position:fixed; left:16px; bottom:16px; z-index:80; text-align:center;
+  position:fixed; left:16px; bottom:66px; z-index:80; text-align:center;
   pointer-events:none;
 }
 #pour svg{ display:block; margin:0 auto; }
@@ -2069,8 +2069,6 @@ button:focus-visible, a:focus-visible, summary:focus-visible,
 .story-card .stamp{ animation:none; opacity:1; transform:rotate(-11deg) scale(1); }
 .tap-liq{ transition:none; }
   .tap-item.on .tap-ping{ animation:none; opacity:0; }
-.burn .bn-smoke path{ animation:none; }
-.burn.striking #bnMatch, .burn.striking #bnFlame{ animation:none; }
 .svgfig .sc-beam{ transition:none; }
 .reveal .cs-coin{ transition:none; opacity:1; transform:none; }
 .reveal .cs-arrow-line{ stroke-dashoffset:0; transition:none; }
@@ -2097,7 +2095,7 @@ html{ scroll-behavior:auto; }
 /* ================= the house band (v85): hidden player + pause control ===== */
 #ytHolder{ position:fixed; left:-9999px; bottom:0; width:1px; height:1px; opacity:0; pointer-events:none; }
 #musicBtn{
-  position:fixed; right:16px; bottom:16px; z-index:1200; display:inline-flex; align-items:center; gap:8px;
+  position:fixed; left:16px; bottom:16px; z-index:1200; display:inline-flex; align-items:center; gap:8px;
   padding:8px 13px; cursor:pointer; font-family:var(--type); font-size:11px; letter-spacing:.14em;
   text-transform:uppercase; color:#e9d8ab; background:#20180c; border:1px solid #574a2c; border-radius:3px;
   box-shadow:0 4px 12px rgba(20,16,9,.4);

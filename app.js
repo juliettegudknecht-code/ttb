@@ -704,6 +704,14 @@
         '<p>' + item.extra + '</p>' +
         '<a href="' + item.href + '">Jump to that reel</a>';
     }
+    function closeTap() {
+      row.querySelectorAll(".tap-item").forEach(function (b) {
+        b.classList.remove("on");
+        b.setAttribute("aria-pressed", "false");
+      });
+      panel.hidden = true;
+      panel.innerHTML = "";
+    }
     ITEMS.forEach(function (item) {
       var btn = document.createElement("button");
       btn.type = "button";
@@ -711,7 +719,75 @@
       btn.setAttribute("aria-pressed", "false");
       btn.innerHTML = '<span class="tap-disc">' + item.svg + '</span><span class="tap-verb">' + item.verb + '</span><span class="tap-name">' + item.label + '</span>';
       btn.addEventListener("click", function () { choose(item, btn); });
+      btn.addEventListener("dblclick", function () { closeTap(); }); /* double-click dismisses it */
       row.appendChild(btn);
+    });
+  })();
+
+  /* the FAET surge, one round per fiscal quarter: a loading strip of brass
+     cartridges, each as tall as that quarter's collection (honest, zero-based).
+     Height is the only signal; color carries none. Clicking opens the ledger. */
+  (function buildFaetAmmo() {
+    var box = document.getElementById("faetAmmo");
+    if (!box || typeof FAET_Q === "undefined") return;
+    var GROUND = 214, SC = 0.59, W = 680, H = 260, w = 10;
+    var INK = "#221708", BRASS = "#c9a227", COPPER = "#b3702d", COPPERSH = "#96551b", SLATE = "#4c5a60", OX = "#a3271c", PAPER = "#f6edd6";
+    function qm(m) { return "$" + m.toFixed(1) + "M"; }
+    function am(m) { return "$" + Math.round(m).toLocaleString() + "M"; }
+    function jit(i, mod, amp) { return (((i * mod) % 11) - 5) / 5 * amp; }
+    var flat = [], annual = [];
+    FAET_Q.years.forEach(function (yr, yi) { var s = 0; FAET_Q.quarters[yi].forEach(function (v, qi) { var m = v / 1000; flat.push({ m: m, yr: yr, q: qi + 1 }); s += m; }); annual.push({ yr: yr, sum: s }); });
+    var P = [];
+    P.push('<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="' + PAPER + '"/>');
+    [[100, 155], [200, 96], [300, 37]].forEach(function (g) {
+      P.push('<line x1="56" y1="' + g[1] + '" x2="668" y2="' + g[1] + '" stroke="' + INK + '" stroke-width="1" opacity=".26"/>');
+      P.push('<text x="50" y="' + (g[1] + 3) + '" text-anchor="end" font-size="9" fill="' + INK + '" opacity=".7">$' + g[0] + 'M</text>');
+    });
+    P.push('<rect x="52" y="' + GROUND + '" width="620" height="4" fill="' + SLATE + '"/>');
+    var covid = {};
+    flat.forEach(function (d, idx) {
+      var c = Math.floor(idx / 4), qi = idx % 4;
+      var x = 58 + c * 56 + qi * 12 + jit(idx, 37, 0.5);
+      var h = d.m * SC, tipY = GROUND - h, caseTop = tipY + 8;
+      var ax = x + 5 + jit(idx, 53, 0.4);
+      var g = '<g><title>FY' + String(d.yr).slice(2) + ' Q' + d.q + ': ' + qm(d.m) + '</title>';
+      g += '<rect x="' + x.toFixed(1) + '" y="' + caseTop.toFixed(1) + '" width="' + w + '" height="' + (GROUND - caseTop).toFixed(1) + '" fill="' + BRASS + '" stroke="' + INK + '" stroke-width="1" stroke-linejoin="round"/>';
+      g += '<rect x="' + (x + w - 1.6).toFixed(1) + '" y="' + caseTop.toFixed(1) + '" width="1.6" height="' + (GROUND - caseTop).toFixed(1) + '" fill="' + COPPERSH + '" opacity=".5"/>';
+      g += '<path d="M' + x.toFixed(1) + ' ' + caseTop.toFixed(1) + ' Q' + (x + 0.5).toFixed(1) + ' ' + (tipY + 3).toFixed(1) + ' ' + ax.toFixed(1) + ' ' + tipY.toFixed(1) + ' Q' + (x + w - 0.5).toFixed(1) + ' ' + (tipY + 3).toFixed(1) + ' ' + (x + w).toFixed(1) + ' ' + caseTop.toFixed(1) + ' Z" fill="' + COPPER + '" stroke="' + INK + '" stroke-width="1" stroke-linejoin="round"/>';
+      g += '<rect x="' + x.toFixed(1) + '" y="' + (GROUND - 2) + '" width="' + w + '" height="2" fill="' + SLATE + '"/>';
+      g += '</g>';
+      P.push(g);
+      if (d.yr === 2020 && d.q === 3) covid.stub = { x: x, tipY: tipY, m: d.m };
+      if (d.yr === 2020 && d.q === 4) covid.spike = { x: x, tipY: tipY, m: d.m };
+    });
+    annual.forEach(function (a, c) {
+      var cx = 58 + c * 56 + 22;
+      P.push('<text x="' + cx + '" y="228" text-anchor="middle" font-size="9" fill="' + INK + '">FY' + String(a.yr).slice(2) + '</text>');
+      P.push('<text x="' + cx + '" y="239.5" text-anchor="middle" font-size="8" fill="' + INK + '" opacity=".66">' + am(a.sum) + '</text>');
+    });
+    if (covid.stub && covid.spike) {
+      var sx = covid.stub.x + 5, kx = covid.spike.x + 5, top = covid.spike.tipY - 9;
+      P.push('<path d="M' + sx + ' ' + (covid.stub.tipY - 3) + ' V' + top + ' H' + kx.toFixed(1) + ' V' + (covid.spike.tipY - 3) + '" fill="none" stroke="' + OX + '" stroke-width="1"/>');
+      var avg = (covid.stub.m + covid.spike.m) / 2, ay = GROUND - avg * SC, c5x = 58 + 5 * 56;
+      P.push('<line x1="' + (c5x - 2) + '" y1="' + ay.toFixed(1) + '" x2="' + (c5x + 48) + '" y2="' + ay.toFixed(1) + '" stroke="' + OX + '" stroke-width="1" stroke-dasharray="3 3" opacity=".85"/>');
+      P.push('<text x="62" y="40" font-size="9" fill="' + INK + '"><tspan x="62">Q3 filings postponed into Q4 in 2020.</tspan><tspan x="62" dy="11">A 2010 rule change plus pandemic delays</tspan><tspan x="62" dy="11">shifted collections, not a real swing.</tspan></text>');
+      P.push('<path d="M250 41 Q305 24 ' + (sx - 1).toFixed(1) + ' ' + (top + 2) + '" fill="none" stroke="' + OX + '" stroke-width="1" opacity=".55"/>');
+    }
+    var f22 = 58 + 7 * 56 + 22;
+    P.push('<text x="' + f22 + '" y="250.5" text-anchor="middle" font-size="7.5" fill="' + INK + '" opacity=".6">peak</text>');
+    var settleX = (58 + 8 * 56 + 58 + 10 * 56 + 44) / 2;
+    P.push('<text x="' + settleX.toFixed(0) + '" y="250.5" text-anchor="middle" font-size="7.5" fill="' + INK + '" opacity=".6">settling back</text>');
+    P.push('<g transform="translate(636,58)" opacity=".5"><ellipse cx="0" cy="0" rx="25" ry="16" fill="none" stroke="' + INK + '" stroke-width="1"/><ellipse cx="0" cy="0" rx="21" ry="12.6" fill="none" stroke="' + INK + '" stroke-width=".6"/>'
+      + '<path d="M-11 3 q4 -3 9 -2 q3 -5 8 -3 q-1 3 -3 4 l3 1 q-3 2 -7 1 q-6 1 -10 -2 z" fill="' + INK + '"/>'
+      + '<circle cx="6.5" cy="-3.5" r=".7" fill="' + PAPER + '"/>'
+      + '<text x="0" y="-8.8" text-anchor="middle" font-size="4.5" fill="' + INK + '" letter-spacing=".5">FOR WILDLIFE</text>'
+      + '<text x="0" y="11.5" text-anchor="middle" font-size="4.2" fill="' + INK + '" letter-spacing=".5">SINCE 1937</text></g>');
+    box.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Firearms and ammunition excise tax collections by fiscal quarter, FY 2015 to FY 2025, drawn as 44 cartridges scaled so each round is as tall as that quarter\'s collection. Collections held near 140 to 225 million before 2020, fell to 50 million in the third quarter of fiscal 2020 when filings shifted into the fourth quarter which rose to 315 million, climbed through a pandemic surge to a plateau near 280 to 314 million across 2021 and 2022, then declined toward 183 million by fiscal 2025."><title>FAET collections by fiscal quarter, drawn as cartridges</title>' + P.join("") + '</svg>';
+    box.style.cursor = "pointer";
+    box.addEventListener("click", function () {
+      var fig = box.closest(".figure");
+      var chip = fig && fig.querySelector(".ledger-link");
+      if (chip) chip.click();
     });
   })();
 
@@ -809,7 +885,8 @@
     btn.addEventListener("click", function () {
       if (playing) return;
       if (burned) { reset(); return; }
-      if (reduced) { finish(); return; }
+      /* user-triggered, so it lights up for everyone except true OS reduced-motion */
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) { finish(); return; }
       playing = true;
       /* strike first: the match flares in, then the ember catches and burns down */
       box.classList.add("striking");
@@ -972,6 +1049,14 @@
         if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); openWhy(); }
       });
     }
+    /* clicking the coins opens the ledger, like the chart dots do; the red arrow keeps its own why-card */
+    box.style.cursor = "pointer";
+    box.addEventListener("click", function (e) {
+      if (e.target.closest(".cs-why")) return;
+      var fig = box.closest(".figure");
+      var chip = fig && fig.querySelector(".ledger-link");
+      if (chip) chip.click();
+    });
   })();
 
   /* two doors into the treasury: domestic vs the border */
@@ -1180,7 +1265,7 @@
       { id: "coinStacks", text: "Collections fell 19 percent in a decade, from $25.5 billion to $20.6 billion. Tobacco did the falling." },
       { id: "burnDown", text: "Tobacco's decline is volume, not rates: the rate has sat at $1.01 a pack since 2009 while the tax base burns down." },
       { id: "waffleShare", text: "The tax base shifted: more than half of today's tax dollar is alcohol, and a third is distilled spirits alone." },
-      { id: "permitMap", text: "Meanwhile the regulated industry keeps growing: 83,773 active permits across 50 states, DC, and Puerto Rico." },
+      { id: "permitMap", text: "Meanwhile the regulated industry keeps growing: 83,849 active permits across 50 states, DC, and Puerto Rico." },
       { id: "tab", text: "That is the briefing. Every figure here traces to a named TTB release, every disagreement between totals is explained in place, and every redaction shows as a gap, never a guess. That is how I work with federal data. The receipt has the sources, and the barkeep has my email." }
     ];
     var card = null, at = -1;
@@ -2156,6 +2241,8 @@
 
   /* hand-kept ledgers for the pictogram figures */
   var MANUAL_LEDGERS = {
+    faetAmmo: { head: ["Fiscal quarter", "FAET collected ($ thousands)"],
+      rows: (function () { var r = []; FAET_Q.years.forEach(function (y, i) { FAET_Q.quarters[i].forEach(function (v, q) { r.push(["FY " + y + " Q" + (q + 1), fmt.format(v)]); }); }); return r; })() },
     waffleShare: { head: ["Product", "FY 2025 ($ thousands)", "Share"],
       rows: TAX.commodityMeta.map(function (m) {
         var v = TAX.byCommodity[m.key][TAX.years.length - 1];
@@ -2280,6 +2367,7 @@
 
   /* every ledger names its units and links straight to the release it came from */
   var LEDGER_META = {
+    faetAmmo: { units: "thousands of nominal dollars per fiscal quarter", url: TAX.sourceUrl },
     chartRates: { units: "dollars per unit named on the chart; general rates only", url: RATES.sourceUrl },
     coinStacks: { units: "thousands of nominal dollars per federal fiscal year (October through September)", url: TAX.sourceUrl },
     twoDoors: { units: "thousands of nominal dollars, federal fiscal years", url: TAX.sourceUrl },
@@ -2299,7 +2387,7 @@
     copperStill: { units: "proof gallons, calendar year 2024", url: SPIRITS.sourceUrl },
     cigRows: { units: "cigarette sticks per calendar year", url: TOBACCO.sourceUrl },
     chartPermits: { units: "count of premises or permits at end of calendar year", url: "https://www.ttb.gov/data" },
-    permitMap: { units: "count of active permits, April 2025", url: PERMITTEES.sourceUrl },
+    permitMap: { units: "count of active permits, July 2026", url: PERMITTEES.sourceUrl },
     agencyFigures: { units: "as published; TTB's own rounding retained", url: AGENCY.sourceUrl }
   };
 
@@ -2404,6 +2492,7 @@
   /* every graph gets a plain-terms explainer, folded away until asked */
   (function addExplainers() {
     var EXPLAIN = {
+      faetAmmo: "Each cartridge is one fiscal quarter of the firearms and ammunition tax, drawn as tall as that quarter's dollars. The rises and falls track gun and ammunition buying; the tiny 2020 round beside the tall one is a filing deadline that pushed one quarter's payments into the next, not a real swing.",
       chartRates: "Each line is the federal tax rate on one product; pick beer, spirits, or wine above. A flat stretch means years of no change, each step up is Congress raising the rate, and the shaded band is Prohibition, when the products were banned but the tax stayed on the books.",
       coinStacks: "Each column of coins is one fiscal year of total collections, one coin per billion dollars. The stacks get shorter across the decade: these products bring in less than they did in 2015, mostly because far fewer cigarettes are sold.",
       twoDoors: "The money arrives two ways: taxes on products made in the U.S. (the front door, collected by TTB) and taxes on imports (the border gate, collected by Customs at the border). Click a door to see its year-by-year line; the import share keeps growing.",
