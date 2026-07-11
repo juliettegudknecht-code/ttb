@@ -2497,11 +2497,19 @@
   window.onYouTubeIframeAPIReady = function () {
     if (!document.getElementById("ytHolder")) return;
     ytPlayer = new YT.Player("ytHolder", {
-      videoId: "dKbPHrJRnE4", /* Shaboozey, A Bar Song (Tipsy) */
+      videoId: "eKrJ6hb5Poo", /* Luke Combs, Beer Never Broke My Heart */
       playerVars: { autoplay: 1, controls: 0, disablekb: 1, playsinline: 1 },
       events: {
         onReady: function (e) { try { e.target.setVolume(52); if (musicWantPlay) e.target.playVideo(); } catch (x) {} },
-        onStateChange: function (e) { if (e.data === YT.PlayerState.ENDED) { try { ytPlayer.playVideo(); } catch (x) {} } }
+        onStateChange: function (e) {
+          if (e.data === YT.PlayerState.ENDED) { try { ytPlayer.playVideo(); } catch (x) {} }
+          var b = document.getElementById("musicBtn");
+          if (b) {
+            var playing = e.data === YT.PlayerState.PLAYING;
+            b.classList.toggle("paused", !playing);
+            b.querySelector(".mb-txt").textContent = playing ? "Pause the music" : "Play the music";
+          }
+        }
       }
     });
   };

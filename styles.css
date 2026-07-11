@@ -2100,7 +2100,7 @@ html{ scroll-behavior:auto; }
 /* ================= the house band (v85): hidden player + pause control ===== */
 #ytHolder{ position:fixed; left:-9999px; bottom:0; width:1px; height:1px; opacity:0; pointer-events:none; }
 #musicBtn{
-  position:fixed; left:16px; bottom:16px; z-index:1200; display:inline-flex; align-items:center; gap:8px;
+  position:fixed; right:16px; bottom:16px; z-index:1200; display:inline-flex; align-items:center; gap:8px;
   padding:8px 13px; cursor:pointer; font-family:var(--type); font-size:11px; letter-spacing:.14em;
   text-transform:uppercase; color:#e9d8ab; background:#20180c; border:1px solid #574a2c; border-radius:3px;
   box-shadow:0 4px 12px rgba(20,16,9,.4);
