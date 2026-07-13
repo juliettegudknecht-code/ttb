@@ -210,6 +210,9 @@ a:hover{ color:#96551b; }
   letter-spacing:.03em; color:#efe2bb;
 }
 .card .typed .caret{ display:inline-block; width:.55em; border-bottom:3px solid #efe2bb; margin-left:2px; animation:caretBlink 1s steps(1) infinite; }
+/* once a line has finished typing, drop its caret so a card never holds two or
+   three blinking carets at once (only the line still being typed keeps one) */
+.card .typed.done .caret{ display:none; }
 @keyframes caretBlink{ 50%{ opacity:0; } }
 .card .sub{ font-family:var(--type); font-size:14px; color:#a5915f; margin-top:20px; letter-spacing:.12em; text-transform:uppercase; }
 
