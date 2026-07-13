@@ -64,17 +64,14 @@ body::before{
   content:""; position:fixed; inset:0; pointer-events:none; z-index:1;
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
 }
-::selection{ background:var(--gold); color:#fff; }
+::selection{ background:var(--gold); color:#20180c; }
 
 a{ color:#7a5410; text-decoration-thickness:1px; text-underline-offset:2px; }
-a:hover{ color:var(--gold-bright); }
+a:hover{ color:#96551b; }
 
 .wrap{ max-width:1100px; margin:0 auto; padding:0 24px; position:relative; z-index:2; }
 
-#progress{
-  position:fixed; top:0; left:0; height:3px; width:0; z-index:99;
-  background:#7a5410; opacity:.75;
-}
+/* the pour glass carries scroll progress; no bar across the top */
 
 /* ================= silent-film intro ================= */
 #intro{
@@ -144,13 +141,6 @@ a:hover{ color:var(--gold-bright); }
   80% { transform:translateX(88vw) translateY(-18px) rotate(1440deg); }
   100%{ transform:translateX(calc(100vw + 130px)) translateY(0) rotate(1800deg); }
 }
-
-#skipIntro{
-  position:absolute; right:22px; bottom:20px; z-index:5;
-  font-family:var(--type); font-size:13px; letter-spacing:.14em; text-transform:uppercase;
-  background:rgba(236,224,196,.7); color:#59462f; border:1.5px solid #8a7853; padding:8px 16px; cursor:pointer;
-}
-#skipIntro:hover{ color:#7a5410; border-color:#7a5410; }
 
 /* title cards */
 .scene{
@@ -340,140 +330,32 @@ a:hover{ color:var(--gold-bright); }
 /* the county-line sign: a transparent shell holding two clipped copies of
    the plank, so the whole thing can break in half along a jagged line */
 .roadcard{
-  max-width:560px; background:none; border:none; outline:none;
-  box-shadow:none; padding:0;
+  max-width:600px; width:min(92vw,600px);
+  background:none; border:0; outline:none; box-shadow:none; padding:0;
 }
-.rs-half{
-  background:
-    repeating-linear-gradient(90deg, rgba(0,0,0,.16) 0 3px, rgba(255,255,255,.03) 3px 5px, transparent 5px 70px),
-    linear-gradient(#65491f, #452f13);
-  border:4px solid #241a0b; border-radius:10px;
-  outline:1px solid #574a2c; outline-offset:6px;
-  padding:38px 30px 34px;
-}
-.rs-top-half{
-  position:relative;
-  clip-path:polygon(0 0, 100% 0, 100% 52%, 88% 46%, 78% 55%, 68% 48%, 58% 57%, 48% 45%, 38% 56%, 28% 47%, 18% 57%, 10% 51%, 0 55%);
-}
-.rs-bot-half{
-  position:absolute; inset:0;
-  clip-path:polygon(0 55%, 10% 51%, 18% 57%, 28% 47%, 38% 56%, 48% 45%, 58% 57%, 68% 48%, 78% 55%, 88% 46%, 100% 52%, 100% 100%, 0 100%);
-}
-.roadcard .rs-top{
-  font-family:var(--type); font-size:14px; letter-spacing:.34em; text-indent:.34em;
-  text-transform:uppercase; color:#c9b382; margin-bottom:10px;
-}
-.roadcard .rs-big{
-  font-family:var(--marquee); font-size:clamp(30px,6vw,54px); line-height:1.15;
-  color:#e9c96a; text-transform:uppercase; letter-spacing:.02em;
-}
-.roadcard .rs-sub{
-  font-family:var(--type); font-size:11.5px; letter-spacing:.18em; text-transform:uppercase;
-  color:#a5915f; margin-top:16px;
-}
-.roadcard .rs-law{
-  font-family:var(--type); font-size:11.5px; letter-spacing:.18em; text-transform:uppercase;
-  color:#a5915f; margin-top:16px; padding-top:12px; border-top:1px solid rgba(201,179,130,.3);
-}
-/* the outlaws smash the notice: the plank snaps in two along the break */
-.card.go-rebel .rs-top-half{ animation:breakTop .55s cubic-bezier(.2,.9,.3,1) both; transform-origin:30% 100%; }
-.card.go-rebel .rs-bot-half{ animation:breakBot .55s cubic-bezier(.2,.9,.3,1) both; transform-origin:70% 0; }
-@keyframes breakTop{
-  0%{ transform:translate(0,0) rotate(0deg); }
-  30%{ transform:translate(-10px,-58px) rotate(-3.4deg); }
-  55%{ transform:translate(-6px,-44px) rotate(-2.3deg); }
-  100%{ transform:translate(-7px,-48px) rotate(-2.7deg); }
-}
-@keyframes breakBot{
-  0%{ transform:translate(0,0) rotate(0deg); }
-  30%{ transform:translate(11px,62px) rotate(2.6deg); }
-  55%{ transform:translate(7px,48px) rotate(1.5deg); }
-  100%{ transform:translate(8px,52px) rotate(1.9deg); }
-}
-/* the message goes up in red paint, straight through the break */
-.roadcard .rs-paint{
-  position:absolute; left:-4%; right:-4%; top:54%; z-index:2;
-  display:flex; flex-direction:column; align-items:center;
-  transform:translateY(-50%) rotate(-2deg); pointer-events:none;
-}
-.roadcard .rs-slash{
-  font-family:var(--type); font-size:clamp(28px,5.4vw,48px); line-height:1; color:#7a1005;
-  text-transform:uppercase; letter-spacing:.05em; white-space:nowrap;
-  text-shadow:0 1px 0 rgba(0,0,0,.5), 0 0 12px rgba(122,16,5,.35); opacity:0;
-  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.09' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 .12'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23r)'/%3E%3C/svg%3E");
-}
-.roadcard .rs-paint small{
-  font-family:var(--type); font-size:12px; letter-spacing:.3em; text-transform:uppercase;
-  color:#7a1005; opacity:0; margin-top:10px;
-  text-shadow:0 1px 0 rgba(0,0,0,.4);
-}
-.card.go-rebel .rs-slash{ animation:paintSwipe .3s ease-out .4s forwards; }
-.card.go-rebel .rs-paint small{ animation:paintFade .25s ease-out .72s forwards; }
-@keyframes paintSwipe{
-  0%{ opacity:1; clip-path:inset(-20% 102% -20% -2%); }
-  100%{ opacity:1; clip-path:inset(-20% -2% -20% -2%); }
-}
-@keyframes paintFade{ to{ opacity:1; } }
-/* the hit rattles the whole broken sign on its post */
-.scene[data-scene="rs"].on .roadcard.go-rebel{ animation:rsRattle 1.6s ease-out both; }
-@keyframes rsRattle{
-  0%{ transform:translate(0,0) rotate(0deg); }
-  5%{ transform:translate(-9px,5px) rotate(-.8deg); }
-  12%{ transform:translate(8px,-4px) rotate(.6deg); }
-  19%{ transform:translate(-5px,3px) rotate(-1.8deg); }
-  26%{ transform:translate(3px,-2px) rotate(-1.1deg); }
-  33%{ transform:translate(0,1px) rotate(-1.4deg); }
-  49%{ transform:translate(3px,-1px) rotate(-1.2deg); }
-  53%{ transform:translate(0,0) rotate(-1.4deg); }
-  61%{ transform:translate(-3px,1px) rotate(-1.6deg); }
-  65%{ transform:translate(0,0) rotate(-1.4deg); }
-  76%{ transform:translate(3px,-2px) rotate(-1.2deg); }
-  80%{ transform:translate(0,0) rotate(-1.4deg); }
-  100%{ transform:translate(0,0) rotate(-1.4deg); }
-}
-/* bullet holes: splintered ring, cracked plank, dark hole. rotation lives
-   on the span so the pop animation on the svg can't overwrite it */
-.roadcard .bh{ position:absolute; width:34px; height:34px; pointer-events:none; }
-.roadcard .bh svg{ display:block; width:100%; height:100%; opacity:0; }
-.roadcard .bh1{ top:9%; right:10%; transform:rotate(12deg); }
-.roadcard .bh2{ top:26%; left:8%; transform:rotate(-40deg); }
-.roadcard .bh3{ bottom:10%; right:22%; transform:rotate(78deg); }
-.card.go-rebel .bh1 svg{ animation:bhPop .2s ease-out .78s forwards; }
-.card.go-rebel .bh2 svg{ animation:bhPop .2s ease-out .98s forwards; }
-.card.go-rebel .bh3 svg{ animation:bhPop .2s ease-out 1.22s forwards; }
-@keyframes bhPop{
-  0%{ opacity:0; transform:scale(2.4); }
-  60%{ opacity:1; transform:scale(.92); }
-  100%{ opacity:1; transform:scale(1); }
-}
-/* the county line on phones: the desktop trick clips two plank-halves and
-   snaps them apart along a jagged crack. At phone size that shatter collapses
-   into a lumpy blob with the title sliced in half and the paint muddying the
-   text, so on small screens the notice stays a single whole plank and the
-   outlaws simply paint over it. */
-@media (max-width:640px){
-  .roadcard{ max-width:360px; width:88vw; }
-  /* drop the second clipped copy and the jagged crack: one solid plank */
-  .rs-bot-half{ display:none; }
-  .rs-top-half{ clip-path:none; position:relative; inset:auto; }
-  .rs-half{ padding:32px 22px 30px; outline-offset:5px; }
-  .roadcard .rs-top{ font-size:10.5px; letter-spacing:.26em; text-indent:.26em; margin-bottom:11px; }
-  .roadcard .rs-big{ font-size:clamp(25px,7.4vw,33px); line-height:1.08; letter-spacing:.01em; white-space:normal; }
-  .roadcard .rs-law{ font-size:10px; letter-spacing:.08em; line-height:1.5; margin-top:15px; padding-top:12px; }
+.roadcard svg{ display:block; width:100%; height:auto; }
 
-  /* the finale, made robust: instead of breaking the plank, the notice text
-     fades out and a bright red slash is painted across the whole sign */
-  .card.go-rebel .rs-top-half{ animation:none; }
-  .card.go-rebel .rs-top,
-  .card.go-rebel .rs-big,
-  .card.go-rebel .rs-law{ opacity:0; transition:opacity .3s ease .1s; }
-  .roadcard .rs-paint{ top:50%; left:8%; right:8%; }
-  .roadcard .rs-slash{
-    font-size:clamp(24px,8vw,33px); line-height:1.05; white-space:normal;
-    color:#d4402a; mask-image:none;
-    text-shadow:0 2px 3px rgba(0,0,0,.55), 0 0 1px rgba(0,0,0,.7);
-  }
-  .roadcard .rs-paint small{ color:#f0cbb6; font-size:10.5px; letter-spacing:.16em; margin-top:9px; }
+/* the outlaws' reply, hidden behind the sign until it breaks open */
+.roadcard .rs-rebel{ opacity:0; }
+.roadcard.go-rebel .rs-rebel{ animation:rsFade .3s ease-out .24s forwards; }
+@keyframes rsFade{ to{ opacity:1; } }
+
+/* the sign cracks and the two halves snap apart, revealing the reply */
+.roadcard .rs-piece{ transform-box:fill-box; }
+.roadcard .rs-top{ transform-origin:34% 94%; }
+.roadcard .rs-bot{ transform-origin:66% 6%; }
+.roadcard.go-rebel .rs-top{ animation:rsBreakTop .6s cubic-bezier(.22,.9,.3,1) both; }
+.roadcard.go-rebel .rs-bot{ animation:rsBreakBot .66s cubic-bezier(.22,.9,.3,1) both; }
+@keyframes rsBreakTop{ 0%{ transform:translate(0,0) rotate(0deg); } 100%{ transform:translate(-9px,-40px) rotate(-3.4deg); } }
+@keyframes rsBreakBot{ 0%{ transform:translate(0,0) rotate(0deg); } 100%{ transform:translate(11px,48px) rotate(3.6deg); } }
+/* the raw torn edge only shows once the sign actually cracks */
+.roadcard .rs-tear{ opacity:0; }
+.roadcard.go-rebel .rs-tear{ opacity:.75; }
+
+@media (prefers-reduced-motion: reduce){
+  .roadcard.go-rebel .rs-top{ animation:none; transform:translate(-9px,-40px) rotate(-3.4deg); }
+  .roadcard.go-rebel .rs-bot{ animation:none; transform:translate(11px,48px) rotate(3.6deg); }
+  .roadcard.go-rebel .rs-rebel{ animation:none; opacity:1; }
 }
 
 /* marquee card */
@@ -521,10 +403,32 @@ a:hover{ color:var(--gold-bright); }
   .site-nav{ margin-left:0; width:100%; }
 }
 
+/* the "how to use this page" help button + dialog */
+#helpOpen{
+  margin-left:auto; display:inline-flex; align-items:center; gap:7px; white-space:nowrap;
+  font-family:var(--type); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+  color:#8a7853; background:transparent; border:1.5px solid #b39b62;
+  padding:7px 12px; cursor:pointer;
+}
+#helpOpen:hover{ color:#7a5410; border-color:#7a5410; background:#fdf6df; }
+#helpOpen .hlp-ico{ width:15px; height:15px; flex:none; opacity:.9; }
+.help-modal{ width:min(560px,100%); text-align:left; }
+.help-modal .help-intro{ font-family:var(--type); font-size:14px; line-height:1.6; color:var(--ink-2); margin:2px 0 12px; }
+.help-list{ list-style:none; margin:6px 0 0; padding:0; }
+.help-list li{
+  position:relative; padding:11px 0 11px 24px; border-bottom:1px dashed rgba(122,84,16,.22);
+  font-family:var(--type); font-size:14px; line-height:1.62; color:var(--ink-2);
+}
+.help-list li:last-child{ border-bottom:none; }
+.help-list li::before{ content:"\25C6"; position:absolute; left:2px; top:16px; font-size:8px; color:#7a5410; }
+.help-list b{ color:var(--ink); }
+.help-list b.hl-hot{ color:var(--stamp); }
+.help-foot{ font-family:var(--type); font-size:12.5px; color:var(--faint); margin:15px 0 2px; }
+
 /* ================= hero: the poster ================= */
 .hero{
   background:var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='2'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
-  color:#e9d8ab; padding:56px 0 52px; overflow:hidden; position:relative;
+  color:#e9d8ab; padding:26px 0 44px; overflow:hidden; position:relative;
   border-bottom:3px double var(--gold);
 }
 .hero .poster{
@@ -1158,7 +1062,7 @@ a:hover{ color:var(--gold-bright); }
 .tap-item.on .tap-ping{ animation:tapPing 1s ease-out; }
 @keyframes tapPing{ 0%{ opacity:.9; transform:scale(.35); } 100%{ opacity:0; transform:scale(1.3); } }
 .tap-detail{
-  border:1px solid var(--hairline); border-left:4px solid var(--gold);
+  border:1.5px solid var(--rule); outline:1px solid var(--hairline); outline-offset:3px;
   background:var(--panel); padding:16px 22px 14px; max-width:640px;
 }
 .tap-detail .td-name{ font-family:var(--marquee); font-size:18px; margin:0 0 6px; color:var(--ink); }
@@ -1311,8 +1215,8 @@ a:hover{ color:var(--gold-bright); }
 .tilemap .tm-tile:focus{ outline:none; }
 .tilemap .tm-tile:focus rect{ stroke:var(--gold); stroke-width:2.2; }
 .tm-detail{
-  border:1px solid var(--hairline); border-left:4px solid var(--gold);
-  background:var(--panel); padding:13px 18px 11px; max-width:560px; margin:12px auto 0;
+  border:1.5px solid var(--rule); outline:1px solid var(--hairline); outline-offset:3px;
+  background:var(--panel); padding:13px 18px 11px; max-width:560px; margin:14px auto 0;
 }
 .tm-detail .tmd-name{ font-family:var(--marquee); font-size:16px; margin:0 0 4px; color:var(--ink); }
 .tm-detail .tmd-big{ font-family:var(--marquee); font-size:26px; line-height:1.1; }
@@ -1814,6 +1718,13 @@ body.touring #ticketNav, body.touring #jukebox, body.touring #jbPause, body.tour
 }
 .modal.open{ display:flex; }
 .modal-card{ position:relative; max-height:86vh; overflow:auto; }
+/* the popups scroll behind a house-dressed scrollbar, not a stock white one */
+.modal-card{ scrollbar-width:thin; scrollbar-color:#8a6d1f transparent; }
+.modal-card::-webkit-scrollbar{ width:9px; }
+.modal-card::-webkit-scrollbar-track{ background:transparent; }
+.modal-card::-webkit-scrollbar-thumb{
+  background:#8a6d1f; border:2.5px solid transparent; background-clip:content-box; border-radius:6px;
+}
 /* the row for a clicked dot gets circled in the ledger */
 .ledger-table tr.lg-hot td{
   background:rgba(163,133,46,.14);
@@ -1829,6 +1740,7 @@ body.touring #ticketNav, body.touring #jukebox, body.touring #jbPause, body.tour
 }
 .story-card h4{
   font-family:var(--marquee); font-weight:400; font-size:22px; margin:0 0 12px; color:#7a5410;
+  text-wrap:balance; /* "Prohibition, January 17." breaks whole, never an orphaned date */
 }
 .story-card p{ margin:0; font-size:15.5px; line-height:1.7; color:var(--ink-2); }
 .modal-close{
@@ -2013,7 +1925,7 @@ body.touring #ticketNav, body.touring #jukebox, body.touring #jbPause, body.tour
 /* ================= mobile pass ================= */
 html, body{ overflow-x:clip; }
 @media (max-width:640px){
-  .hero{ padding:52px 0 44px; }
+  .hero{ padding:24px 0 40px; }
   .hero .poster{ padding:36px 20px 30px; }
   .hero-ticker .t{ padding-left:4px; }
   .card{ padding:36px 22px 32px; }
@@ -2087,6 +1999,12 @@ html{ scroll-behavior:auto; }
 /* freeze the gate door-hat sway too (its guard was OS-only) */
 #pwGate .doorhat{ animation:none; }
 
+/* the still page kept the reveal offsets after losing the transitions, so a
+   section head sat 36px off and then snapped as it entered. heads now sit
+   where they land; the zig-zag stays in the text alignment. */
+.section:nth-of-type(odd) .sec-head.reveal,
+.section:nth-of-type(even) .sec-head.reveal{ transform:none; }
+
 /* ================= the house band (v85): hidden player + pause control ===== */
 #ytHolder{ position:fixed; left:-9999px; bottom:0; width:1px; height:1px; opacity:0; pointer-events:none; }
 #musicBtn{
@@ -2107,6 +2025,38 @@ html{ scroll-behavior:auto; }
 .foot-legal a{ color:#a5915f; }
 
 /* nav jumps clear the sticky header (v90): the programme links land the
-   section a touch below the 49px bar instead of tucked under it. */
+   section a touch below the 66px bar instead of tucked under it, with room
+   for the film-reel divider that hangs above each section. */
 #ontap, #prologue, #collections, #alcohol, #tobacco,
-#firearms, #industry, #finale, #tab{ scroll-margin-top:64px; }
+#firearms, #industry, #finale, #tab{ scroll-margin-top:84px; }
+
+/* ================= the reel, restored (v99) ================= */
+/* walking out is always allowed: a skip chip in the reel's bottom-right */
+#introSkip{
+  position:absolute; right:22px; bottom:20px; z-index:6;
+  display:flex; align-items:center; gap:9px; cursor:pointer;
+  font-family:var(--type); font-size:13px; letter-spacing:.14em; text-transform:uppercase;
+  background:rgba(236,224,196,.7); color:#59462f; border:1.5px solid #8a7853; padding:8px 16px;
+}
+#introSkip:hover{ color:#221708; border-color:#59462f; }
+@media (max-width:640px){
+  #introSkip{ font-size:11px; padding:7px 11px; right:12px; bottom:14px; }
+}
+/* the leader's sweep hand turns for the countdown; the page freeze stays
+   everywhere else */
+#intro .leader .sweep{ animation:leaderSweep .8s linear infinite; }
+/* the PROHIBITED and REPEALED stamps land on their cue by transition,
+   since the page-wide freeze pinned the stamp keyframes */
+#intro .scene[data-scene="2"] .stamp{
+  opacity:0; transform:rotate(-9deg) scale(2);
+  transition:transform .3s cubic-bezier(.15,1.3,.4,1), opacity .16s ease;
+}
+#intro .scene[data-scene="2"] .card.go-red .s-red,
+#intro .scene[data-scene="2"] .card.go-green .s-green{
+  opacity:1; transform:rotate(-9deg) scale(1);
+}
+/* PROHIBITED runs longer than the old stamp: sized so both eras share a row */
+#intro .era .stamp{ font-size:clamp(18px,3vw,29px); }
+/* the arrow holds for its cue between the stamps */
+#intro .scene[data-scene="2"] .era-arrow{ opacity:0; transition:opacity .4s ease; }
+#intro .scene[data-scene="2"] .card.go-arrow .era-arrow{ opacity:.9; }

@@ -27,7 +27,7 @@
   document.addEventListener("keydown", ensureAudio);
 
   function clack() {
-    if (reduced || !wantSound() || !audioCtx || audioCtx.state !== "running") return;
+    if (!wantSound() || !audioCtx || audioCtx.state !== "running") return;
     var t = audioCtx.currentTime;
     var dur = 0.035;
     var buf = audioCtx.createBuffer(1, Math.floor(audioCtx.sampleRate * dur), audioCtx.sampleRate);
@@ -43,7 +43,7 @@
 
   /* a stamp lands: one deep felt thump through the table */
   function thunk() {
-    if (reduced || !wantSound() || !audioCtx || audioCtx.state !== "running") return;
+    if (!wantSound() || !audioCtx || audioCtx.state !== "running") return;
     var t = audioCtx.currentTime;
     var o = audioCtx.createOscillator(); o.type = "sine";
     o.frequency.setValueAtTime(120, t);
@@ -66,7 +66,7 @@
 
   /* a round through the plank: a dull pop, more silent film than firefight */
   function popShot() {
-    if (reduced || !wantSound() || !audioCtx || audioCtx.state !== "running") return;
+    if (!wantSound() || !audioCtx || audioCtx.state !== "running") return;
     var t = audioCtx.currentTime;
     var dur = 0.09;
     var buf = audioCtx.createBuffer(1, Math.floor(audioCtx.sampleRate * dur), audioCtx.sampleRate);
@@ -141,7 +141,8 @@
       var out = document.createTextNode("");
       el.appendChild(out); el.appendChild(caret);
       el.classList.add("typing");
-      if (reduced) { out.nodeValue = text; el.classList.add("done"); resolve(); return; }
+      /* the reel still types (sound=true there); the page itself lands whole */
+      if (reduced && !sound) { out.nodeValue = text; el.classList.add("done"); resolve(); return; }
       var i = 0;
       (function tick() {
         if (signal && signal.aborted) { out.nodeValue = text; el.classList.add("done"); resolve(); return; }
@@ -195,23 +196,14 @@
   }
 
   function playIntro() {
-    if (reduced) {
-      /* the page is kept still, but she asked for one beat back: the county-line
-         road sign. play just that scene, then land on the page. */
-      var rsScene = intro.querySelector('.scene[data-scene="rs"]');
-      if (!rsScene) { intro.classList.add("gone"); startHouseMusic(); afterIntro(); return; }
-      document.body.style.overflow = "hidden";
-      window.scrollTo(0, 0);
-      intro.classList.remove("gone", "iris");
-      void rsScene.offsetWidth;
-      rsScene.classList.add("on");
-      var rsCard = rsScene.querySelector(".card");
-      introTimeouts.push(setTimeout(function () {
-        if (rsCard) rsCard.classList.add("go-rebel"); /* NOT HERE, PARTNER paints on */
-        startHouseMusic();                            /* the record drops after the knock */
-      }, 1600));
-      introTimeouts.push(setTimeout(function () { endIntro(false); }, 4300));
-      return;
+    /* the page body stays still, but the reel got its scenes back: the leader
+       counts down, the house says howdy, the dry years get stamped PROHIBITED
+       and REPEALED, and the county line closes the show. an OS-level
+       reduced-motion setting skips the reel entirely. */
+    var osStill = false;
+    try { osStill = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+    if (osStill || !intro.querySelector(".scene")) {
+      intro.classList.add("gone"); startHouseMusic(); afterIntro(); return;
     }
     /* kill any run already in flight before starting a fresh one */
     introAbort.aborted = true;
@@ -255,7 +247,7 @@
     });
 
     var seq = Promise.resolve();
-    var holds = { "rs": 2600, "1": 1500, "2": 1900, "5": 2000 };
+    var holds = { "rs": 2200, "1": 1100, "2": 1400, "5": 2000 };
     scenes.forEach(function (scene) {
       seq = seq.then(function () {
         if (myRun.aborted) return;
@@ -268,7 +260,7 @@
              outlaws crack the plank, THAT is when the record drops, the
              message goes up in red paint, and three rounds sign the work */
           var cardR = scene.querySelector(".card");
-          return iwait(1700, myRun).then(function () {
+          return iwait(1400, myRun).then(function () {
             if (!myRun.aborted) {
               cardR.classList.add("go-rebel");
               startHouseMusic();
@@ -296,43 +288,43 @@
               k++;
               if (myRun.aborted || k >= vals.length) { clearInterval(t); r(); return; }
               leaderTick(vals[k]);
-            }, 800);
+            }, 650);
             introTimeouts.push(t);
-          }).then(function () { return iwait(600, myRun); });
+          }).then(function () { return iwait(400, myRun); });
         }
         if (scene.dataset.scene === "2") {
           /* one long take: 1919, then the two stamps land in turn, no scene cuts */
           spawnBubbles(scene, 26);
           var card2 = scene.querySelector(".card");
           var ts = scene.querySelectorAll(".typed");
-          return typeText(ts[0], ts[0].dataset.type, 14, myRun, true)
-            .then(function () { return iwait(800, myRun); })
+          return typeText(ts[0], ts[0].dataset.type, 19, myRun, true)
+            .then(function () { return iwait(500, myRun); })
             .then(function () {
               if (!myRun.aborted) {
                 card2.classList.add("go-red");
                 introTimeouts.push(setTimeout(function () { if (!myRun.aborted) thunk(); }, 300));
               }
-              return iwait(950, myRun);
+              return iwait(750, myRun);
             })
-            .then(function () { return typeText(ts[1], ts[1].dataset.type, 14, myRun, true); })
-            .then(function () { return iwait(500, myRun); })
+            .then(function () { return typeText(ts[1], ts[1].dataset.type, 19, myRun, true); })
+            .then(function () { return iwait(350, myRun); })
             /* the arrow draws its way across first, then the green stamp lands */
-            .then(function () { if (!myRun.aborted) card2.classList.add("go-arrow"); return iwait(1250, myRun); })
+            .then(function () { if (!myRun.aborted) card2.classList.add("go-arrow"); return iwait(900, myRun); })
             .then(function () {
               if (!myRun.aborted) {
                 card2.classList.add("go-green");
                 /* no music yet: the record holds its cue for the county line */
                 introTimeouts.push(setTimeout(function () { if (!myRun.aborted) thunk(); }, 300));
               }
-              return iwait(950, myRun);
+              return iwait(750, myRun);
             })
-            .then(function () { return typeText(ts[2], ts[2].dataset.type, 14, myRun, true); })
+            .then(function () { return typeText(ts[2], ts[2].dataset.type, 19, myRun, true); })
             .then(function () { return iwait(holds["2"] || 1900, myRun); });
         }
         return Promise.resolve().then(function () {
           if (myRun.aborted) return;
           var t = scene.querySelector(".typed");
-          return t ? typeText(t, t.dataset.type, 14, myRun, true) : null;
+          return t ? typeText(t, t.dataset.type, 19, myRun, true) : null;
         }).then(function () {
           return iwait(holds[scene.dataset.scene] || 1400, myRun);
         });
@@ -341,7 +333,9 @@
     seq.then(function () { if (!myRun.aborted) endIntro(false); });
   }
 
-  document.getElementById("skipIntro").addEventListener("click", function () { endIntro(true); });
+  /* the reel can always be walked out on; the iris closes and the page is yours */
+  var introSkipBtn = document.getElementById("introSkip");
+  if (introSkipBtn) introSkipBtn.addEventListener("click", function () { endIntro(false); });
 
   /* ============================================================
      Count-ups, typewriter kickers, reveals (armed after the intro)
@@ -426,7 +420,7 @@
     var s1 = document.querySelector('.scene[data-scene="1"] .typed');
     if (s1) {
       s1.dataset.type = (g ? "Howdy, " + g + ". " : "Howdy. ") +
-        "Let's take a trip back in time for a story of taxes, taverns, and the bureau that kept the books.";
+        "This is the story of taxes, taverns, and the bureau that kept the books.";
     }
     var lbl = document.getElementById("pourLabel");
     if (lbl) lbl.textContent = g ? g + "'s pour" : "The pour";
@@ -460,7 +454,7 @@
     var frac = max > 0 ? h.scrollTop / max : 0;
     /* read the layout first, then write, so the frame never reflows twice */
     var pastHero = heroSec ? heroSec.getBoundingClientRect().bottom < 80 : false;
-    progress.style.width = frac * 100 + "%";
+    if (progress) progress.style.width = frac * 100 + "%";
     if (pourLiq) {
       var full = 20; /* inner mug height in the 34-unit viewBox */
       var lvl = Math.round(full * frac * 10) / 10;
@@ -2208,6 +2202,11 @@
     m.addEventListener("click", function (e) { if (e.target === m) closeModals(); });
     m.querySelector(".modal-close").addEventListener("click", closeModals);
   });
+  /* the header "how to use this page" button opens the help dialog */
+  (function wireHelp() {
+    var b = document.getElementById("helpOpen");
+    if (b) b.addEventListener("click", function () { openModal("helpModal"); });
+  })();
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") { closeModals(); closeBooklet(); return; }
     /* keep Tab inside the open dialog */

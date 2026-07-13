@@ -78,6 +78,7 @@
   #pwGate .knocker{
     position:absolute; right:44px; top:44%; width:56px; height:auto;
     opacity:0; pointer-events:none; transform-origin:85% 85%;
+    z-index:12; /* the rapping fist stays over the inputs and text, never behind them */
   }
   #pwGate.knocking .knocker{ animation:fistKnock .64s ease-in-out both; }
   @keyframes fistKnock{
@@ -184,7 +185,7 @@
   #pwGate .gs-switch[aria-checked="true"] .gs-knob{ transform:translateX(22px); background:#f3e8cd; }
   #pwGate .gs-switch[aria-checked="true"] .gs-state{ color:#d4a017; }
 </style>
-<link rel="stylesheet" href="styles.css?v=91">
+<link rel="stylesheet" href="styles.css?v=101">
 </head>
 <body>
 
@@ -289,8 +290,6 @@
 })();
 </script>
 
-<div id="progress" role="presentation"></div>
-
 <!-- ============ the picture show ============ -->
 <div id="intro" aria-hidden="true">
   <div class="grain"></div>
@@ -303,29 +302,135 @@
     <path d="M25 20c3 3 7 4 11 2 M20 35c4 4 10 4 15 0 M33 41c4-2 6-5 7-9 M22 26c2 4 6 6 10 6 M35 22c-1 4-4 7-8 8 M27 14c-2 3-2 7 0 10 M38 30c2 3 2 7-1 10 M17 22c0 4 2 8 6 10" stroke-width=".6" opacity=".5"/>
   </svg>
 
-  <div class="scene" data-scene="rs">
-    <div class="card roadcard">
-      <div class="rs-half rs-top-half">
-        <div class="rs-top">You are now entering</div>
-        <div class="rs-big">The Prohibition Era</div>
-        <div class="rs-law">saloons shut &middot; stills smashed &middot; not a drop poured &middot; by order of the law</div>
-        <span class="bh bh1" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
-        <span class="bh bh2" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
-        <span class="bh bh3" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
+  <button id="introSkip" type="button">Skip the reel &#187;</button>
+
+  <div class="scene" data-scene="0" data-screen-label="Reel leader">
+    <div class="leader-wrap">
+      <div class="leader">
+        <span class="sweep"></span>
+        <span id="leaderNum" class="l-num">3</span>
       </div>
-      <div class="rs-half rs-bot-half" aria-hidden="true">
-        <div class="rs-top">You are now entering</div>
-        <div class="rs-big">The Prohibition Era</div>
-        <div class="rs-law">saloons shut &middot; stills smashed &middot; not a drop poured &middot; by order of the law</div>
-        <span class="bh bh1"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
-        <span class="bh bh2"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
-        <span class="bh bh3"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5v7M32 9l-5 6M36 21l-7-1M30 32l-4-6M19 35v-6M9 31l5-6M4 19l7 1M9 8l6 6" stroke="#241a0b" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="#c9b382" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="#17100a" stroke="none"/></svg></span>
-      </div>
-      <div class="rs-paint"><span class="rs-slash">Not here, partner</span><small>the back door's open &middot; come on in</small></div>
+      <p class="leader-cap">The picture show is about to begin</p>
     </div>
   </div>
 
-  <button id="skipIntro" type="button">Skip intro</button>
+  <div class="scene" data-scene="1" data-screen-label="Howdy card">
+    <div class="card">
+      <div class="deco">&#9670; &middot; &#9670; &middot; &#9670;</div>
+      <p class="typed" data-type="Howdy. This is the story of taxes, taverns, and the bureau that kept the books."></p>
+      <p class="sub">A true story, from the bureau's own books</p>
+    </div>
+  </div>
+
+  <div class="scene" data-scene="2" data-screen-label="The dry years">
+    <div class="card">
+      <div class="deco">&#9670; &middot; &#9670; &middot; &#9670;</div>
+      <p class="typed" data-type="In 1920, the country goes dry."></p>
+      <div class="era-row">
+        <div class="era">
+          <span class="stamp s-red">Prohibited<small>jan 17, 1920</small></span>
+          <p class="typed" data-type="Treasury agents run enforcement. The TTB is still 83 years away."></p>
+        </div>
+        <div class="era-arrow" aria-hidden="true">
+          <svg viewBox="0 0 58 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path class="ea-line" d="M3 12h44"/>
+            <path class="ea-head" d="M40 4l12 8-12 8"/>
+          </svg>
+        </div>
+        <div class="era">
+          <span class="stamp green s-green">Repealed<small>dec 5, 1933</small></span>
+          <p class="typed" data-type="The taps reopen, and the job moves from the Alcohol Tax Unit to ATF, and finally to today's TTB."></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene" data-scene="rs">
+    <div class="card roadcard">
+      <svg viewBox="0 0 640 460" preserveAspectRatio="xMidYMid meet" role="img" aria-label="A two-lane road at dusk runs up to a green enamel roadside sign on two posts, the low sun setting behind it. The sign reads: You are now entering The Prohibition Era. Saloons shut, stills smashed, not a drop poured, by order of the law. Then it cracks and breaks in two, and behind it the outlaws have painted: Not here, partner. The back door's open, come on in.">
+        <defs>
+          <clipPath id="rsSunClip"><rect x="0" y="0" width="640" height="250"/></clipPath>
+          <clipPath id="rsTop"><path d="M150 64 H556 V145 L500 151 L455 142 L410 153 L366 140 L322 154 L278 141 L233 152 L195 139 L150 147 Z"/></clipPath>
+          <clipPath id="rsBot"><path d="M150 147 L195 139 L233 152 L278 141 L322 154 L366 140 L410 153 L455 142 L500 151 L556 145 V232 H150 Z"/></clipPath>
+          <g id="rsPanel">
+            <rect x="150" y="70" width="406" height="156" rx="10" fill="#3c5142"/>
+            <path d="M548 74 v148 a8 8 0 0 1 -8 4 h-2 v-156 h2 a8 8 0 0 1 8 4 z" fill="#2f4034" opacity=".8"/>
+            <rect x="150" y="70" width="406" height="6" rx="3" fill="#4a5f50" opacity=".7"/>
+            <path d="M164 83 Q360 80 542 83 Q545 154 542 213 Q360 216 164 213 Q161 148 164 83 Z" fill="none" stroke="#ece0c4" stroke-width="2" opacity=".82"/>
+            <path d="M150 80 q10 -6 16 2 q-9 1 -16 8 z" fill="#6d5636"/>
+            <path d="M556 214 q-9 7 -18 3 q8 -3 12 -12 z" fill="#6d5636"/>
+            <circle cx="169" cy="89" r="3" fill="#d9cfa9"/>
+            <circle cx="537" cy="89" r="3" fill="#d9cfa9"/>
+            <circle cx="169" cy="207" r="3" fill="#d9cfa9"/>
+            <circle cx="537" cy="207" r="3" fill="#d9cfa9"/>
+            <text x="353" y="107" text-anchor="middle" style="font-family:var(--type)" font-size="13" letter-spacing="3" fill="#ece0c4">YOU ARE NOW ENTERING</text>
+            <text x="353" y="150" text-anchor="middle" style="font-family:var(--marquee)" font-size="27" textLength="366" lengthAdjust="spacingAndGlyphs" fill="#e9c96a">THE PROHIBITION ERA</text>
+            <line x1="206" y1="167" x2="500" y2="167" stroke="#ece0c4" stroke-width="1" opacity=".5"/>
+            <text x="353" y="187" text-anchor="middle" style="font-family:var(--type)" font-size="11.5" fill="#e0d0a4">saloons shut &#183; stills smashed</text>
+            <text x="353" y="204" text-anchor="middle" style="font-family:var(--type)" font-size="11.5" fill="#e0d0a4">not a drop poured &#183; by order of the law</text>
+          </g>
+        </defs>
+
+        <!-- sky: four flat screenprint bands -->
+        <rect x="0" y="0" width="640" height="96" fill="#2f3d47"/>
+        <rect x="0" y="96" width="640" height="72" fill="#6a5f57"/>
+        <rect x="0" y="168" width="640" height="56" fill="#b6894e"/>
+        <rect x="0" y="224" width="640" height="26" fill="#d7a252"/>
+
+        <!-- low sun, upper half only, so the sign eclipses it -->
+        <g clip-path="url(#rsSunClip)">
+          <circle cx="516" cy="250" r="52" fill="#c9a24f"/>
+          <circle cx="516" cy="250" r="52" fill="none" stroke="#ece0c4" stroke-width="1.5" opacity=".3"/>
+        </g>
+
+        <!-- ground -->
+        <rect x="0" y="250" width="640" height="210" fill="#ac9059"/>
+        <line x1="0" y1="250" x2="640" y2="250" stroke="#8a7647" stroke-width="1.5"/>
+        <rect x="0" y="410" width="640" height="50" fill="#6d5636"/>
+
+        <!-- one long raking dusk shadow thrown left of the sign -->
+        <path d="M228 330 L486 330 L372 452 L108 452 Z" fill="#241a0b" opacity=".22"/>
+
+        <!-- the road: a straight two-lane running dead under the sign, converging
+             to a single point on the horizon so it reads as distance, not a dead end -->
+        <path d="M200 460 L353 250 L506 460 Z" fill="#3a352f"/>
+        <!-- center dashes drawn one by one, each tapered toward the vanishing point -->
+        <g fill="#efe2bb" opacity=".82">
+          <path d="M349.7 448 L356.3 448 L355.9 421 L350.1 421 Z"/>
+          <path d="M350.4 404 L355.6 404 L355.2 381 L350.8 381 Z"/>
+          <path d="M351.1 367 L354.9 367 L354.6 348 L351.4 348 Z"/>
+          <path d="M351.6 336 L354.4 336 L354.2 322 L351.8 322 Z"/>
+          <path d="M352 312 L354 312 L353.9 302 L352.1 302 Z"/>
+          <path d="M352.3 294 L353.7 294 L353.6 287 L352.4 287 Z"/>
+          <path d="M352.55 281 L353.45 281 L353.4 276 L352.6 276 Z"/>
+        </g>
+
+        <!-- posts -->
+        <ellipse cx="231" cy="333" rx="13" ry="3.5" fill="#241a0b" opacity=".3"/>
+        <ellipse cx="477" cy="333" rx="13" ry="3.5" fill="#241a0b" opacity=".3"/>
+        <rect x="224" y="224" width="14" height="109" fill="#452f13"/>
+        <rect x="224" y="224" width="3.5" height="109" fill="#65491f"/>
+        <rect x="470" y="224" width="14" height="109" fill="#452f13"/>
+        <rect x="470" y="224" width="3.5" height="109" fill="#65491f"/>
+
+        <!-- the outlaws' reply, painted behind the sign, revealed by the break -->
+        <g class="rs-rebel">
+          <text class="rs-reply" x="353" y="145" text-anchor="middle" transform="rotate(-3 353 145)" style="font-family:var(--marquee)" font-size="30" textLength="292" lengthAdjust="spacingAndGlyphs" fill="#5e0c02">Not here, partner</text>
+          <text class="rs-sub" x="353" y="168" text-anchor="middle" style="font-family:var(--type)" font-size="11" letter-spacing="1.5" fill="#7a1005">the back door&#39;s open &#183; come on in</text>
+        </g>
+
+        <!-- the sign, in two pieces that snap apart along a jagged crack -->
+        <g class="rs-piece rs-top">
+          <g clip-path="url(#rsTop)"><use href="#rsPanel"/></g>
+          <path class="rs-tear" d="M150 147 L195 139 L233 152 L278 141 L322 154 L366 140 L410 153 L455 142 L500 151 L556 145" fill="none" stroke="#d9cfa9" stroke-width="1.6" opacity="0"/>
+        </g>
+        <g class="rs-piece rs-bot">
+          <g clip-path="url(#rsBot)"><use href="#rsPanel"/></g>
+          <path class="rs-tear" d="M150 147 L195 139 L233 152 L278 141 L322 154 L366 140 L410 153 L455 142 L500 151 L556 145" fill="none" stroke="#25332b" stroke-width="1.6" opacity="0"/>
+        </g>
+      </svg>
+    </div>
+  </div>
 </div>
 
 <header class="site-header">
@@ -334,8 +439,14 @@
       <svg class="brand-glyph" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 4h9v16H6zM15 8h3a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-3"/><path d="M6 8h9" opacity=".6"/><path d="M8.5 11v6M11 11v6" opacity=".35"/></svg>
       <span class="brand-text">
         <span class="mark">TTB by the Numbers</span>
+        <span class="tag">A prohibition-era picture show, with data</span>
       </span>
     </a>
+    <div class="head-deco" aria-hidden="true">&#9670; &middot; &#9670; &middot; &#9670;</div>
+    <button id="helpOpen" type="button" aria-haspopup="dialog" aria-controls="helpModal">
+      <svg class="hlp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.3 9.2a2.7 2.7 0 0 1 5.3 .9c0 1.9-2.6 2.1-2.6 3.9" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1" fill="currentColor" stroke="none"/></svg>
+      How to use this page
+    </button>
   </div>
 </header>
 
@@ -348,11 +459,11 @@
         <div class="kick tw" data-type="The federal government's ledger of alcohol and tobacco, FY 2015 to FY 2025"></div>
         <div class="big-number"><span data-countup="20.6" data-decimals="1" data-prefix="$">0</span><span class="unit"> billion</span></div>
         <h1>Fiscal year 2025's take in alcohol, tobacco, firearms, and ammunition excise taxes.</h1>
-        <p class="hero-why">Built from public data published by the Alcohol and Tobacco Tax and Trade Bureau (TTB), the Treasury bureau that collects these taxes and regulates the industries that pay them. One page to show source tracing, trend analysis, redaction handling, and public-facing data communication.</p>
+        <p class="hero-why">Built from public data published by the Alcohol and Tobacco Tax and Trade Bureau (TTB), the Treasury bureau that collects these taxes and regulates the industries that pay them. One page that shows how I work with public data. Sources are named, discrepancies are explained, and redactions are left visible rather than guessed.</p>
         <details class="house-rules">
           <summary class="hr-title"><span aria-hidden="true">&#9733;</span> House Rules <span aria-hidden="true">&#9733;</span></summary>
           <p>Every figure rides in from TTB's own published files, and every chart names its source. No exceptions, partner.</p>
-          <p>A named TTB release stands behind every chart: open "Here's the ledger" under any figure for the table, the units, and the source. Files current as of late June 2026.</p>
+          <p>A named TTB release stands behind every chart: open "Here's the ledger" under any figure for the table, the units, and the source. Files current as of July 2026.</p>
         </details>
         <button id="shortPour" type="button"><span class="sp-ask">Here on business?</span> Start here &middot; the one-minute briefing</button>
         <div class="hero-ticker">
@@ -703,7 +814,7 @@
       <div class="receipt reveal">
         <div class="rc-head">
           <div class="rc-name">TTB by the Numbers</div>
-          <div class="rc-meta">An analysis done on the following data sets and sources</div>
+          <div class="rc-meta">The data sets and sources behind this page</div>
           <div class="rc-meta">Guest: <span id="tabGuest">a friend of the house</span></div>
         </div>
         <ul class="rc-items">
@@ -719,7 +830,7 @@
           <li><span>Prohibition history</span><i class="rc-dots"></i><span class="rc-src"><a href="https://www.fjc.gov/history" rel="noopener">Federal Judicial Center; Beer Institute</a></span></li>
         </ul>
         <div class="rc-total"><span>Total due</span><span>$0.00</span></div>
-        <p class="rc-note">Public data is on the house. Files current at the end of June 2026, all from <a href="https://www.ttb.gov/data" rel="noopener">ttb.gov/data</a>.</p>
+        <p class="rc-note">Public data is on the house. Files current as of July 2026, all from <a href="https://www.ttb.gov/data" rel="noopener">ttb.gov/data</a>.</p>
         <div class="rc-signrow">
           <span class="rc-x">&#10005;</span>
           <span class="rc-sigline"><span class="rc-sig">Juliette Gudknecht</span><svg class="rc-pen" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#3f2f16" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l3.5-1 11-11a2.1 2.1 0 0 0-3-3l-11 11z"/><path d="M13 5l3 3"/></svg></span>
@@ -731,14 +842,14 @@
         <h3>The house <span class="u">picks up the check</span>.</h3>
         <p>I'm Juliette Gudknecht, the data steward for IDEA Section 618 at the U.S. Department of Education, the national data collections behind special education for more than 8 million students. I manage two of the collections end to end, assist on an additional four, co-author the OSEP Fast Facts data stories, contribute to the IDEA Annual Report to Congress, and build the Python-automated data quality check support code that stands behind enhancing the integrity of the published IDEA 618 collection's numbers.</p>
         <p>This page is how I work with federal data: named sources, reconciled definitions, explained discrepancies, honest gaps. TTB publishes far more than one page can hold, and I would welcome the chance to work with the rest of it.</p>
-        <p><b>Feel like settling the tab anyway?</b> Reach out. <a href="mailto:juliettegudknecht14@gmail.com">juliettegudknecht14@gmail.com</a></p>
+        <p><b>Feel like settling the tab anyway?</b> Reach out. <a href="mailto:juliettegudknecht14@gmail.com">juliettegudknecht14@gmail.com</a> &middot; <a href="https://juliettegudknecht-code.github.io/portfolio/" rel="noopener">my portfolio</a></p>
       </div>
 
       <details class="dossier reveal" style="margin-left:auto;margin-right:auto">
         <summary style="text-align:center">The fine print, all of it</summary>
         <ul class="about-list">
         <li><b>Tax collections</b> come from TTB Statistical Release TTB S 5630, Tax Collections, using each fiscal year's final annual cumulative summary, FY 2015 to FY 2025, from <a href="https://www.ttb.gov/taxes/tax-audit/tax-collections" rel="noopener">ttb.gov/taxes/tax-audit/tax-collections</a>. TTB labels these releases unofficial; official revenue figures appear in the TTB annual report. In plain terms, the statistical release is the bureau's running tally and the audited annual report is the official record; this page uses the statistical releases and says so. Domestic figures come from TTB's tax database by return period end date, and import figures come from U.S. Customs and Border Protection data.</li>
-        <li><b>Production and removals</b> come from the TTB National Statistical Reports for beer (TTB S 5130), wine (TTB S 5120), and distilled spirits (TTB S 5110), published as yearly open data files covering calendar years 2012 to 2025, from the statistics pages at <a href="https://www.ttb.gov/data" rel="noopener">ttb.gov/data</a>. TTB revises these as amended returns arrive; figures here reflect files current as of late June 2026.</li>
+        <li><b>Production and removals</b> come from the TTB National Statistical Reports for beer (TTB S 5130), wine (TTB S 5120), and distilled spirits (TTB S 5110), published as yearly open data files covering calendar years 2012 to 2025, from the statistics pages at <a href="https://www.ttb.gov/data" rel="noopener">ttb.gov/data</a>. TTB revises these as amended returns arrive; figures here reflect files current as of July 2026.</li>
         <li><b>Tobacco removals</b> come from the TTB tobacco statistics yearly open data file, calendar years 2012 to 2025, using the taxable removals series, which includes removals from Puerto Rico. Cigar detail for 2013 is redacted in the source file.</li>
         <li><b>Agency figures</b> (industry members, label applications, staffing, budget, revenue per program dollar) come from the TTB Annual Reports for FY 2019 to FY 2023 and the FY 2025 TTB Annual Financial Report. TTB published no FY 2024 annual report. Where TTB published only rounded figures, this page repeats TTB's rounding.</li>
         <li><b>Permit and registration counts</b> come from TTB National Revenue Center count-by-state spreadsheets for breweries and bonded wine producers (continental United States) and the TTB Distilled Spirits Permit Counts report (beverage alcohol permits only).</li>
@@ -764,7 +875,7 @@
     <p class="bday"><span class="star">&#9733;</span><svg class="flag" viewBox="0 0 24 14" aria-hidden="true"><rect width="24" height="14" fill="#f6edd6"/><g fill="#a3392a"><rect y="0" width="24" height="2"/><rect y="4" width="24" height="2"/><rect y="8" width="24" height="2"/><rect y="12" width="24" height="2"/></g><rect width="10" height="8" fill="#31507a"/><g fill="#f6edd6"><circle cx="2" cy="2" r=".75"/><circle cx="5" cy="2" r=".75"/><circle cx="8" cy="2" r=".75"/><circle cx="3.5" cy="4" r=".75"/><circle cx="6.5" cy="4" r=".75"/><circle cx="2" cy="6" r=".75"/><circle cx="5" cy="6" r=".75"/><circle cx="8" cy="6" r=".75"/></g></svg> Happy 250th, America &middot; 1776 to 2026 <span class="star">&#9733;</span></p>
     <p class="poured">Site carefully poured for <span id="pourFor">a friend of the house</span>.</p>
     <p>TTB by the Numbers. Built entirely from public data published by the Alcohol and Tobacco Tax and Trade Bureau at <a href="https://www.ttb.gov/data" rel="noopener">ttb.gov/data</a> and <a href="https://www.ttb.gov/statistics/reports-and-data" rel="noopener">ttb.gov/statistics/reports-and-data</a>.</p>
-    <p>Tax collections through FY 2025. Industry statistics through calendar year 2025, as published in files current at the end of June 2026.</p>
+    <p>Tax collections through FY 2025. Industry statistics through calendar year 2025, as published in files current as of July 2026.</p>
     <p class="no-barrels">No barrels were emptied in the making of this website.</p>
     <p>Views here are my own, not my employer's.</p>
     <div class="foot-legal">
@@ -835,6 +946,23 @@
   </div>
 </div>
 
+<div class="modal" id="helpModal" role="dialog" aria-modal="true" aria-label="How to use this page">
+  <div class="modal-card story-card help-modal">
+    <button class="modal-close" type="button" aria-label="Close">&#10005;</button>
+    <h4>How to use this page</h4>
+    <p class="help-intro">It is one long page that reads top to bottom. A few things worth knowing before you start:</p>
+    <ul class="help-list">
+      <li><b class="hl-hot">In a hurry?</b> Near the top, <b>Start here &middot; the one-minute briefing</b> runs a short guided tour of the highlights.</li>
+      <li><b>The charts and drawings are clickable.</b> Hover a chart to read the exact numbers, or click a bar, a data point, or a figure and a small popup opens with more behind it.</li>
+      <li><b>Every figure has a ledger.</b> The <b>Here&#39;s the ledger</b> link under a chart opens its full data table, the units, and the named source, and lets you download it.</li>
+      <li><b>Jump to any section.</b> The <b>Admit One &middot; Programme</b> ticket at the bottom is the menu; it links straight to any part of the page.</li>
+      <li><b>The music has an off switch</b> in the bottom-left corner. Turn it off whenever you like.</li>
+      <li><b>The ending ties it together.</b> The last section, <b>Pay your tab</b>, lists every source on a receipt and closes with a short note on who built this and why.</li>
+    </ul>
+    <p class="help-foot">That is the whole tour. Make yourself at home, and thanks for stopping by.</p>
+  </div>
+</div>
+
 <div class="modal" id="workModal" role="dialog" aria-modal="true" aria-label="What went into this page">
   <div class="modal-card story-card work-modal">
     <button class="modal-close" type="button" aria-label="Close">&#10005;</button>
@@ -880,6 +1008,6 @@
 
 <script src="chart.umd.min.js?v=19"></script>
 <script src="data.js?v=21"></script>
-<script src="app.js?v=87"></script>
+<script src="app.js?v=94"></script>
 </body>
 </html>
