@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TTB Data Steward</title>
+<style>
+  :root{
+    --paper:#f0e7d0; --ink:#2b2318; --muted:#5f5544; --faint:#8a7d63;
+    --brown:#4a3421; --brass:#a0782c; --oxblood:#7d2f24; --line:#cdc2a4; --green:#42603f;
+    --display:'Copperplate','Copperplate Gothic Bold','Baskerville',serif;
+    --type:'American Typewriter','Courier New',monospace;
+    --serif:'Baskerville','Iowan Old Style',Georgia,serif;
+    --sans:'Avenir Next',Avenir,'Segoe UI',system-ui,'Helvetica Neue',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;}
+  body{background:radial-gradient(1100px 500px at 50% -8%, #f6efdb, var(--paper) 72%);}
+  a{color:var(--brown);}
+  button,input,select{font-family:inherit;}
+  button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--brown);outline-offset:2px;}
+
+  .band{border-bottom:4px double var(--ink);}
+  .band-in{width:min(100% - 48px,1060px);margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:16px 0 10px;}
+  .mast-over{display:block;font:400 9.5px var(--type);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+  .mast-name{font:400 22px var(--display);letter-spacing:.06em;color:var(--ink);}
+  .mast-sub{font:italic 400 12.5px var(--serif);color:var(--muted);margin-left:12px;}
+  .band-r{display:flex;align-items:baseline;gap:12px;font:12px var(--type);color:var(--muted);}
+  .band-r b{color:var(--ink);font-weight:600;}
+  .lockbtn{font:600 11px var(--type);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:0;}
+  .lockbtn:hover{color:var(--ink);}
+
+  .tabs{width:min(100% - 48px,1060px);margin:0 auto;display:flex;gap:24px;flex-wrap:wrap;border-bottom:1px solid var(--line);}
+  .tab{font:600 10.5px var(--type);letter-spacing:.12em;text-transform:uppercase;color:var(--faint);background:none;border:none;padding:12px 0;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;}
+  .tab:hover{color:var(--ink);}
+  .tab.on{color:var(--brown);border-bottom-color:var(--brass);}
+
+  .wrap{width:min(100% - 48px,1060px);margin:0 auto;padding:22px 0 44px;}
+  h1{font:600 25px/1.2 var(--serif);margin:2px 0 6px;}
+  h2{font:600 17.5px/1.25 var(--serif);margin:0 0 2px;}
+  .lead{font:13.5px/1.65 var(--sans);color:var(--muted);max-width:96ch;margin:0 0 4px;}
+  .card{border-top:3px double var(--ink);padding:14px 0 6px;margin-top:28px;}
+  .kick{display:none;}
+
+  table{border-collapse:collapse;width:100%;margin-top:8px;}
+  th{text-align:left;font:400 9.5px var(--type);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--ink);padding:5px 12px 5px 0;}
+  td{font:13px/1.5 var(--sans);padding:8px 12px 8px 0;border-bottom:1px solid var(--line);vertical-align:top;}
+  td.b{font-weight:600;color:var(--brown);white-space:nowrap;}
+  td.num{font:600 16px var(--serif);color:var(--brown);white-space:nowrap;}
+  .src{font:11px/1.5 var(--sans);color:var(--faint);margin-top:8px;}
+
+  .btn{font:600 11.5px var(--type);letter-spacing:.08em;text-transform:uppercase;color:#f4ecd8;background:var(--brown);border:1px solid var(--brown);border-radius:2px;padding:9px 15px;cursor:pointer;}
+  .btn:hover{background:#3a2818;}
+  .btn2{font:600 12px var(--type);letter-spacing:.04em;color:var(--brown);background:none;border:none;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+  .btn2:hover{color:#3a2818;}
+  .in{font:inherit;font-size:14px;padding:9px 11px;border:1px solid #b3a682;border-radius:2px;background:#faf5e6;}
+  .in:focus{outline:none;border-color:var(--brown);}
+
+  .finding{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);}
+  .finding .sev{flex:none;font:700 10px var(--type);letter-spacing:.08em;text-transform:uppercase;margin-top:2px;width:58px;}
+  .sev.err{color:var(--oxblood);}
+  .sev.warn{color:var(--brass);}
+  .sev.ok{color:var(--green);}
+  .finding .fx{font:13px/1.55 var(--sans);color:#3d3627;}
+  .finding .fx b{color:var(--ink);}
+
+  .grid{overflow-x:auto;margin-top:10px;}
+  .grid table{margin:0;}
+  .grid th{padding:6px 14px 6px 0;}
+  .grid td{padding:5px 14px 5px 0;border-bottom:1px solid #ddd3b6;font-size:12.5px;white-space:nowrap;}
+  .grid tr.bad td{background:#ecd9cd;}
+  .grid tr.warnrow td{background:#ecdfb9;}
+
+  .gate{position:fixed;inset:0;background:radial-gradient(700px 420px at 50% 30%, #2a1c10, #140d07 78%);display:flex;align-items:center;justify-content:center;padding:24px;z-index:100;}
+  .door{width:min(430px,100%);background:repeating-linear-gradient(90deg,#4a3421 0px,#543b25 52px,#46311e 54px,#4a3421 108px);border:10px solid #2e1f12;border-radius:6px;box-shadow:0 24px 60px rgba(0,0,0,.55), inset 0 0 0 2px rgba(0,0,0,.25), inset 0 0 46px rgba(0,0,0,.38);padding:26px 26px 22px;}
+  .door.rattle{animation:doorRattle .5s ease-in-out;}
+  @keyframes doorRattle{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+  .plate{background:linear-gradient(180deg,#c9a24a,#a0782c 60%,#8a6420);color:#241a08;text-align:center;border-radius:3px;border:1px solid #6f5119;box-shadow:inset 0 1px 0 rgba(255,255,255,.45), 0 2px 4px rgba(0,0,0,.4);padding:8px 10px 7px;margin:0 auto 18px;max-width:330px;}
+  .plate .p1{font:400 16px var(--display);letter-spacing:.1em;}
+  .plate .p2{font:600 8.5px var(--type);letter-spacing:.18em;text-transform:uppercase;margin-top:2px;color:#3a2b0d;}
+  .peep{position:relative;width:190px;height:34px;margin:0 auto 20px;background:#120b06;border-radius:3px;border:3px solid #6f5119;box-shadow:inset 0 0 12px #000;overflow:hidden;}
+  .peep .glow{position:absolute;inset:0;background:radial-gradient(60px 16px at 50% 50%, #f2d98b, #6b5420 80%);opacity:.9;}
+  .peep-cover{position:absolute;inset:-1px;background:linear-gradient(90deg,#3a2818,#4a3421);border-right:3px solid #6f5119;transition:transform .45s ease;}
+  .gate form:focus-within .peep-cover,.door:hover .peep-cover{transform:translateX(96%);}
+  @media (prefers-reduced-motion: reduce){.door.rattle{animation:none;}.peep-cover{transition:none;}}
+  .gate .gover{font:400 9px var(--type);letter-spacing:.14em;text-transform:uppercase;color:#cbb98f;text-align:center;margin-bottom:12px;}
+  .gate p{font:13px/1.6 var(--sans);color:#e6d9b8;margin:0 0 14px;text-align:center;}
+  .gate input{width:100%;margin-bottom:8px;background:#f5edd7;border:1px solid #241a08;}
+  .gate .row{display:flex;gap:8px;}
+  .gate .row input{flex:1;margin:0;}
+  .knock{font:700 11.5px var(--type);letter-spacing:.14em;text-transform:uppercase;color:#f2e6c4;background:#241a08;border:1px solid #120b06;border-radius:2px;padding:9px 16px;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.08);}
+  .knock:hover{background:#2e2210;}
+  .gate .err{min-height:18px;margin-top:10px;font:600 12px var(--type);color:#e08a6d;text-align:center;}
+  .gate .ask{margin-top:14px;font:12px var(--sans);color:#cbb98f;text-align:center;}
+  .gate .ask a{color:#e6d9b8;}
+
+  .stamp{display:inline-block;transform:rotate(-2deg);border:2px solid var(--oxblood);color:var(--oxblood);font:600 9.5px var(--type);letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:2px;margin-left:14px;vertical-align:4px;opacity:.85;}
+  footer{width:min(100% - 48px,1060px);margin:0 auto;padding:16px 0 30px;border-top:3px double var(--ink);font:11.5px/1.65 var(--sans);color:var(--faint);}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+"use strict";
+var PASSWORD='ttbdata123';
+
+/* ---------- reference data (public TTB sources, figures as published) ---------- */
+var STATS=[
+  {n:'10.2M bbl', k:'Taxable removals, February 2026, up 0.2 percent versus February 2025', s:'Beer Institute estimate compiled from TTB data, published April 2026. TTB\u2019s official release for the month follows about 90 days after the period.'},
+  {n:'19.8M bbl', k:'Taxable removals, year to date through February 2026, down 4.7 percent from 20.79M a year earlier', s:'Beer Institute estimate compiled from TTB data, published April 2026.'},
+  {n:'10,595,677 bbl', k:'Taxable removals, December 2025, as reported', s:'TTB Beer Statistical Release, December 2025.'},
+  {n:'14,597', k:'Approved breweries at the end of 2023', s:'TTB brewery count, cited in NBWA Industry Fast Facts.'},
+  {n:'$3.37B', k:'Beer excise collections, fiscal year 2024', s:'TTB Tax Collections statistical release, FY 2024 ($3,371,496 thousand).'}
+];
+
+var COLLECTIONS=[
+  {name:'Beer statistical release', form:'TTB F 5130.9, Brewer’s Report of Operations', freq:'Monthly (quarterly or annual for small brewers)', due:'15th day after the close of the reporting period (27 CFR 25.297)', pub:'Monthly national release and quarterly state-level release, about 90 days after the period', fields:'Production; removals taxpaid; removals without payment of tax; stocks on hand; materials used'},
+  {name:'Wine statistical release', form:'TTB F 5120.17, Report of Wine Premises Operations', freq:'Monthly, quarterly, or annual by size', due:'15th day after the close of the reporting period (27 CFR 24.300)', pub:'Monthly national release, by tax class', fields:'Bulk and bottled production; removals taxpaid and not taxpaid; stocks, by tax class'},
+  {name:'Distilled spirits statistical release', form:'TTB F 5110.40 (production), 5110.11 (storage), 5110.28 (processing)', freq:'Monthly', due:'15th day after the close of the reporting period', pub:'Monthly national release, proof gallons by kind', fields:'Production by kind; bottling; withdrawals; stocks'},
+  {name:'Tobacco statistical release', form:'TTB F 5210.5, Report, Manufacturer of Tobacco Products', freq:'Monthly', due:'20th day after the close of the reporting period', pub:'Monthly national release', fields:'Removals of small and large cigarettes, cigars, chew, snuff, pipe and roll-your-own'},
+  {name:'Excise tax collections', form:'TTB F 5000.24, Excise Tax Return', freq:'Semi-monthly (quarterly or annual for eligible small taxpayers)', due:'14 days after the close of the return period', pub:'Monthly and fiscal-year Tax Collections release, by commodity', fields:'Tax by commodity: distilled spirits, wine, beer, tobacco, firearms and ammunition (FAET)'},
+  {name:'Permit and registry lists', form:'FAA Act basic permits; brewer’s notices', freq:'Published lists updated periodically', due:'Not applicable', pub:'List of permittees, brewery count by state, processing-times statistics on TTB.gov', fields:'Permittee name, state, permit type'}
+];
+
+var RULES=[
+  {id:'STR-01', sev:'Error', name:'Required columns present', text:'The working file must carry the report’s expected columns (period, state, and the report’s count fields) with the published header names.'},
+  {id:'STR-02', sev:'Error', name:'No blank state or period', text:'Every row must name a state and a reporting period. A blank key cell makes the row unusable for the state release.'},
+  {id:'STR-03', sev:'Error', name:'No duplicate state and period', text:'One row per state per period. Duplicates double-count the national total.'},
+  {id:'VAL-01', sev:'Error', name:'No negative quantities', text:'Production, removals, and stocks cannot be negative. A negative usually means a sign error or a misplaced adjustment.'},
+  {id:'VAL-02', sev:'Warning', name:'Inventory balance', text:'Opening stocks plus production should roughly cover removals plus closing stocks. A large residual suggests a keying or unit error (barrels versus cases).'},
+  {id:'VAL-03', sev:'Warning', name:'Year-over-year swing', text:'A state value more than 40 percent from the same period last year is flagged for review before publication, not automatically corrected.'},
+  {id:'DIS-01', sev:'Warning', name:'Disclosure review, small counts', text:'Statistical releases aggregate taxpayer reports. Where a state cell reflects fewer than 3 reporting brewers, review whether it must be combined into "Other states" so no individual taxpayer’s data can be inferred (26 U.S.C. 6103 confidentiality).'}
+];
+
+/* the example working file: SYNTHETIC quarterly state beer data, with five seeded problems */
+var EXAMPLE={
+  name:'beer-Q1-working-file-EXAMPLE.csv',
+  header:['Period','State','Brewers Reporting','Production (bbl)','Removals Taxpaid (bbl)','Removals Without Tax (bbl)','Stocks End of Period (bbl)'],
+  rows:[
+    ['2026Q1','California',912, 4182000, 3722000, 261000, 612000],
+    ['2026Q1','Colorado',438, 2870000, 2571000, 168000, 402000],
+    ['2026Q1','Texas',372, 3095000, 2762000, 214000, 455000],
+    ['2026Q1','Ohio',341, 2418000, 2183000, 141000, 331000],
+    ['2026Q1','Pennsylvania',356, 1902000, 1710000, 118000, 274000],
+    ['2026Q1','New York',461, 1266000, 1131000, 84000, 187000],
+    ['2026Q1','Wisconsin',218, 1187000, 1042000, 79000, 171000],
+    ['2026Q1','Georgia',146, 1054000, 948000, 61000, 149000],
+    ['2026Q1','Virginia',312, 621000, 552000, 39000, 92000],
+    ['2026Q1','North Carolina',392, 588000, 522000, 37000, 88000],
+    ['2026Q1','Michigan',401, 512000, 458000, 31000, -74000],
+    ['2026Q1','',188, 397000, 351000, 25000, 58000],
+    ['2026Q1','Oregon',309, 386000, 344000, 23000, 57000],
+    ['2026Q1','Washington',428, 371000, 329000, 22000, 55000],
+    ['2026Q1','Missouri',142, 2609000, 802000, 47000, 121000],
+    ['2026Q1','Colorado',438, 2870000, 2571000, 168000, 402000],
+    ['2026Q1','Delaware',2, 214000, 191000, 13000, 30000],
+    ['2026Q1','Montana',96, 118000, 104000, 8000, 17000]
+  ],
+  prior:{ 'california':3648000, 'colorado':2494000, 'texas':2688000, 'ohio':2122000, 'pennsylvania':1671000, 'new york':1099000, 'wisconsin':1013000, 'georgia':921000, 'virginia':539000, 'north carolina':506000, 'michigan':447000, 'oregon':336000, 'washington':321000, 'missouri':1994000, 'delaware':186000, 'montana':101000 }
+};
+
+/* ---------- state ---------- */
+var S={ locked:true, err:'', name:'', tab:'home', wb:null, findings:null };
+try{ var nm=localStorage.getItem('ttbsteward_name'); if(nm) S.name=nm; }catch(e){}
+
+function esc(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function num(v){var n=parseFloat(String(v).replace(/,/g,''));return isNaN(n)?null:n;}
+function fmt(n){return n==null?'':Number(n).toLocaleString('en-US');}
+
+/* ---------- workbench checks ---------- */
+function runChecks(wb){
+  var f=[]; var H=wb.header;
+  var iPer=0,iSt=1,iBr=2,iProd=3,iTax=4,iNoTax=5,iStock=6;
+  f.push({rule:'STR-01', sev:'ok', text:'All 7 expected columns are present with the published header names.'});
+  var seen={}, dupes=[], blanks=[], negs=[], bal=[], yoy=[], disc=[];
+  wb.rows.forEach(function(r,i){
+    var st=String(r[iSt]||'').trim(), per=String(r[iPer]||'').trim();
+    if(!st||!per){ blanks.push(i); return; }
+    var key=(st+'|'+per).toLowerCase();
+    if(seen[key]!=null) dupes.push({i:i, st:st}); else seen[key]=i;
+    [iProd,iTax,iNoTax,iStock].forEach(function(c){ var v=num(r[c]); if(v!=null&&v<0) negs.push({i:i, st:st, col:H[c], v:v}); });
+    var prod=num(r[iProd])||0, tax=num(r[iTax])||0, nt=num(r[iNoTax])||0, stk=num(r[iStock])||0;
+    if(prod>0){ var resid=prod-(tax+nt+stk); if(Math.abs(resid)/prod>0.25) bal.push({i:i, st:st, resid:resid}); }
+    var pv=EXAMPLE.prior[st.toLowerCase()];
+    if(pv!=null&&num(r[iTax])!=null){ var chg=(num(r[iTax])-pv)/pv*100; if(Math.abs(chg)>40) yoy.push({i:i, st:st, chg:chg}); }
+    var br=num(r[iBr]); if(br!=null&&br>0&&br<3) disc.push({i:i, st:st, br:br});
+  });
+  f.push(blanks.length?{rule:'STR-02',sev:'err',rows:blanks,text:blanks.length+' row(s) with a blank state or period (row '+blanks.map(function(i){return i+2;}).join(', ')+'). These rows cannot be published.'}:{rule:'STR-02',sev:'ok',text:'Every row names a state and a period.'});
+  f.push(dupes.length?{rule:'STR-03',sev:'err',rows:dupes.map(function(d){return d.i;}),text:dupes.length+' duplicate state-and-period row(s): '+dupes.map(function(d){return d.st;}).join(', ')+'. The national total would double-count.'}:{rule:'STR-03',sev:'ok',text:'No duplicate state and period rows.'});
+  f.push(negs.length?{rule:'VAL-01',sev:'err',rows:negs.map(function(d){return d.i;}),text:negs.map(function(d){return d.st+' reports '+fmt(d.v)+' for '+d.col;}).join('; ')+'. Quantities cannot be negative.'}:{rule:'VAL-01',sev:'ok',text:'No negative quantities.'});
+  f.push(bal.length?{rule:'VAL-02',sev:'warn',rows:bal.map(function(d){return d.i;}),text:bal.map(function(d){return d.st+' has a residual of '+fmt(Math.round(d.resid))+' bbl between production and removals plus stocks';}).join('; ')+'. Check for a unit or keying error.'}:{rule:'VAL-02',sev:'ok',text:'Inventory balances are within tolerance.'});
+  f.push(yoy.length?{rule:'VAL-03',sev:'warn',rows:yoy.map(function(d){return d.i;}),text:yoy.map(function(d){return d.st+' taxable removals are '+(d.chg>0?'up ':'down ')+Math.abs(d.chg).toFixed(1)+'% versus the same period last year';}).join('; ')+'. Confirm with the reported filings before release.'}:{rule:'VAL-03',sev:'ok',text:'No state moved more than 40 percent year over year.'});
+  f.push(disc.length?{rule:'DIS-01',sev:'warn',rows:disc.map(function(d){return d.i;}),text:disc.map(function(d){return d.st+' reflects only '+d.br+' reporting brewer(s)';}).join('; ')+'. Review whether this cell must be combined into "Other states" before publication (26 U.S.C. 6103).'}:{rule:'DIS-01',sev:'ok',text:'No state cell reflects fewer than 3 reporting brewers.'});
+  return f;
+}
+function flaggedRows(){ var out={}; (S.findings||[]).forEach(function(fd){ (fd.rows||[]).forEach(function(i){ out[i]=fd.sev==='err'?'err':(out[i]||'warn'); }); }); return out; }
+function exportFindings(){
+  if(!S.findings) return;
+  var lines=[['Rule','Severity','Finding'].join(',')];
+  S.findings.forEach(function(f){ lines.push([f.rule, f.sev==='err'?'Error':(f.sev==='warn'?'Warning':'Pass'), '"'+f.text.replace(/"/g,'""')+'"'].join(',')); });
+  var blob=new Blob(['﻿'+lines.join('\n')],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='ttb-review-findings.csv';
+  document.body.appendChild(a); a.click(); setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},400);
+}
+
+/* ---------- views ---------- */
+function statRow(){
+  var today=new Date(); var MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var filed=MON[today.getMonth()]+' '+today.getDate()+', '+today.getFullYear();
+  return '<div class="card"><h2>Beer, the latest counts on file<span class="stamp">Filed '+filed+'</span></h2>'
+    +'<table>'+STATS.map(function(s){
+    return '<tr><td class="num">'+esc(s.n)+'</td><td>'+esc(s.k)+'</td><td style="color:var(--faint);font-size:11.5px;">'+esc(s.s)+'</td></tr>';
+  }).join('')+'</table>'
+  +'<p class="src">The official monthly releases run about 90 days behind the reporting period. And beginning with the 2025 statistics, TTB reports taxable removals by total volume only, because brewers in the tax simplification pilot no longer break out bottles and cans versus kegs.</p></div>';
+}
+function chartCard(){
+  var D=[
+    {m:'December 2025', v:10.60, lbl:'10.60M', est:false, t:'10,595,677 barrels, TTB Beer Statistical Release'},
+    {m:'January 2026', v:9.60, lbl:'9.60M', est:true, t:'9,600,000 barrels, industry estimate ahead of the TTB release'},
+    {m:'February 2026', v:10.20, lbl:'10.20M', est:true, t:'10,200,000 barrels, industry estimate ahead of the TTB release'}
+  ];
+  var W=640, base=156, maxV=11, bw=110, xs=[70,265,460];
+  var tfont='font-family:American Typewriter,Courier New,monospace;';
+  var bars=D.map(function(d,i){
+    var h=d.v/maxV*130, y=base-h, x=xs[i];
+    var fill=d.est?'url(#crhatch)':'#2b2318';
+    return '<g><title>'+d.m+': '+d.t+'</title>'
+      +'<rect x="'+x+'" y="'+y.toFixed(1)+'" width="'+bw+'" height="'+h.toFixed(1)+'" fill="'+fill+'" stroke="#2b2318" stroke-width="1.5"></rect>'
+      +'<text x="'+(x+bw/2)+'" y="'+(y-7).toFixed(1)+'" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2b2318" style="'+tfont+'">'+d.lbl+(d.est?' est.':'')+'</text>'
+      +'<text x="'+(x+bw/2)+'" y="'+(base+18)+'" text-anchor="middle" font-size="9.5" letter-spacing="1.5" fill="#5f5544" style="'+tfont+'">'+d.m.toUpperCase()+'</text>'
+      +'</g>';
+  }).join('');
+  return '<div class="card"><h2>From the counting room</h2>'
+    +'<p class="lead">Taxable removals of beer, the last three months on file.</p>'
+    +'<div style="overflow-x:auto;"><svg viewBox="0 0 '+W+' 200" width="100%" style="max-width:680px;display:block;" role="img" aria-label="Bar chart of monthly taxable removals of beer. December 2025, 10.60 million barrels reported. January 2026, 9.60 million estimated. February 2026, 10.20 million estimated.">'
+    +'<defs><pattern id="crhatch" patternUnits="userSpaceOnUse" width="7" height="7" patternTransform="rotate(45)"><rect width="7" height="7" fill="#efe5cc"></rect><rect width="3" height="7" fill="#2b2318"></rect></pattern></defs>'
+    +'<line x1="40" y1="'+base+'" x2="'+(W-30)+'" y2="'+base+'" stroke="#2b2318" stroke-width="2"></line>'
+    +'<line x1="40" y1="'+(base+4)+'" x2="'+(W-30)+'" y2="'+(base+4)+'" stroke="#2b2318" stroke-width="1"></line>'
+    +bars
+    +'</svg></div>'
+    +'<p class="src">Solid bars are TTB-reported figures. Striped bars are industry estimates compiled from TTB data, ahead of the official release. Sources: TTB Beer Statistical Release, December 2025; Beer Institute estimates published March and April 2026. Hover a bar for the exact figure.</p></div>';
+}
+function homeView(){
+  return '<p class="lead" style="margin-top:10px;">Check a statistical release working file before it goes out, and keep the forms, due dates, and review rules in one place. This preview follows the beer collection. Everything runs in this browser.</p>'
+    +statRow()
+    +chartCard()
+    ;
+}
+function libraryView(){
+  var coll='<div class="card"><h2>Statistical release programs</h2>'
+    +'<table><tr><th>Release</th><th>Source form</th><th>Filing frequency</th><th>Filing due date</th><th>What TTB publishes</th></tr>'
+    +COLLECTIONS.map(function(c){return '<tr><td class="b">'+esc(c.name)+'</td><td>'+esc(c.form)+'</td><td>'+esc(c.freq)+'</td><td>'+esc(c.due)+'</td><td>'+esc(c.pub)+'<br><span style="color:var(--faint);font-size:11.5px;">Fields: '+esc(c.fields)+'</span></td></tr>';}).join('')
+    +'</table><p class="src">Sources: TTB.gov statistics pages and forms; filing due dates per 27 CFR 25.297 (beer) and 27 CFR 24.300 (wine). Statistical releases are published on TTB.gov, and state-level detail is aggregated so no individual taxpayer’s data is disclosed.</p></div>';
+  var rules='<div class="card"><h2>Pre-publication checks</h2>'
+    +'<table><tr><th>Rule</th><th>Severity</th><th>What it checks</th></tr>'
+    +RULES.map(function(r){return '<tr><td class="b">'+r.id+'</td><td>'+r.sev+'</td><td><b>'+esc(r.name)+'.</b> '+esc(r.text)+'</td></tr>';}).join('')
+    +'</table><p class="src">The rule inventory is illustrative, written for this preview in the spirit of TTB’s published data practices.</p></div>';
+  var pub='<div class="card"><h2>Where the public data lives</h2>'
+    +'<table>'
+    +'<tr><td class="b">Statistical releases</td><td>Monthly national and quarterly state releases for beer, wine, distilled spirits, and tobacco, on TTB.gov under Data and Statistics (PDF and Excel).</td></tr>'
+    +'<tr><td class="b">Tax collections</td><td>Monthly and fiscal-year collections by commodity, including firearms and ammunition excise (FAET).</td></tr>'
+    +'<tr><td class="b">List of permittees</td><td>FAA Act permit holders, published for public inspection; brewery counts by state.</td></tr>'
+    +'<tr><td class="b">COLA registry</td><td>The public database of certificates of label approval, searchable online.</td></tr>'
+    +'<tr><td class="b">Processing times</td><td>Average days to process permits, labels, and formulas, updated on TTB.gov.</td></tr>'
+    +'</table></div>';
+  return '<p class="lead" style="margin-top:10px;">The collections, the forms behind them, the filing due dates, and the review rules, on one page.</p>'+coll+rules+pub;
+}
+function benchView(){
+  var top='<p class="lead" style="margin-top:10px;">Load a statistical release working file and run the pre-publication checks. The built-in example is a synthetic quarterly state beer file with five planted problems.</p>'
+    +'<div class="card"><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">'
+    +'<button class="btn" data-act="example" type="button">Load the example file</button>'
+    +(S.wb?'<span style="font:12.5px var(--sans);color:var(--muted);">Loaded: <b>'+esc(S.wb.name)+'</b> ('+S.wb.rows.length+' rows). Synthetic data, for demonstration only.</span>':'<span style="font:12.5px var(--sans);color:var(--muted);">Nothing loaded yet.</span>')
+    +'</div></div>';
+  if(!S.wb) return top;
+  var errs=(S.findings||[]).filter(function(f){return f.sev==='err';}).length;
+  var warns=(S.findings||[]).filter(function(f){return f.sev==='warn';}).length;
+  var list='<div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;"><div><h2>'+errs+' error(s), '+warns+' warning(s)</h2></div>'
+    +'<button class="btn2" data-act="exportf" type="button">Export findings (CSV)</button></div>'
+    +(S.findings||[]).map(function(f){
+      var cls=f.sev==='err'?'err':(f.sev==='warn'?'warn':'ok');
+      var lbl=f.sev==='err'?'Error':(f.sev==='warn'?'Review':'Pass');
+      return '<div class="finding"><span class="sev '+cls+'">'+lbl+'</span><span class="fx"><b>'+f.rule+'.</b> '+esc(f.text)+'</span></div>';
+    }).join('')
+    +'<p class="src">Errors block publication. Warnings are review items: confirm against the reported filings and record the decision. Flagged rows are shaded in the grid below.</p></div>';
+  var fr=flaggedRows();
+  var grid='<div class="card"><h2>'+esc(S.wb.name)+'</h2><div class="grid"><table><tr>'
+    +S.wb.header.map(function(h){return '<th>'+esc(h)+'</th>';}).join('')+'</tr>'
+    +S.wb.rows.map(function(r,i){
+      var cls=fr[i]==='err'?' class="bad"':(fr[i]==='warn'?' class="warnrow"':'');
+      return '<tr'+cls+'>'+r.map(function(c,ci){return '<td>'+(ci>=2?fmt(num(c)):esc(c))+'</td>';}).join('')+'</tr>';
+    }).join('')+'</table></div>'
+    +'<p class="src">Synthetic example for this preview. Real working files come from the aggregated Brewer’s Report of Operations data (TTB F 5130.9) and are confidential until released in aggregate.</p></div>';
+  return top+list+grid;
+}
+
+function appHtml(){
+  var tabs=[['home','Overview'],['bench','Review workbench'],['library','Data library']];
+  return '<div class="band"><div class="band-in">'
+    +'<span><span class="mast-over">Alcohol and Tobacco Tax and Trade Bureau · U.S. Department of the Treasury</span><span class="mast-name">TTB Data Steward</span><span class="mast-sub">an example built for an interview</span></span>'
+    +'<span class="band-r"><a class="lockbtn" href="index.html">Back to the show</a><span>Signed in: <b>'+esc(S.name||'Steward')+'</b></span><button class="lockbtn" data-act="lock" type="button">Lock</button></span>'
+    +'</div></div>'
+    +'<div class="tabs">'+tabs.map(function(t){return '<button class="tab'+(S.tab===t[0]?' on':'')+'" data-act="tab" data-tab="'+t[0]+'" type="button">'+t[1]+'</button>';}).join('')+'</div>'
+    +'<main class="wrap">'+(S.tab==='library'?libraryView():(S.tab==='bench'?benchView():homeView()))+'</main>'
+    +'<footer><div style="font-weight:600;color:var(--muted);margin-bottom:5px;">Questions? Ask Juliette. <a href="mailto:juliettegudknecht14@gmail.com">juliettegudknecht14@gmail.com</a></div>'
+    +'Alcohol and Tobacco Tax and Trade Bureau (TTB), U.S. Department of the Treasury. Built deliberately as an example for an interview, from TTB’s public statistical releases and forms. The example file is made up, and nothing you load leaves this browser. The bureau’s lineage runs back to Repeal in 1933.</footer>';
+}
+function gateHtml(){
+  return '<div class="gate"><form id="gate-form" class="door'+(S.rattle?' rattle':'')+'">'
+    +'<div class="peep" aria-hidden="true"><div class="glow"></div><div class="peep-cover"></div></div>'
+    +'<div class="plate"><div class="p1">TTB Data Steward</div><div class="p2">Members entrance · est. 2003</div></div>'
+    +'<div class="gover">Alcohol and Tobacco Tax and Trade Bureau · U.S. Department of the Treasury</div>'
+    +'<p>Give your name and the word.</p>'
+    +'<input class="in" id="g-name" type="text" placeholder="Your name" autocomplete="name" value="'+esc(S.name||'')+'">'
+    +'<div class="row"><input class="in" id="g-pw" type="password" placeholder="What&#39;s the word?" autocomplete="off"><button class="knock" type="submit">Knock</button></div>'
+    +'<div class="err">'+esc(S.err||'')+'</div>'
+    +'<div class="ask">Built deliberately as an example for an interview. Questions? Ask Juliette. <a href="mailto:juliettegudknecht14@gmail.com">juliettegudknecht14@gmail.com</a></div>'
+    +'<div class="ask"><a href="index.html">Back out front, to TTB by the Numbers</a></div>'
+    +'</form></div>';
+}
+function render(){ document.getElementById('app').innerHTML = S.locked?gateHtml():appHtml(); S.rattle=false; }
+
+document.getElementById('app').addEventListener('submit',function(e){
+  if(e.target&&e.target.id==='gate-form'){
+    e.preventDefault();
+    var nm=(document.getElementById('g-name').value||'').trim();
+    var pw=(document.getElementById('g-pw').value||'').trim();
+    if(!nm){ S.err='Enter your name to continue.'; render(); return; }
+    if(pw.toLowerCase()===PASSWORD){ S.name=nm; S.locked=false; S.err=''; try{localStorage.setItem('ttbsteward_name',nm);}catch(x){} render(); }
+    else { S.err='That is not the word.'; S.rattle=true; render(); }
+  }
+});
+document.getElementById('app').addEventListener('click',function(e){
+  var b=e.target.closest&&e.target.closest('[data-act]'); if(!b)return;
+  var act=b.getAttribute('data-act');
+  if(act==='tab'){ S.tab=b.getAttribute('data-tab'); render(); window.scrollTo(0,0); }
+  else if(act==='lock'){ S.locked=true; S.err=''; render(); }
+  else if(act==='example'){ S.wb={name:EXAMPLE.name, header:EXAMPLE.header, rows:EXAMPLE.rows}; S.findings=runChecks(S.wb); render(); }
+  else if(act==='exportf'){ exportFindings(); }
+});
+render();
+</script>
+</body>
+</html>
