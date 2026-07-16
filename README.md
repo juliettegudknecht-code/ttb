@@ -17,7 +17,7 @@ Every figure on the page names its source, and the tab at the end itemizes the l
 - Agency figures: TTB Annual Reports for FY 2019 to FY 2023 and the FY 2025 Annual Financial Report
 - Tax rates: TTB Historical Tax Rates page through 2017, current Tax Rates page from 2018 on
 
-All figures as published in files current at the end of June 2026. This site is an independent presentation of public data. It is not affiliated with or endorsed by TTB or the Department of the Treasury.
+All figures as published in files pulled from ttb.gov in June and July 2026. This site is an independent presentation of public data. It is not affiliated with or endorsed by TTB or the Department of the Treasury.
 
 ## Deploying to GitHub Pages
 

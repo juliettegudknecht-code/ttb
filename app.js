@@ -1271,6 +1271,7 @@
       { id: "burnDown", text: "Tobacco's decline is volume, not rates: the rate has sat at $1.01 a pack since 2009 while the tax base burns down." },
       { id: "waffleShare", text: "The tax base shifted: more than half of today's tax dollar is alcohol, and a third is distilled spirits alone." },
       { id: "permitMap", text: "Meanwhile the regulated industry keeps growing: 83,849 active permits across 50 states, DC, and Puerto Rico." },
+      { id: "bkrLoad", text: "And the back room is the steward's desk: the checks a working file gets before a release ships. The house rules catch the planted problems in this example file." },
       { id: "tab", text: "That is the briefing. Every figure here traces to a named TTB release, every disagreement between totals is explained in place, and every redaction shows as a gap, never a guess. That is how I work with federal data. The receipt has the sources, and the barkeep has my email." }
     ];
     var card = null, at = -1;
@@ -1315,10 +1316,11 @@
       fig.classList.add("tour-glow");
       fig.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
       if (s.id === "burnDown") {
-        var b = el.querySelector(".bn-btn");
-        if (b && b.textContent.indexOf("match") >= 0) setTimeout(function () { b.click(); }, 700);
+        var bb = el.querySelector(".bn-btn");
+        if (bb && bb.textContent.indexOf("match") >= 0) setTimeout(function () { bb.click(); }, 700);
       }
       if (s.id === "waffleShare") pourFunnel("distilledSpirits", true);
+      if (s.id === "bkrLoad" && !document.querySelector("#bkrOut .bkr-finding")) setTimeout(function () { el.click(); }, 500);
       card.querySelector("#pourText").textContent = s.text;
       card.querySelector("#pourStep").textContent = (n + 1) + " of " + stops.length;
       card.querySelector("#pourNext").textContent = n === stops.length - 1 ? "Finish" : "Next";
