@@ -1267,9 +1267,10 @@
     var btn = document.getElementById("shortPour");
     if (!btn) return;
     var stops = [
-      { id: "chartRates", text: "A century of tax rates on one chart. The shaded band is Prohibition, and every diamond on the timeline underneath is a story you can click." },
-      { id: "waffleShare", text: "Fiscal year 2025 collections, piece by piece: more than half of today's tax dollar is alcohol, and a third is distilled spirits alone. Collections fell 19 percent in a decade, and tobacco did the falling." },
-      { id: "chartPermits", text: "Meanwhile the regulated industry keeps growing: 83,849 active alcohol permits as of July 2026." },
+      { id: "coinStacks", text: "Collections fell 19 percent in a decade, from $25.5 billion to $20.6 billion. Tobacco did the falling." },
+      { id: "burnDown", text: "Tobacco's decline is volume, not rates: the rate has sat at $1.01 a pack since 2009 while the tax base burns down." },
+      { id: "waffleShare", text: "The tax base shifted: more than half of today's tax dollar is alcohol, and a third is distilled spirits alone." },
+      { id: "permitMap", text: "Meanwhile the regulated industry keeps growing: 83,849 active permits across 50 states, DC, and Puerto Rico." },
       { id: "tab", text: "That is the briefing. Every figure here traces to a named TTB release, every disagreement between totals is explained in place, and every redaction shows as a gap, never a guess. That is how I work with federal data. The receipt has the sources, and the barkeep has my email." }
     ];
     var card = null, at = -1;
@@ -1313,6 +1314,10 @@
       clearGlow();
       fig.classList.add("tour-glow");
       fig.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+      if (s.id === "burnDown") {
+        var b = el.querySelector(".bn-btn");
+        if (b && b.textContent.indexOf("match") >= 0) setTimeout(function () { b.click(); }, 700);
+      }
       if (s.id === "waffleShare") pourFunnel("distilledSpirits", true);
       card.querySelector("#pourText").textContent = s.text;
       card.querySelector("#pourStep").textContent = (n + 1) + " of " + stops.length;
