@@ -488,6 +488,117 @@
     </div>
   </section>
 
+  <style id="backroomStyle">
+    #backroom{scroll-margin-top:64px;}
+    .bkr-stamp{display:inline-block;transform:rotate(-2deg);border:2px solid var(--stamp);color:var(--stamp);font-family:'Special Elite',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;margin-left:10px;vertical-align:3px;}
+    .bkr-ledger{border-collapse:collapse;width:100%;max-width:880px;margin:6px 0 4px;}
+    .bkr-ledger td{border-bottom:1px solid var(--hairline);padding:8px 14px 8px 0;font-family:'Old Standard TT',serif;font-size:15.5px;color:var(--ink);vertical-align:top;}
+    .bkr-ledger td.n{font-weight:700;white-space:nowrap;}
+    .bkr-ledger td.s{color:var(--faint);font-size:13px;}
+    .bkr-btn{font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.05em;text-transform:uppercase;color:var(--paper);background:var(--ink);border:2px solid var(--ink);padding:10px 16px;cursor:pointer;}
+    .bkr-btn:hover{background:#3a2c14;}
+    .bkr-note{font-family:'Old Standard TT',serif;font-size:14px;color:var(--faint);margin-left:10px;}
+    .bkr-verdict{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin:16px 0 4px;max-width:880px;font-family:'Old Standard TT',serif;font-weight:700;font-size:18px;color:var(--ink);}
+    .bkr-link{font-family:'Special Elite',monospace;font-size:12px;background:none;border:none;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0;}
+    .bkr-finding{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--hairline);max-width:880px;font-size:14.5px;line-height:1.5;font-family:'Old Standard TT',serif;color:var(--ink-2);}
+    .bkr-finding b{color:var(--ink);}
+    .bkr-sev{flex:none;width:60px;font-family:'Special Elite',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-top:2px;}
+    .bkr-sev.err{color:var(--stamp);}
+    .bkr-sev.warn{color:var(--gold);}
+    .bkr-sev.ok{color:#55683a;}
+    .bkr-grid{overflow-x:auto;margin-top:14px;}
+    .bkr-grid table{border-collapse:collapse;font-size:13px;font-family:'Old Standard TT',serif;}
+    .bkr-grid th{font-family:'Special Elite',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);text-align:left;border-bottom:2px solid var(--rule);padding:5px 14px 5px 0;white-space:nowrap;}
+    .bkr-grid td{border-bottom:1px solid var(--hairline);padding:5px 14px 5px 0;white-space:nowrap;color:var(--ink-2);}
+    .bkr-grid tr.bad td{background:rgba(163,39,28,.10);}
+    .bkr-grid tr.warnrow td{background:rgba(163,133,46,.14);}
+    #backroom,#ontap,#alcohol,#tobacco,#firearms{display:none!important;}
+    #collections .figure:has(#coinStacks),#collections .figure:has(#twoDoors){display:none!important;}
+    #industry .figure:has(#chartScissors),#industry .figure:has(#permitMap){display:none!important;}
+    .bkr-h{font-family:'Old Standard TT',serif;font-weight:700;font-size:16px;margin:16px 0 2px;color:var(--ink);}
+  </style>
+  <section class="section" id="backroom">
+    <svg class="wm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 5.5c-2-1.4-4.6-1.7-7-1v13c2.4-.7 5-.4 7 1 2-1.4 4.6-1.7 7-1v-13c-2.4-.7-5-.4-7 1z"/>
+      <path d="M12 5.5v13"/>
+      <path d="M7 8.5c1.2-.2 2.4-.1 3.4.3M7 11.5c1.2-.2 2.4-.1 3.4.3M13.6 8.8c1-.4 2.2-.5 3.4-.3M13.6 11.8c1-.4 2.2-.5 3.4-.3"/>
+    </svg>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="kicker tw" data-type="Reel one &middot; The back room"></div>
+        <h2>Who checks the <em>pour</em>?</h2>
+        <p class="barkeep tw" data-barkeep='"Books before bottles, {name}."'></p>
+        <p class="intro">Every figure upstairs started as a working file on a steward&#39;s desk. This is that desk: a working check of a beer release before it goes out, built deliberately as an example for this interview.</p>
+      </div>
+
+      <div class="figure reveal">
+        <p class="fig-title">Beer, the latest counts on file <span class="bkr-stamp">Filed July 2026</span></p>
+        <p class="fig-sub">Fresher than the reels upstairs, which close at calendar year 2025.</p>
+        <table class="bkr-ledger">
+          <tr><td class="n">10.2M bbl</td><td>Taxable removals, February 2026, up 0.2 percent versus February 2025</td><td class="s">Industry estimate compiled from TTB data, ahead of the official release</td></tr>
+          <tr><td class="n">19.8M bbl</td><td>Taxable removals, year to date through February 2026, down 4.7 percent from a year earlier</td><td class="s">Industry estimate compiled from TTB data</td></tr>
+          <tr><td class="n">10,595,677 bbl</td><td>Taxable removals, December 2025, as reported</td><td class="s">TTB Beer Statistical Release</td></tr>
+        </table>
+        <p class="fig-source"><b>Source:</b> TTB Beer Statistical Release, December 2025; Beer Institute estimates compiled from TTB data, published March and April 2026. TTB&#39;s official monthly release follows about 90 days after the period, and beginning with the 2025 statistics removals are reported by total volume only.</p>
+      </div>
+
+      <div class="figure reveal">
+        <p class="fig-title">From the counting room</p>
+        <p class="fig-sub">Taxable removals of beer, the last three months on file.</p>
+        <div style="overflow-x:auto;">
+        <svg viewBox="0 0 640 200" width="100%" style="max-width:680px;display:block;" role="img" aria-label="Bar chart of monthly taxable removals of beer. December 2025, 10.60 million barrels reported. January 2026, 9.60 million estimated. February 2026, 10.20 million estimated.">
+          <defs><pattern id="bkrHatch" patternUnits="userSpaceOnUse" width="7" height="7" patternTransform="rotate(45)"><rect width="7" height="7" fill="#f6edd6"></rect><rect width="3" height="7" fill="#221708"></rect></pattern></defs>
+          <line x1="40" y1="156" x2="610" y2="156" stroke="#221708" stroke-width="2"></line>
+          <line x1="40" y1="160" x2="610" y2="160" stroke="#221708" stroke-width="1"></line>
+          <g><title>December 2025: 10,595,677 barrels, TTB Beer Statistical Release</title>
+            <rect x="70" y="30.7" width="110" height="125.3" fill="#221708"></rect>
+            <text x="125" y="23.7" text-anchor="middle" font-size="12.5" font-weight="700" fill="#221708" style="font-family:'Special Elite',monospace;">10.60M</text>
+            <text x="125" y="178" text-anchor="middle" font-size="9.5" letter-spacing="1.5" fill="#6f5e39" style="font-family:'Special Elite',monospace;">DECEMBER 2025</text></g>
+          <g><title>January 2026: 9,600,000 barrels, industry estimate ahead of the TTB release</title>
+            <rect x="265" y="42.5" width="110" height="113.5" fill="url(#bkrHatch)" stroke="#221708" stroke-width="1.5"></rect>
+            <text x="320" y="35.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#221708" style="font-family:'Special Elite',monospace;">9.60M est.</text>
+            <text x="320" y="178" text-anchor="middle" font-size="9.5" letter-spacing="1.5" fill="#6f5e39" style="font-family:'Special Elite',monospace;">JANUARY 2026</text></g>
+          <g><title>February 2026: 10,200,000 barrels, industry estimate ahead of the TTB release</title>
+            <rect x="460" y="35.5" width="110" height="120.5" fill="url(#bkrHatch)" stroke="#221708" stroke-width="1.5"></rect>
+            <text x="515" y="28.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#221708" style="font-family:'Special Elite',monospace;">10.20M est.</text>
+            <text x="515" y="178" text-anchor="middle" font-size="9.5" letter-spacing="1.5" fill="#6f5e39" style="font-family:'Special Elite',monospace;">FEBRUARY 2026</text></g>
+        </svg>
+        </div>
+        <p class="fig-source"><b>Source:</b> TTB Beer Statistical Release, December 2025; Beer Institute estimates published March and April 2026. Solid bars are TTB-reported, striped bars are industry estimates ahead of the official release. Hover a bar for the exact figure.</p>
+      </div>
+
+      <div class="figure reveal">
+        <p class="fig-title">The morning&#39;s working file</p>
+        <p class="fig-sub">Open it and the house rules go to work: structure, negative values, duplicates, inventory balance, year-over-year swings, and the small-count disclosure review. Five problems are planted in the file.</p>
+        <p><button id="bkrLoad" class="bkr-btn" type="button">Open the working file</button><span id="bkrLoaded" class="bkr-note"></span></p>
+        <div id="bkrOut"></div>
+      </div>
+
+      <details class="dossier reveal">
+        <summary>The forms and the rules, all of it</summary>
+        <p class="bkr-h">The reports behind the releases</p>
+        <table class="bkr-ledger">
+          <tr><td class="n">Beer</td><td>TTB F 5130.9, Brewer&#39;s Report of Operations. Due the 15th day after the close of the reporting period (27 CFR 25.297).</td></tr>
+          <tr><td class="n">Wine</td><td>TTB F 5120.17, Report of Wine Premises Operations. Due the 15th day after the close of the reporting period (27 CFR 24.300).</td></tr>
+          <tr><td class="n">Spirits</td><td>TTB F 5110.40, 5110.11, and 5110.28 for production, storage, and processing. Monthly, due the 15th.</td></tr>
+          <tr><td class="n">Tobacco</td><td>TTB F 5210.5, Report, Manufacturer of Tobacco Products. Monthly, due the 20th.</td></tr>
+          <tr><td class="n">Excise tax</td><td>TTB F 5000.24, Excise Tax Return. Semi-monthly periods, due 14 days after the close of the period.</td></tr>
+        </table>
+        <p class="bkr-h">The house rules for a release</p>
+        <table class="bkr-ledger">
+          <tr><td class="n">STR-01</td><td>The working file carries the report&#39;s expected columns, with the published header names.</td></tr>
+          <tr><td class="n">STR-02</td><td>Every row names a state and a reporting period.</td></tr>
+          <tr><td class="n">STR-03</td><td>One row per state per period. Duplicates double-count the national total.</td></tr>
+          <tr><td class="n">VAL-01</td><td>Production, removals, and stocks cannot be negative.</td></tr>
+          <tr><td class="n">VAL-02</td><td>Opening stocks plus production should roughly cover removals plus closing stocks. A large residual suggests a keying or unit error.</td></tr>
+          <tr><td class="n">VAL-03</td><td>A state more than 40 percent from the same period last year gets a review, not an automatic correction.</td></tr>
+          <tr><td class="n">DIS-01</td><td>A cell reflecting fewer than 3 reporting brewers is reviewed for aggregation into Other states, so no single taxpayer can be inferred (26 U.S.C. 6103).</td></tr>
+        </table>
+        <p class="fig-source"><b>Source:</b> TTB.gov statistics pages and forms. The rule list is illustrative, written for this example in the spirit of TTB&#39;s published data practices.</p>
+      </details>
+    </div>
+  </section>
+
   <section class="section" id="ontap">
     <svg class="wm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="M3 15.5c5.5 3 12.5 3 18 0"/>
@@ -726,7 +837,7 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <div class="sec-no">V</div>
-        <div class="kicker tw" data-type="Reel five &middot; The regulated industry"></div>
+        <div class="kicker tw" data-type="Reel two &middot; The regulated industry"></div>
         <h2>Volumes fell. So why do permits keep <em>climbing</em>?</h2>
         <p class="barkeep tw" data-barkeep='"You should meet the regulars."'></p>
         <p class="intro">A TTB permit is the price of entry, and entry boomed: registered breweries up sixfold since 2010, distillery permits up more than fivefold since 2012, bonded wine producers roughly doubled.</p>
@@ -794,89 +905,6 @@
     </div>
   </section>
 
-  <style id="backroomStyle">
-    #backroom{scroll-margin-top:64px;}
-    .bkr-stamp{display:inline-block;transform:rotate(-2deg);border:2px solid var(--stamp);color:var(--stamp);font-family:'Special Elite',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;margin-left:10px;vertical-align:3px;}
-    .bkr-ledger{border-collapse:collapse;width:100%;max-width:880px;margin:6px 0 4px;}
-    .bkr-ledger td{border-bottom:1px solid var(--hairline);padding:8px 14px 8px 0;font-family:'Old Standard TT',serif;font-size:15.5px;color:var(--ink);vertical-align:top;}
-    .bkr-ledger td.n{font-weight:700;white-space:nowrap;}
-    .bkr-ledger td.s{color:var(--faint);font-size:13px;}
-    .bkr-btn{font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.05em;text-transform:uppercase;color:var(--paper);background:var(--ink);border:2px solid var(--ink);padding:10px 16px;cursor:pointer;}
-    .bkr-btn:hover{background:#3a2c14;}
-    .bkr-note{font-family:'Old Standard TT',serif;font-size:14px;color:var(--faint);margin-left:10px;}
-    .bkr-verdict{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin:16px 0 4px;max-width:880px;font-family:'Old Standard TT',serif;font-weight:700;font-size:18px;color:var(--ink);}
-    .bkr-link{font-family:'Special Elite',monospace;font-size:12px;background:none;border:none;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0;}
-    .bkr-finding{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--hairline);max-width:880px;font-size:14.5px;line-height:1.5;font-family:'Old Standard TT',serif;color:var(--ink-2);}
-    .bkr-finding b{color:var(--ink);}
-    .bkr-sev{flex:none;width:60px;font-family:'Special Elite',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-top:2px;}
-    .bkr-sev.err{color:var(--stamp);}
-    .bkr-sev.warn{color:var(--gold);}
-    .bkr-sev.ok{color:#55683a;}
-    .bkr-grid{overflow-x:auto;margin-top:14px;}
-    .bkr-grid table{border-collapse:collapse;font-size:13px;font-family:'Old Standard TT',serif;}
-    .bkr-grid th{font-family:'Special Elite',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);text-align:left;border-bottom:2px solid var(--rule);padding:5px 14px 5px 0;white-space:nowrap;}
-    .bkr-grid td{border-bottom:1px solid var(--hairline);padding:5px 14px 5px 0;white-space:nowrap;color:var(--ink-2);}
-    .bkr-grid tr.bad td{background:rgba(163,39,28,.10);}
-    .bkr-grid tr.warnrow td{background:rgba(163,133,46,.14);}
-    .bkr-h{font-family:'Old Standard TT',serif;font-weight:700;font-size:16px;margin:16px 0 2px;color:var(--ink);}
-  </style>
-  <section class="section" id="backroom">
-    <svg class="wm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M12 5.5c-2-1.4-4.6-1.7-7-1v13c2.4-.7 5-.4 7 1 2-1.4 4.6-1.7 7-1v-13c-2.4-.7-5-.4-7 1z"/>
-      <path d="M12 5.5v13"/>
-      <path d="M7 8.5c1.2-.2 2.4-.1 3.4.3M7 11.5c1.2-.2 2.4-.1 3.4.3M13.6 8.8c1-.4 2.2-.5 3.4-.3M13.6 11.8c1-.4 2.2-.5 3.4-.3"/>
-    </svg>
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <div class="kicker tw" data-type="Reel VI &middot; The back room"></div>
-        <h2>Who checks the <em>pour</em>?</h2>
-        <p class="barkeep tw" data-barkeep='"Books before bottles, {name}."'></p>
-        <p class="intro">Every figure upstairs started as a working file on a steward&#39;s desk. This is that desk: a working check of a beer release before it goes out, built deliberately as an example for this interview.</p>
-      </div>
-
-      <div class="figure reveal">
-        <p class="fig-title">Beer, the latest counts on file <span class="bkr-stamp">Filed July 2026</span></p>
-        <p class="fig-sub">Fresher than the reels upstairs, which close at calendar year 2025.</p>
-        <table class="bkr-ledger">
-          <tr><td class="n">10.2M bbl</td><td>Taxable removals, February 2026, up 0.2 percent versus February 2025</td><td class="s">Industry estimate compiled from TTB data, ahead of the official release</td></tr>
-          <tr><td class="n">19.8M bbl</td><td>Taxable removals, year to date through February 2026, down 4.7 percent from a year earlier</td><td class="s">Industry estimate compiled from TTB data</td></tr>
-          <tr><td class="n">10,595,677 bbl</td><td>Taxable removals, December 2025, as reported</td><td class="s">TTB Beer Statistical Release</td></tr>
-        </table>
-        <p class="fig-source"><b>Source:</b> TTB Beer Statistical Release, December 2025; Beer Institute estimates compiled from TTB data, published March and April 2026. TTB&#39;s official monthly release follows about 90 days after the period, and beginning with the 2025 statistics removals are reported by total volume only.</p>
-      </div>
-
-      <div class="figure reveal">
-        <p class="fig-title">The morning&#39;s working file</p>
-        <p class="fig-sub">Open it and the house rules go to work: structure, negative values, duplicates, inventory balance, year-over-year swings, and the small-count disclosure review. Five problems are planted in the file.</p>
-        <p><button id="bkrLoad" class="bkr-btn" type="button">Open the working file</button><span id="bkrLoaded" class="bkr-note"></span></p>
-        <div id="bkrOut"></div>
-      </div>
-
-      <details class="dossier reveal">
-        <summary>The forms and the rules, all of it</summary>
-        <p class="bkr-h">The reports behind the releases</p>
-        <table class="bkr-ledger">
-          <tr><td class="n">Beer</td><td>TTB F 5130.9, Brewer&#39;s Report of Operations. Due the 15th day after the close of the reporting period (27 CFR 25.297).</td></tr>
-          <tr><td class="n">Wine</td><td>TTB F 5120.17, Report of Wine Premises Operations. Due the 15th day after the close of the reporting period (27 CFR 24.300).</td></tr>
-          <tr><td class="n">Spirits</td><td>TTB F 5110.40, 5110.11, and 5110.28 for production, storage, and processing. Monthly, due the 15th.</td></tr>
-          <tr><td class="n">Tobacco</td><td>TTB F 5210.5, Report, Manufacturer of Tobacco Products. Monthly, due the 20th.</td></tr>
-          <tr><td class="n">Excise tax</td><td>TTB F 5000.24, Excise Tax Return. Semi-monthly periods, due 14 days after the close of the period.</td></tr>
-        </table>
-        <p class="bkr-h">The house rules for a release</p>
-        <table class="bkr-ledger">
-          <tr><td class="n">STR-01</td><td>The working file carries the report&#39;s expected columns, with the published header names.</td></tr>
-          <tr><td class="n">STR-02</td><td>Every row names a state and a reporting period.</td></tr>
-          <tr><td class="n">STR-03</td><td>One row per state per period. Duplicates double-count the national total.</td></tr>
-          <tr><td class="n">VAL-01</td><td>Production, removals, and stocks cannot be negative.</td></tr>
-          <tr><td class="n">VAL-02</td><td>Opening stocks plus production should roughly cover removals plus closing stocks. A large residual suggests a keying or unit error.</td></tr>
-          <tr><td class="n">VAL-03</td><td>A state more than 40 percent from the same period last year gets a review, not an automatic correction.</td></tr>
-          <tr><td class="n">DIS-01</td><td>A cell reflecting fewer than 3 reporting brewers is reviewed for aggregation into Other states, so no single taxpayer can be inferred (26 U.S.C. 6103).</td></tr>
-        </table>
-        <p class="fig-source"><b>Source:</b> TTB.gov statistics pages and forms. The rule list is illustrative, written for this example in the spirit of TTB&#39;s published data practices.</p>
-      </details>
-    </div>
-  </section>
-
   <section class="section" id="tab">
     <svg class="wm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.55" aria-hidden="true">
       <rect x="3" y="16.4" width="18" height="3.6" rx="0.4"/><rect x="4.6" y="12.8" width="15" height="3.6" rx="0.4"/><rect x="3.8" y="9.2" width="16.4" height="3.6" rx="0.4"/>
@@ -926,7 +954,6 @@
         <p>I'm Juliette Gudknecht, the data steward for IDEA Section 618 at the U.S. Department of Education, the national data collections behind special education for more than 8 million students. I manage two of the collections end to end, assist on an additional four, co-author the OSEP Fast Facts data stories, contribute to the IDEA Annual Report to Congress, and build the Python-automated data quality check support code that stands behind enhancing the integrity of the published IDEA 618 collection's numbers.</p>
         <p>This page is how I work with federal data: named sources, reconciled definitions, explained discrepancies, honest gaps. TTB publishes far more than one page can hold, and I would welcome the chance to work with the rest of it.</p>
         <p><b>Feel like settling the tab anyway?</b> Reach out. <a href="mailto:juliettegudknecht14@gmail.com">juliettegudknecht14@gmail.com</a> &middot; <a href="https://juliettegudknecht-code.github.io/portfolio/" rel="noopener">my portfolio</a></p>
-        <p><b>Curious what that looks like in practice?</b> Reel VI is <a href="#backroom">the back room</a>: a working check of a statistical release file before it goes out, planted problems and all. Built deliberately as an example for this interview.</p>
       </div>
 
       <details class="dossier reveal" style="margin-left:auto;margin-right:auto">
@@ -966,7 +993,7 @@
       <p>&copy; 2026 Juliette Gudknecht. The site's design and code are mine; the figures are public data published by TTB and remain in the public domain.</p>
       <p><b>Privacy.</b> This site has no accounts and sets no analytics or advertising cookies. The password and the optional first name you enter stay in your browser for the session only and are never transmitted or stored elsewhere. If you switch the house band on, the song is embedded from YouTube, which may set its own cookies while it plays; left off, nothing loads from YouTube.</p>
       <p>Independent presentation of public data. Not affiliated with or endorsed by TTB or the U.S. Department of the Treasury. Provided as is, without warranty; the official record is TTB's own published releases.</p>
-      <p class="foot-links"><a href="mailto:juliettegudknecht14@gmail.com">Contact</a> &middot; <a href="https://www.ttb.gov/data" rel="noopener">TTB open data</a> &middot; <a href="#backroom">The back room</a></p>
+      <p class="foot-links"><a href="mailto:juliettegudknecht14@gmail.com">Contact</a> &middot; <a href="https://www.ttb.gov/data" rel="noopener">TTB open data</a></p>
     </div>
   </div>
 </footer>
@@ -975,14 +1002,9 @@
 <nav id="booklet" aria-label="Programme">
   <p class="prog-title">The House Programme</p>
   <p class="prog-sub">TTB by the Numbers</p>
-  <a href="#ontap"><span class="no">&#9670;</span>What's on tap</a>
   <a href="#prologue"><span class="no">P.</span>The rates, 1910 to today</a>
   <a href="#collections"><span class="no">I.</span>Tax collections</a>
-  <a href="#alcohol"><span class="no">II.</span>Alcohol</a>
-  <a href="#tobacco"><span class="no">III.</span>Tobacco</a>
-  <a href="#firearms"><span class="no">IV.</span>Firearms and ammunition</a>
-  <a href="#industry"><span class="no">V.</span>The regulated industry</a>
-  <a href="#backroom"><span class="no">VI.</span>The back room</a>
+  <a href="#industry"><span class="no">II.</span>The regulated industry</a>
   <a href="#finale"><span class="no">&#9733;</span>The finale</a>
   <a href="#tab"><span class="no">$</span>Pay your tab</a>
 </nav>
@@ -1093,7 +1115,7 @@
 
 <script src="chart.umd.min.js?v=19"></script>
 <script src="data.js?v=21"></script>
-<script src="app.js?v=94"></script>
+<script src="app.js?v=95"></script>
 <script src="steward.js?v=1"></script>
 </body>
 </html>
