@@ -19,11 +19,6 @@ Every figure on the page names its source, and the tab at the end itemizes the l
 
 All figures as published in files pulled from ttb.gov in June and July 2026. This site is an independent presentation of public data. It is not affiliated with or endorsed by TTB or the Department of the Treasury.
 
-## Deploying to GitHub Pages
-
-This repo must contain a file named `.nojekyll` at the root, or the deploy will fail. Without it, GitHub runs the site through its Jekyll builder, and that build now takes longer than the 10 minute limit GitHub allows, so it times out and the site never publishes (or keeps serving an old version).
-
-The catch: `.nojekyll` is a hidden file, so the Mac Finder does not show it and it never comes along when files are drag-and-dropped into GitHub. Add it once directly on GitHub:
 
 1. In the repo on github.com, click Add file, then Create new file
 2. Type `.nojekyll` as the file name and leave the contents empty
