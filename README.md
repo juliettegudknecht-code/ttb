@@ -19,11 +19,3 @@ Every figure on the page names its source, and the tab at the end itemizes the l
 
 All figures as published in files pulled from ttb.gov in June and July 2026. This site is an independent presentation of public data. It is not affiliated with or endorsed by TTB or the Department of the Treasury.
 
-
-1. In the repo on github.com, click Add file, then Create new file
-2. Type `.nojekyll` as the file name and leave the contents empty
-3. Click Commit changes
-
-After that, uploads deploy in seconds. Future drag-and-drop uploads will not remove it, so this only needs doing once per repo.
-
-To see hidden files in Finder instead, press Cmd+Shift+Period.
